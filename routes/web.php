@@ -74,3 +74,11 @@ Route::get('/delete/{id}', function ($id) {
     // $classes = DB::table('classes')->get();
     // return view('Classes.edit-delete-classes', [ 'Classes' => $classes]);
 });
+
+Route::get('/add-student',function(){
+    return view('Students.add-student');
+});
+
+Route::get('/temp', function () {
+    return view('Classes.temp');
+});

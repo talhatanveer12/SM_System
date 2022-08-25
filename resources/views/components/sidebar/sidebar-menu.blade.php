@@ -31,7 +31,7 @@
                     </button>
                 </x-slot>
                 <x-sidebar.dropdown-item href="/all-classes">All Classes</x-sidebar.dropdown-item>
-                <x-sidebar.dropdown-item href="#">New Class</x-sidebar.dropdown-item>
+                <x-sidebar.dropdown-item href="#">Class Details</x-sidebar.dropdown-item>
                 <x-sidebar.dropdown-item href="/edit-delete-class">Edit or Delete</x-sidebar.dropdown-item>
             </x-sidebar.dropdown>
         </div>
@@ -57,7 +57,7 @@
                         <span class="pl-2">Students</span>
                     </button>
                 </x-slot>
-                <x-sidebar.dropdown-item href="#">All Students</x-sidebar.dropdown-item>
+                <x-sidebar.dropdown-item href="/add-student">All Students</x-sidebar.dropdown-item>
                 <x-sidebar.dropdown-item href="#">Add New</x-sidebar.dropdown-item>
                 <x-sidebar.dropdown-item href="#">Admission Letter</x-sidebar.dropdown-item>
             </x-sidebar.dropdown>

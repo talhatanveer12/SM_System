@@ -1,4 +1,4 @@
-<x-layout.bootstrap-layout>
+<x-layout.jqueryui-layout>
     <div class=" col-span-10">
         <div class=" flex flex-wrap ">
             @foreach ($Classes as $classes)
@@ -11,7 +11,7 @@
                     <div class="flex justify-between items-center mb-2">
                         <span>Student</span>
                         <div>
-                            <a id='button' class="bg-blue-600 p-1 text-white" href="#">Edit</a>
+                            {{-- <a id='button' class="bg-blue-600 p-1 text-white" href="#">Edit</a> --}}
                             <a class="bg-red-600 p-1 text-white" href="/delete/{{$classes->id}}">Delete</a>
                         </div>
                         {{-- <span class="text-sm">Left 40</span> --}}
@@ -63,4 +63,4 @@
 
         });
     </script>
-</x-layout.bootstrap-layout>
+</x-layout.jqueryui-layout>

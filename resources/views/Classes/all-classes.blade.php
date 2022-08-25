@@ -1,4 +1,4 @@
-<x-layout.bootstrap-layout>
+<x-layout.jqueryui-layout>
     <div class=" col-span-10">
         <div class=" flex flex-wrap ">
             @foreach ($Classes as $classes)
@@ -65,4 +65,4 @@
 
         });
     </script>
-</x-layout.bootstrap-layout>
+</x-layout.jqueryui-layout>
