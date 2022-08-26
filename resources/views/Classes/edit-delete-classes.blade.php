@@ -1,5 +1,5 @@
-<x-layout.jqueryui-layout>
-    <div class=" col-span-10">
+<x-layout.bootstrap-layout>
+    <div class=" col-span-12">
         <div class=" flex flex-wrap ">
             @foreach ($Classes as $classes)
                 <div class="px-6 py-4 m-4 bg-blue-200 w-64 rounded-2xl shadow-md hover:shadow-2xl ">
@@ -11,10 +11,32 @@
                     <div class="flex justify-between items-center mb-2">
                         <span>Student</span>
                         <div>
-                            {{-- <a id='button' class="bg-blue-600 p-1 text-white" href="#">Edit</a> --}}
-                            <a class="bg-red-600 p-1 text-white" href="/delete/{{$classes->id}}">Delete</a>
+                            {{-- <a  class="bg-blue-600 p-1 text-decoration-none text-white" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" >Edit</a> --}}
+                            <a class="bg-red-600 p-1 text-decoration-none text-white" href="/delete/{{$classes->id}}">Delete</a>
                         </div>
                         {{-- <span class="text-sm">Left 40</span> --}}
+                    </div>
+                </div>
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Create New Class</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/add-class" method="POST">
+                                    @csrf
+
+                                    <x-form.input name="class_name" value="{{$classes->class_name}}"/>
+                                    <x-form.button>Save</x-form.button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             @endforeach
@@ -63,4 +85,4 @@
 
         });
     </script>
-</x-layout.jqueryui-layout>
+</x-layout.bootstrap-layout>

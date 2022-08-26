@@ -1,5 +1,6 @@
-<x-layout.layout>
-    <div class="bg-blue-200 border col-span-4 col-start-5 hover:shadow-2xl rounded-2xl shadow-md">
+<x-layout.bootstrap-layout>
+    <div class=" col-span-12 col-span-4 lg:col-span-5 lg:col-start-5 md:col-span-6 md:col-start-4 sm:col-span-12 ">
+        <div class="bg-blue-200 border hover:shadow-2xl rounded-2xl shadow-md">
         <section class="px-6 py-8 ">
             <h1 class="text-2xl text-center">Update Login Details</h1>
             @if (session()->has('error'))
@@ -17,4 +18,5 @@
             </div>
         </section>
     </div>
-</x-layout.layout>
+    </div>
+</x-layout.bootstrap-layout>

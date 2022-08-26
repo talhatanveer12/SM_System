@@ -79,6 +79,10 @@ Route::get('/add-student',function(){
     return view('Students.add-student');
 });
 
+Route::get('/all-student',function(){
+    return view('Students.all-student');
+});
+
 Route::get('/temp', function () {
     return view('Classes.temp');
 });

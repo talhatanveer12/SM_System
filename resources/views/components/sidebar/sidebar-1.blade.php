@@ -7,21 +7,40 @@
                 </a>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start text-black" id="menu">
                     <li class="nav-item">
-                        <a href="#" class="nav-link align-middle px-0">
-                            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
+                        <a href="/adminDashboard" class="nav-link align-middle px-0 mt-2 focus-within:text-blue-500 hover:text-blue-500 ml-2 text-left text-sm w-full">
+                            <i class="fa-solid fa-house text-black"></i>
+                            <span class="ms-1 d-none d-sm-inline text-black">Dashboard</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
+                        <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle px-0 mt-2 focus-within:text-blue-500 hover:text-blue-500 ml-2 text-left text-sm w-full">
+                            <i class="fa-solid fa-gear text-black"></i>
+                                <span class="ms-1 d-none d-sm-inline text-black">General Settings</span> </a>
                         <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
-                            <li class="w-100">
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 1 </a>
+                            <li class="ml-5 w-100">
+                                <a href="/institute-profile" class="nav-link px-0"> <span class="d-none d-sm-inline text-black">institute Profile</span></a>
+                            </li >
+                            <li class="ml-5 w-100">
+                                <a href="/fee-particulars" class="nav-link px-0"> <span class="d-none d-sm-inline text-black">Fee Particular</span></a>
                             </li>
-                            <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2 </a>
+                            <li class="ml-5 w-100">
+                                <a href="/marks-grading" class="nav-link px-0"> <span class="d-none d-sm-inline text-black">Marks Grading</span></a>
+                            </li>
+                            <li class="ml-5 w-100">
+                                <a href="/account-settings" class="nav-link px-0"> <span class="d-none d-sm-inline text-black">Account Settings</span></a>
                             </li>
                         </ul>
+
+                        {{-- <x-slot name="trigger">
+                            <button class="focus-within:text-blue-500 hover:text-blue-500 m-2 text-left text-sm w-full">
+                                <i class="fa-solid fa-gear"></i>
+                                <span class="ms-1 d-none d-sm-inline">General Settings</span>
+                            </button>
+                        </x-slot>
+                        <x-sidebar.dropdown-item href="/institute-profile">institute Profile</x-sidebar.dropdown-item>
+                        <x-sidebar.dropdown-item href="/fee-particulars">Fee Particular</x-sidebar.dropdown-item>
+                        <x-sidebar.dropdown-item href="/marks-grading">Marks Grading</x-sidebar.dropdown-item>
+                        <x-sidebar.dropdown-item href="/account-settings">Account Settings</x-sidebar.dropdown-item> --}}
                     </li>
                     <li>
                         <a href="#" class="nav-link px-0 align-middle">
