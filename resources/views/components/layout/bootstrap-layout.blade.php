@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" src="/style.css"/>
+    <link rel="stylesheet" src="/style.css" />
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <script src="https://kit.fontawesome.com/b0ca48d263.js" crossorigin="anonymous"></script>
@@ -22,7 +22,7 @@
         <div class="container-fluid">
 
             <ul class="nav">
-                <li class="nav-item">
+                <li class="d-lg-inline d-md-inline d-none nav-item">
                     <a class="navbar-brand" href="/">
                         <img src="/images/logo.svg" alt="Laracasts Logo" width="165" height="16">
                     </a>
@@ -74,19 +74,24 @@
         <div class="row flex-nowrap">
             <div class="col-auto px-0">
                 <div id="sidebar" class="collapse collapse-horizontal show border-end">
-                    <div id="sidebar-nav" class="list-group border-0 rounded-0 text-sm-start min-vh-100" style="width: 160px;">
-                        <a href="/adminDashboard" data-bs-parent="#sidebar" class=" text-truncate mt-2 focus-within:text-blue-500 text-decoration-none hover:text-blue-500 m-2 text-left text-black text-sm w-full">
+                    <a class="btn1">Class</a>
+                    <div id="sidebar-nav" class="list-group border-0 rounded-0 text-sm-start min-vh-100"
+                        style="width: 160px;">
+                        <a href="/adminDashboard" data-bs-parent="#sidebar"
+                            class=" text-truncate mt-2 focus-within:text-blue-500 text-decoration-none hover:text-blue-500 m-2 text-left text-black text-sm w-full">
                             <i class="fa-solid fa-house"></i>
                             <span class="pl-2">Dashboard</span>
                         </a>
                         <x-sidebar.dropdown>
                             <x-slot name="trigger">
-                                <button class="focus-within:text-blue-500 hover:text-blue-500 m-2 text-left text-sm w-full">
+                                <button
+                                    class="focus-within:text-blue-500 hover:text-blue-500 m-2 text-left text-sm w-full">
                                     <i class="fa-solid fa-gear"></i>
                                     <span class="pl-2">General Settings</span>
                                 </button>
                             </x-slot>
-                            <x-sidebar.dropdown-item href="/institute-profile">institute Profile</x-sidebar.dropdown-item>
+                            <x-sidebar.dropdown-item href="/institute-profile">institute Profile
+                            </x-sidebar.dropdown-item>
                             <x-sidebar.dropdown-item href="/fee-particulars">Fee Particular</x-sidebar.dropdown-item>
                             <x-sidebar.dropdown-item href="/marks-grading">Marks Grading</x-sidebar.dropdown-item>
                             <x-sidebar.dropdown-item href="/account-settings">Account Settings</x-sidebar.dropdown-item>
@@ -94,7 +99,8 @@
 
                         <x-sidebar.dropdown>
                             <x-slot name="trigger">
-                                <button class="focus-within:text-blue-500 hover:text-blue-500 m-2 text-left text-sm w-full">
+                                <button
+                                    class="focus-within:text-blue-500 hover:text-blue-500 m-2 text-left text-sm w-full">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                     <span class="pl-2">Classes</span>
                                 </button>
@@ -108,7 +114,8 @@
                         <div class="flex items-center">
                             <x-sidebar.dropdown>
                                 <x-slot name="trigger">
-                                    <button class="focus-within:text-blue-500 hover:text-blue-500 m-2 text-left text-sm w-full">
+                                    <button
+                                        class="focus-within:text-blue-500 hover:text-blue-500 m-2 text-left text-sm w-full">
                                         <i class="fa-solid fa-book-open"></i>
                                         <span class="pl-2">Courses</span>
                                     </button>
@@ -121,7 +128,8 @@
                         <div class="flex items-center">
                             <x-sidebar.dropdown>
                                 <x-slot name="trigger">
-                                    <button class="focus-within:text-blue-500 hover:text-blue-500 m-2 text-left text-sm w-full">
+                                    <button
+                                        class="focus-within:text-blue-500 hover:text-blue-500 m-2 text-left text-sm w-full">
                                         <i class="fa-solid fa-user"></i>
                                         <span class="pl-2">Students</span>
                                     </button>
@@ -135,7 +143,8 @@
                         <div class="flex items-center">
                             <x-sidebar.dropdown>
                                 <x-slot name="trigger">
-                                    <button class="focus-within:text-blue-500 hover:text-blue-500 m-2 text-left text-sm w-full">
+                                    <button
+                                        class="focus-within:text-blue-500 hover:text-blue-500 m-2 text-left text-sm w-full">
                                         <i class="fa-solid fa-briefcase"></i>
                                         <span class="pl-2">Employees</span>
                                     </button>
@@ -149,7 +158,8 @@
                         <div class="flex items-center">
                             <x-sidebar.dropdown>
                                 <x-slot name="trigger">
-                                    <button class="focus-within:text-blue-500 hover:text-blue-500 m-2 text-left text-sm w-full">
+                                    <button
+                                        class="focus-within:text-blue-500 hover:text-blue-500 m-2 text-left text-sm w-full">
                                         <i class="fa-solid fa-money-check"></i>
                                         <span class="pl-2">Fee</span>
                                     </button>
@@ -163,7 +173,8 @@
                         <div class="flex items-center">
                             <x-sidebar.dropdown>
                                 <x-slot name="trigger">
-                                    <button class="focus-within:text-blue-500 hover:text-blue-500 m-2 text-left text-sm w-full">
+                                    <button
+                                        class="focus-within:text-blue-500 hover:text-blue-500 m-2 text-left text-sm w-full">
                                         <i class="fa-solid fa-clipboard-user"></i>
                                         <span class="pl-2">Attendance</span>
                                     </button>
@@ -178,7 +189,8 @@
                         <div class="flex items-center">
                             <x-sidebar.dropdown>
                                 <x-slot name="trigger">
-                                    <button class="focus-within:text-blue-500 hover:text-blue-500 m-2 text-left text-sm w-full">
+                                    <button
+                                        class="focus-within:text-blue-500 hover:text-blue-500 m-2 text-left text-sm w-full">
                                         <i class="fa-solid fa-book"></i>
                                         <span class="pl-2">Lesson Plan</span>
                                     </button>
@@ -194,7 +206,8 @@
                         <div class="flex items-center">
                             <x-sidebar.dropdown>
                                 <x-slot name="trigger">
-                                    <button class="focus-within:text-blue-500 hover:text-blue-500 m-2 text-left text-sm w-full">
+                                    <button
+                                        class="focus-within:text-blue-500 hover:text-blue-500 m-2 text-left text-sm w-full">
                                         <i class="fa-solid fa-file-circle-check"></i>
                                         <span class="pl-2">Exams</span>
                                     </button>
