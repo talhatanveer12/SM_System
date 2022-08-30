@@ -15,7 +15,7 @@
                         <span class="pl-2">General Settings</span>
                     </button>
                 </x-slot>
-                <x-sidebar.dropdown-item href="/institute-profile">institute Profile</x-sidebar.dropdown-item>
+                <x-sidebar.dropdown-item href="/institute-profile"> <span>institute Profile</span> </x-sidebar.dropdown-item>
                 <x-sidebar.dropdown-item href="/fee-particulars">Fee Particular</x-sidebar.dropdown-item>
                 <x-sidebar.dropdown-item href="/marks-grading">Marks Grading</x-sidebar.dropdown-item>
                 <x-sidebar.dropdown-item href="/account-settings">Account Settings</x-sidebar.dropdown-item>
@@ -44,7 +44,7 @@
                         <span class="pl-2">Courses</span>
                     </button>
                 </x-slot>
-                <x-sidebar.dropdown-item href="#">Classes with Courses</x-sidebar.dropdown-item>
+                <x-sidebar.dropdown-item href="#">Add Courses</x-sidebar.dropdown-item>
                 <x-sidebar.dropdown-item href="#">Assign Courses</x-sidebar.dropdown-item>
             </x-sidebar.dropdown>
         </div>

@@ -93,7 +93,7 @@
                                     <span class="pl-2">Courses</span>
                                 </button>
                             </x-slot>
-                            <x-sidebar.dropdown-item href="#">Classes with Courses</x-sidebar.dropdown-item>
+                            <x-sidebar.dropdown-item href="#">Add Courses</x-sidebar.dropdown-item>
                             <x-sidebar.dropdown-item href="#">Assign Courses</x-sidebar.dropdown-item>
                         </x-sidebar.dropdown>
                     </div>

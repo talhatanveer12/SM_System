@@ -1,72 +1,56 @@
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <script defer src="https://unpkg.com/alpinejs@3.4.2/dist/cdn.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <title>Document</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 </head>
 
-<body>
-    <section class="px-6 py-8">
-        <nav class="md:flex md:justify-between md:items-center">
-            <div>
-                <a href="/">
-                    <img src="/images/logo.svg" alt="Laracasts Logo" width="165" height="16">
-                </a>
-            </div>
-
-            {{-- <div class="mt-8 md:mt-0 flex items-center">
-
-                <a href="/register" class="text-s font-bold uppercase m-1">Register</a>
-                <a href="/login" class="text-s font-bold uppercase m-2.5">log in</a>
-
-            </div> --}}
-        </nav>
-        <div class="flex px-24">
-
-            <div class="flex-1 font-semibold mt-16 py-10">
-                <h1>Login</h1>
-                <div class="mt-8">
-                    <form method="POST" action="/login">
-                        @csrf
-
-                        <x-form.input name="email" type="email" />
-                        <x-form.input name="password" type="password" />
-                        <div class="float-right text-sm text-blue-600">
-                            <a href="#">forget Password?</a>
-                        </div>
-                        <div>
-                            <x-form.button>Login</x-form.button>
-                        </div>
-                        {{-- <div class="float-left text-sm text-blue-600 mt-4">
-                            <span class="text-black">Not Registered Yet?</span>
-                            <a href="#">Create an Account</a>
-                        </div> --}}
-                    </form>
+<body class="bg-info">
+    <div class="container">
+        <div class="align-items-center justify-content-center row vh-100">
+            <div class="bg-white col-lg-4 col-md-6 col-sm-8 p-4 rounded shadow">
+                <div class="mb-4 row text-center">
+                    <h1>Login</h1>
                 </div>
+                <form method="POST" action="/login">
+                    @csrf
+                    <x-form.input name="email" type="email" />
+                    <x-form.input name="password" type="password" />
+                    <div class="float-end mb-4">
+                        <a class="text-decoration-none" href="#">forget password</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                </form>
             </div>
-            <div class="flex-1 mt-40 ml-auto block">
-                <img id="demo" class="ml-auto" src="/images/home_1.png" width="90%">
-            </div>
-
         </div>
-    </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+        integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"
+        integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous">
+    </script>
 </body>
+
 <script>
-    var c = 1;
-    setInterval(function() {
-        document.getElementById("demo").src = "/images/home_" + c + ".png";
-        if (c < 4) {
-            c++;
-        } else {
-            c = 1;
-        }
-    }, 3000);
+var c = 1;
+setInterval(function() {
+    document.getElementById("demo").src = "/images/home_" + c + ".png";
+    if (c < 4) {
+        c++;
+    } else {
+        c = 1;
+    }
+}, 3000);
 </script>
 
 </html>

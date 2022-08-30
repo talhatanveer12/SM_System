@@ -22,7 +22,7 @@
                         </div>
                     </div>
                 </form>
-                @foreach ($Student as $student)
+                @foreach ($Employee as $employee)
 
 
                 <div
@@ -31,19 +31,19 @@
                         <img class="rounded" src="/images/illustration-1.png" width="100%" height="100%" />
                     </div>
                     <div class="lg:col-span-3 lg:col-start-5 md:col-span-3 md:col-start-4">
-                        <h4>{{$student->first_name.' '.$student->last_name}}</h4>
-                        <span><b>Admission No: </b> {{$student->admission_no}}</span><br>
-                        <span><b>Class: </b> {{$student->class_id}}</span><br>
-                        <span><b>Date of Birth: </b>{{$student->date_of_birth}}</span><br>
-                        <span><b>Gender: </b>{{$student->Gender}}</span><br>
+                        <h4>{{$employee->first_name.' '.$employee->last_name}}</h4>
+                        <span><b>Reg No: </b> {{$employee->reg_no}}</span><br>
+                        <span><b>Course: </b> {{$employee->course_id}}</span><br>
+                        <span><b>Date of Birth: </b>{{$employee->date_of_birth}}</span><br>
+                        <span><b>Gender: </b>{{$employee->gender}}</span><br>
 
 
                     </div>
                     <div class="lg:col-span-3 lg:col-start-10 md:col-span-3">
-                        <span><b>Guardian Name: </b>{{$student->guardian_name}}</span><br>
-                        <span><b>Guardian Phone: </b> {{$student->guardian_phone}}</span><br>
-                        <span><b>Email: </b>{{$student->guardian_email}}</span><br>
-                        <span><b>Current Address: </b> {{$student->guardian_address}}</span><br>
+                        <span><b>CNIC No: </b>{{$employee->cnic_no}}</span><br>
+                        <span><b>Phone: </b> {{$employee->phone}}</span><br>
+                        <span><b>Email: </b>{{$employee->email}}</span><br>
+                        <span><b>Current Address: </b> {{$employee->employee_address}}</span><br>
                         <x-form.button>Show All Details</x-form.button>
 
                     </div>

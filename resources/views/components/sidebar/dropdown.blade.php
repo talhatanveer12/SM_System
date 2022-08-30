@@ -7,6 +7,8 @@
     </div>
 
     <div x-show="show" class="overflow-auto pl-2 w-full z-50" style="display: none">
+        <div>
         {{ $slot }}
+        </div>
     </div>
 </div>

@@ -2,24 +2,25 @@
 
 namespace App\Models;
 
-use App\Models\Course;
-use App\Models\AssignCourse;
+use App\Models\Classes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Classes extends Model
+class Course extends Model
 {
     use HasFactory;
+
     protected $guarded = [];
 
+
     /**
-     * The courses that belong to the Classes
+     * The roles that belong to the Course
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function courses(): BelongsToMany
+    public function classes(): BelongsToMany
     {
-        return $this->belongsToMany(Course::class, 'assign_courses', 'class_id', 'course_id');
+        return $this->belongsToMany(Classes::class, 'assign_courses', 'class_id', 'course_id');
     }
 }

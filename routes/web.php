@@ -1,12 +1,19 @@
 <?php
 
 use App\Models\User;
+use App\Models\Course;
 use App\Models\Classes;
+use App\Models\Student;
+use App\Models\Employee;
+use App\Mail\WelcomeMail;
+use App\Models\AssignCourse;
 use App\Models\MarksGrading;
 use App\Models\FeeParticulars;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\InstituteController;
@@ -76,13 +83,164 @@ Route::get('/delete/{id}', function ($id) {
 });
 
 Route::get('/add-student',function(){
-    return view('Students.add-student');
+    $class = Classes::all();
+    return view('Students.add-student',['Classes' => $class]);
 });
 
+Route::get('/add-employee',function(){
+    $class = Course::all();
+    return view('Employees.add-employee',['Classes' => $class]);
+});
+
+
 Route::get('/all-student',function(){
-    return view('Students.all-student');
+    $student = Student::all();
+    return view('Students.all-student',['Student' => $student]);
+});
+
+Route::get('/all-employee',function(){
+    $employee = Employee::all();
+    return view('Employees.all-employee',['Employee' => $employee]);
+});
+
+Route::post('/save-employee-detail', function(){
+
+    $values = request()->validate([
+        'reg_no' => 'required|unique:employees,reg_no',
+        'employee_no'=> 'required|unique:employees,employee_no',
+        'course_id' => 'required',
+        'date_of_birth' => '|required|date',
+        'first_name' => 'required',
+        'last_name' => 'required',
+        'gender' => 'required',
+        'category' => 'required',
+        'email' => 'required|email|unique:employees,email',
+        'religion' => 'required',
+        'joining_date' => 'required|date',
+        'cnic_no' => 'required',
+        'phone' => 'required',
+        'eduction' => 'required',
+        'specialization' => 'required',
+        'employee_address' => 'required',
+    ]);
+
+    $password = rand(10000000,99999999);
+    $name = $values['first_name'].$values['last_name'];
+    User::create([
+        'name' => $name,
+        'email' => $values['email'],
+        'type' => 'teacher',
+        'password' => Hash::make($password),
+    ]);
+
+    Employee::create($values);
+    Mail::to($values['email'])->send(new WelcomeMail($name,$values['employee_no'],$password));
+
+    return back()->with('success',"successfuly Employee Create");
+});
+Route::post('/save-student-detail', function(){
+
+    //dd(request()->all());
+    //Mail::to('talhatanveer930@gmail.com')->send(new WelcomeMail('Talha','122121','12121212'));
+    $values = request()->validate([
+        'admission_no' => 'required|unique:students,admission_no',
+        'roll_no'=> 'required|unique:students,roll_no',
+        'class_id' => 'required',
+        'date_of_birth' => '|required|date',
+        'first_name' => 'required',
+        'last_name' => 'required',
+        'gender' => 'required',
+        'category' => 'required',
+        'email' => 'required|email|unique:students,email',
+        'religion' => 'required',
+        'admission_date' => 'required|date',
+        'guardian_options' => 'required',
+        'guardian_relation' => 'required',
+        'guardian_name' => 'required',
+        'guardian_email' => 'required|email',
+        'guardian_phone' => 'required|numeric',
+        'guardian_address' => 'required',
+    ]);
+    $password = rand(10000000,99999999);
+    $name = $values['first_name'].$values['last_name'];
+    User::create([
+        'name' => $name,
+        'email' => $values['email'],
+        'type' => 'student',
+        'password' => Hash::make($password),
+    ]);
+
+    Student::create($values);
+    Mail::to($values['email'])->send(new WelcomeMail($name,$values['roll_no'],$password));
+    return back()->with('success',"successfuly Student Create");
+
+    //dd(rand(10000000,99999999));
+    //dd(request()->all());
+});
+
+Route::post('/save-assign-course', function(){
+
+    //dd(request()->all());
+    $values = request()->validate([
+        'class_id' => 'required|unique:assign_courses,class_id',
+        'course_id' => 'required',
+    ]);
+
+    foreach ($values['course_id'] as $key => $value) {
+        AssignCourse::create([
+            'class_id' => $values['class_id'],
+            'course_id' => $value,
+        ]);
+    }
+    return back()->with('success',"successfuly Courses Assign");
+});
+
+
+Route::get('/add-courses', function (Course $course) {
+    $course = Course::all();
+    return view('Courses.add-courses',[ 'Courses' => $course]);
+});
+
+
+Route::get('/assign-courses',function(){
+    $course = Course::all();
+    $class = Classes::all();
+    $assign = AssignCourse::select('class_id')->groupBy('class_id')->get();
+    $AssignData;
+    $temp = array();
+    foreach ($assign as $key => $value) {
+        $variable = Classes::find($value['class_id'])->courses;
+        $class_name = Classes::select('class_name')->where('id', '=', $value['class_id'])->first();
+        foreach ($variable as $key1 => $value1) {
+            $temp[] = $value1['course_name'];
+        }
+        $AssignData[$class_name['class_name']] = $temp;
+        unset($temp);
+    }
+    return view('Courses.assign-courses',['Courses' => $course , 'Classes' => $class, 'assignData' => $AssignData]);
+});
+
+
+Route::post('/save-course', function(){
+
+    // dd(request()->all());
+    $values = request()->validate([
+        'course_name' => 'required|unique:courses,course_name',
+        'course_code' => 'required|unique:courses,course_code',
+        'course_type' => 'required',
+    ]);
+
+    Course::create($values);
+
+    return back()->with('success',"successfuly Course Create");
 });
 
 Route::get('/temp', function () {
     return view('Classes.temp');
+});
+
+
+Route::get('/email', function () {
+    Mail::to('talhatanveer930@gmail.com')->send(new WelcomeMail('Talha','122121','12121212'));
+    return new WelcomeMail('Talha','122121','12121212');
 });
