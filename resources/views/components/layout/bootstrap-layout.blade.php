@@ -74,15 +74,24 @@
         <div class="row flex-nowrap">
             <div class="col-auto px-0">
                 <div id="sidebar" class="collapse collapse-horizontal show border-end">
+<<<<<<< HEAD
 
+=======
+                    <a class="btn1">Class</a>
+>>>>>>> e5777c386b9604b847aba682f9bab1d3dcb28d71
                     <div id="sidebar-nav" class="list-group border-0 rounded-0 text-sm-start min-vh-100"
                         style="width: 160px;">
                         <a href="/adminDashboard" data-bs-parent="#sidebar"
                             class=" text-truncate mt-2 focus-within:text-blue-500 text-decoration-none hover:text-blue-500 m-2 text-left text-black text-sm w-full">
+<<<<<<< HEAD
                             <div class="focus:text-blue-500 hover:text-blue-500 ">
                                 <i class="fa-solid fa-house"></i>
                                 <span class="pl-2">Dashboard</span>
                             </div>
+=======
+                            <i class="fa-solid fa-house"></i>
+                            <span class="pl-2">Dashboard</span>
+>>>>>>> e5777c386b9604b847aba682f9bab1d3dcb28d71
                         </a>
 
                         <x-sidebar.dropdown>
