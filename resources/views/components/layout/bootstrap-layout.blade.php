@@ -74,7 +74,6 @@
         <div class="row flex-nowrap">
             <div class="col-auto px-0">
                 <div id="sidebar" class="collapse collapse-horizontal show border-end">
-
                     <div id="sidebar-nav" class="list-group border-0 rounded-0 text-sm-start min-vh-100"
                         style="width: 160px;">
                         <a href="/adminDashboard" data-bs-parent="#sidebar"
