@@ -7,6 +7,7 @@
     <link rel="stylesheet" src="/style.css" />
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="https://kit.fontawesome.com/b0ca48d263.js" crossorigin="anonymous"></script>
     <script defer src="https://unpkg.com/alpinejs@3.4.2/dist/cdn.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
@@ -20,7 +21,6 @@
 <body>
     <nav class="navbar bg-light">
         <div class="container-fluid">
-
             <ul class="nav">
                 <li class="d-lg-inline d-md-inline d-none nav-item">
                     <a class="navbar-brand" href="/">
@@ -33,9 +33,6 @@
                         aria-controls="offcanvasExample" class="ml-8 mt-2"><i class="fa-solid fa-bars"></i></button>
                 </li>
             </ul>
-
-
-
             <div class="dropdown">
                 <button class="btn btn-white" type="button" data-toggle="dropdown" data-bs-toggle="dropdown"
                     aria-expanded="false">
@@ -138,7 +135,7 @@
                                 </x-slot>
                                 <x-sidebar.dropdown-item href="/all-student">All Students</x-sidebar.dropdown-item>
                                 <x-sidebar.dropdown-item href="/add-student">Add New</x-sidebar.dropdown-item>
-                                <x-sidebar.dropdown-item href="#">Admission Letter</x-sidebar.dropdown-item>
+                                {{-- <x-sidebar.dropdown-item href="#">Admission Letter</x-sidebar.dropdown-item> --}}
                             </x-sidebar.dropdown>
                         </div>
 
@@ -153,7 +150,7 @@
                                 </x-slot>
                                 <x-sidebar.dropdown-item href="/all-employee">All Employees</x-sidebar.dropdown-item>
                                 <x-sidebar.dropdown-item href="/add-employee">Add New</x-sidebar.dropdown-item>
-                                <x-sidebar.dropdown-item href="#">Job Letter</x-sidebar.dropdown-item>
+                                {{-- <x-sidebar.dropdown-item href="#">Job Letter</x-sidebar.dropdown-item> --}}
                             </x-sidebar.dropdown>
                         </div>
 
@@ -181,13 +178,13 @@
                                         <span class="pl-2">Attendance</span>
                                     </button>
                                 </x-slot>
-                                <x-sidebar.dropdown-item href="#">Mark Students Attendance
+                                <x-sidebar.dropdown-item href="/marks-student-attendance">Mark Students Attendance
                                 </x-sidebar.dropdown-item>
-                                <x-sidebar.dropdown-item href="#">Mark Employees Attendance
+                                <x-sidebar.dropdown-item href="/marks-employee-attendance">Mark Employees Attendance
                                 </x-sidebar.dropdown-item>
-                                <x-sidebar.dropdown-item href="#">Students Attendance Report
+                                <x-sidebar.dropdown-item href="/student-attendance-report">Students Attendance Report
                                 </x-sidebar.dropdown-item>
-                                <x-sidebar.dropdown-item href="#">Employees Attendance Report
+                                <x-sidebar.dropdown-item href="/employee-attendance-report">Employees Attendance Report
                                 </x-sidebar.dropdown-item>
                             </x-sidebar.dropdown>
                         </div>
@@ -204,7 +201,7 @@
                                 <x-sidebar.dropdown-item href="#">Manage Lesson Plan</x-sidebar.dropdown-item>
                                 <x-sidebar.dropdown-item href="#">Manage Syllabus Status
                                 </x-sidebar.dropdown-item>
-                                <x-sidebar.dropdown-item href="#">Lesson</x-sidebar.dropdown-item>
+                                <x-sidebar.dropdown-item href="/Lesson">Lesson</x-sidebar.dropdown-item>
                                 <x-sidebar.dropdown-item href="#">Topics</x-sidebar.dropdown-item>
                             </x-sidebar.dropdown>
                         </div>
