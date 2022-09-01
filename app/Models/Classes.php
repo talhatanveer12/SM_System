@@ -22,4 +22,9 @@ class Classes extends Model
     {
         return $this->belongsToMany(Course::class, 'assign_courses', 'class_id', 'course_id');
     }
+
+    public function course_lessons(): BelongsToMany
+    {
+        return $this->belongsToMany(Course::class, 'lessons', 'class_id', 'course_id');
+    }
 }

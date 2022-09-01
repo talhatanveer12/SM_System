@@ -202,7 +202,7 @@
                                 <x-sidebar.dropdown-item href="#">Manage Syllabus Status
                                 </x-sidebar.dropdown-item>
                                 <x-sidebar.dropdown-item href="/Lesson">Lesson</x-sidebar.dropdown-item>
-                                <x-sidebar.dropdown-item href="#">Topics</x-sidebar.dropdown-item>
+                                <x-sidebar.dropdown-item href="/Topic">Topics</x-sidebar.dropdown-item>
                             </x-sidebar.dropdown>
                         </div>
 

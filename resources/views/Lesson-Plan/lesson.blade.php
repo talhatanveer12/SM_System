@@ -10,16 +10,19 @@
                         <x-form.label name="Class" /><br>
                         <select class="form-select mb-4" aria-label="Default select example" name="class id"
                             id="class_id">
+                            <option value="">Select Class</option>
                             @foreach ($Classes as $Class)
                                 <option value="{{ $Class->id }}">{{ $Class->class_name }}</option>
                             @endforeach
                         </select>
+                        <x-form.error name="class_id" />
 
                         <x-form.label name="Course" /><br>
                         <select class="form-select mb-4" aria-label="Default select example" name="course id"
                             id="course_id">
                             <option value="">Select Course</option>
                         </select>
+                        <x-form.error name="course_id" />
 
                         <x-form.input name="lesson name" error="lesson_name" />
 
@@ -49,39 +52,34 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($assignData as $AssignData => $value) --}}
-                                <tr>
-                                    <td>Class 1</td>
-                                    <td>English</td>
-                                    {{-- <th>{{ $AssignData }}</th> --}}
-                                    <td>
-                                        <table>
-                                            <tbody>
-                                                {{-- @foreach ($value as $key => $data) --}}
-                                                <tr>
-                                                    <td>Chapter 1</td>
-
-                                                    {{-- <td>{{ $data }}</td> --}}
-                                                </tr>
-                                                <tr>
-                                                    <td>Chapter 2</td>
-
-                                                    {{-- <td>{{ $data }}</td> --}}
-                                                </tr>
-                                                {{-- @endforeach --}}
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                    <td>
-                                        <a href="#" class="mr-2 text-black text-decoration-none">
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                        </a>
-                                        <a href="#" class="mr-2 text-black text-decoration-none">
-                                            <i class="fa-solid fa-trash-can"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                {{-- @endforeach --}}
+                                @foreach ($Lesson_detail as $key => $value)
+                                    @foreach ($value as $course_name => $lesson_detail)
+                                        <tr>
+                                            <td>{{ $key }}</td>
+                                            <td>{{ $course_name }}</td>
+                                            {{-- <th>{{ $AssignData }}</th> --}}
+                                            <td>
+                                                <table>
+                                                    <tbody>
+                                                        @foreach ($lesson_detail as $lesson_key => $lesson_name)
+                                                        <tr>
+                                                             <td>{{ $lesson_name }}</td>
+                                                        </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                            <td>
+                                                <a href="#" class="mr-2 text-black text-decoration-none">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                </a>
+                                                <a href="#" class="mr-2 text-black text-decoration-none">
+                                                    <i class="fa-solid fa-trash-can"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -98,15 +96,13 @@
                 let id = $(this).val();
                 $('select[name="course_id"]').empty();
                 console.log(id);
-
                 const xmlhttp = new XMLHttpRequest();
                 xmlhttp.onload = function() {
-                    var r =  this.responseText;
-                    $('#course_id').html(r);
-                    console.log(r);
-                    //document.getElementById("txtHint").innerHTML = this.responseText;
+                    var html_body = this.responseText;
+                    $('#course_id').html(html_body);
+                    console.log(html_body);
                 }
-                xmlhttp.open("GET", "/getcourse/"+id);
+                xmlhttp.open("GET", "/getcourse/" + id);
                 xmlhttp.send();
 
             });
