@@ -41,7 +41,7 @@ class CourseController extends Controller
             $AssignData[$class_name['class_name']] = $temp;
             unset($temp);
         }
-        dd($AssignData);
+        //dd($AssignData);
         return view('Courses.assign-courses',['Courses' => $course , 'Classes' => $class, 'assignData' => $AssignData]);
     }
 

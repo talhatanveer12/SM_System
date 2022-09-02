@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
 use Illuminate\Http\Request;
+use App\Models\EmployeeAttendance;
 
 class EmployeeAttendanceController extends Controller
 {

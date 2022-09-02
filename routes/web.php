@@ -25,8 +25,10 @@ use App\Http\Controllers\SessionController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\InstituteController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\MarksGradingController;
 use App\Http\Controllers\FeeParticularsController;
+use App\Http\Controllers\EmployeeAttendanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -117,7 +119,41 @@ Route::get('/Lesson',function(){
 
 Route::get('/Topic',function(){
 
-    return view('Lesson-Plan.topic',['Classes' => Classes::all()]);
+    $get_ids = Lesson::select('class_id','course_id')->groupBy('class_id','course_id')->get();
+    $course_name;
+    $lesson_name;
+    $topic_name;
+    $class_name;
+    $swap = -1;
+    foreach ($get_ids as $key => $value) {
+        if($swap != $value['class_id']){
+            unset($course_name);
+            $swap = $value['class_id'];
+        }
+        $classes_name = Classes::select('class_name')->where('id', '=', $value['class_id'])->first();
+        $courses_name = Course::select('course_name')->where('id', '=', $value['course_id'])->first();
+        $get_lessons = Lesson::select('lesson_name','id')->where('class_id','=',$value->class_id)->where('course_id','=',$value->course_id)->get();
+        //dd($get_lessons);
+        foreach ($get_lessons as $key_1 => $value_1) {
+            $get_topic = Topic::where('lesson_id','=',$value_1['id'])->get();
+            if(count($get_topic)){
+                foreach ($get_topic as $key_2 => $value_2) {
+                    $topic_name[] = $value_2['topic_name'];
+                }
+                $lesson_name[$value_1['lesson_name']] = $topic_name;
+                unset($topic_name);
+                $course_name[$courses_name['course_name']] = $lesson_name;
+                $class_name[$classes_name['class_name']] = $course_name;
+                unset($lesson_name);
+            }
+            else{
+                //$lesson_name[] = $value_1['lesson_name'];
+            }
+        }
+
+    }
+    //dd($class_name);
+    return view('Lesson-Plan.topic',['Classes' => Classes::all(),'topic_detail' => $class_name ?? '']);
 });
 
 
@@ -146,6 +182,42 @@ Route::post('/save-topic', function () {
     ]);
     return back()->with('success',"successfuly Topic created");
 });
+
+Route::get('/syllabus-status',function(){
+
+    $topic_name;
+    $completion_date;
+    $lesson;
+    $Course_name = '';
+    if(request('class_id') && request('course_id')){
+        $Course_name = Course::select('course_name')->where('id','=',request('course_id'))->first();
+        $result = Lesson::where('class_id','=',request('class_id'))->where('course_id','=',request('course_id'))->get();
+        foreach ($result as $key => $value) {
+            $get_topic = Topic::where('lesson_id','=',$value->id)->get();
+            if(count($get_topic)){
+                $lesson[$value->lesson_name] = $get_topic;
+            }
+            else{
+                $lesson[$value->lesson_name] = '';
+            }
+            unset($topic_name);
+        }
+        //dd($lesson);
+    }
+    return view('Lesson-Plan.syllabus-status',['Classes' => Classes::all(),'Courses' => Course::all(),'Course_name' => $Course_name,'lesson' => $lesson ?? '']);
+});
+
+Route::post('/update-topics-details',function(){
+
+    Topic::where('id','=',request('topic_id'))->update([
+        'completion_date' => request('completion_date'),
+    ]);
+
+    return back()->with('success',"successfuly Topic update");
+    //dd(request()->all());
+});
+
+
 Route::get('/getcourse/{id}',function($id){
     $result = Classes::find($id)->courses;
     $html_body ='<option value="">Select Course</option>';
@@ -155,14 +227,21 @@ Route::get('/getcourse/{id}',function($id){
     return $html_body;
 });
 
-Route::get('/getlesson/{id}',function($id){
-    $result = Lesson::where('course_id','=',$id)->get();
+Route::get('/getlesson/{id}/{class_id}',function($id,$class_id){
+    $result = Lesson::where('course_id','=',$id)->where('class_id','=',$class_id)->get();
     //dd($result);
     $html_body ='<option value="">Select Lesson</option>';
     foreach ($result as $key => $value) {
         $html_body .= '<option value="'.$value->id.'">'.$value->lesson_name.'</option>';
     }
     return $html_body;
+});
+
+Route::get('/changeTopicStatus/{id}',function($id){
+    Topic::where('id','=',request('topic_id'))->update([
+        'completion_date' => NULL,
+    ]);
+    return 'update';
 });
 
 

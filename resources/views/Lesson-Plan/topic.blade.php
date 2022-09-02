@@ -48,6 +48,7 @@
             <div class="col-md-8 p-2">
                 <div class="border p-2  rounded hover:shadow-2xl shadow-md">
                     <div class="border-t-2 border-black p-2 mb-4 mr-2">Topic List</div>
+                    @if($topic_detail)
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
@@ -60,43 +61,41 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($assignData as $AssignData => $value) --}}
-                                <tr>
-                                    <td>Class 1</td>
-                                    <td>English</td>
-                                    <td>abc</td>
-                                    {{-- <th>{{ $AssignData }}</th> --}}
-                                    <td>
-                                        <table>
-                                            <tbody>
-                                                {{-- @foreach ($value as $key => $data) --}}
-                                                <tr>
-                                                    <td>Chapter 1</td>
-
-                                                    {{-- <td>{{ $data }}</td> --}}
-                                                </tr>
-                                                <tr>
-                                                    <td>Chapter 2</td>
-
-                                                    {{-- <td>{{ $data }}</td> --}}
-                                                </tr>
-                                                {{-- @endforeach --}}
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                    <td>
-                                        <a href="#" class="mr-2 text-black text-decoration-none">
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                        </a>
-                                        <a href="#" class="mr-2 text-black text-decoration-none">
-                                            <i class="fa-solid fa-trash-can"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                {{-- @endforeach --}}
+                                @foreach ($topic_detail as $key => $value)
+                                    @foreach ($value as $course => $lesson)
+                                        @foreach ($lesson as $lesson_name => $value_1)
+                                            <tr>
+                                                <td>{{ $key }}</td>
+                                                <td>{{ $course }}</td>
+                                                <td>{{ $lesson_name }}</td>
+                                                {{-- <th>{{ $AssignData }}</th> --}}
+                                                <td>
+                                                    <table>
+                                                        <tbody>
+                                                            @foreach ($value_1 as $key_1 => $data)
+                                                                <tr>
+                                                                    <td>{{ $data }}</td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                                <td>
+                                                    <a href="#" class="mr-2 text-black text-decoration-none">
+                                                        <i class="fa-solid fa-pen-to-square"></i>
+                                                    </a>
+                                                    <a href="#" class="mr-2 text-black text-decoration-none">
+                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endforeach
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -105,19 +104,21 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <script type="text/javascript">
+            var class_id;
         $(document).ready(function() {
             $('#class_id').change(function() {
                 let id = $(this).val();
+                class_id = id;
                 $('select[name="course_id"]').empty();
                 $('select[name="lesson_id"]').empty();
                 console.log(id);
                 const xmlhttp = new XMLHttpRequest();
                 xmlhttp.onload = function() {
-                    var html_body =  this.responseText;
+                    var html_body = this.responseText;
                     $('#course_id').html(html_body);
                     console.log(html_body);
                 }
-                xmlhttp.open("GET", "/getcourse/"+id);
+                xmlhttp.open("GET", "/getcourse/" + id);
                 xmlhttp.send();
 
             });
@@ -130,11 +131,11 @@
                 const xmlhttp = new XMLHttpRequest();
                 xmlhttp.onload = function() {
                     console.log(this.responseText);
-                    var html_body =  this.responseText;
+                    var html_body = this.responseText;
                     $('#lesson_id').html(html_body);
 
                 }
-                xmlhttp.open("GET", "/getlesson/"+id);
+                xmlhttp.open("GET", "/getlesson/" + id + '/'+ class_id);
                 xmlhttp.send();
             });
         });

@@ -13,14 +13,14 @@
                                     <option value="" selected>Select Class</option>
                                     @foreach ($Classes as $Class)
                                         <option value="{{ $Class->id }}"
-                                            {{ request('Class') == $Class->id ? 'selected' : '' }}>
+                                            {{ request('class_id') == $Class->id ? 'selected' : '' }}>
                                             {{ $Class->class_name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="mb-4 mr-2 mt-10">
                                 <input class="form-control" type='date' name='attendance date' id="attendance_date"
-                                    value />
+                                    value ={{request('attendance_date')}} />
                             </div>
                             <div class=" mr-2 mt-3">
                                 <button type="submit" class="btn btn-primary mt-4">Search</button>

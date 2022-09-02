@@ -199,7 +199,7 @@
                                     </button>
                                 </x-slot>
                                 <x-sidebar.dropdown-item href="#">Manage Lesson Plan</x-sidebar.dropdown-item>
-                                <x-sidebar.dropdown-item href="#">Manage Syllabus Status
+                                <x-sidebar.dropdown-item href="/syllabus-status">Manage Syllabus Status
                                 </x-sidebar.dropdown-item>
                                 <x-sidebar.dropdown-item href="/Lesson">Lesson</x-sidebar.dropdown-item>
                                 <x-sidebar.dropdown-item href="/Topic">Topics</x-sidebar.dropdown-item>
