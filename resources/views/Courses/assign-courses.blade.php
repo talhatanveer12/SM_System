@@ -28,43 +28,45 @@
             <div class="col-md-8 p-2">
                 <div class="border p-2  rounded hover:shadow-2xl shadow-md">
                     <div class="border-t-2 border-black p-2 mb-4 mr-2">Classes with Courses</div>
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Class Name</th>
-                                    <th scope="col">Courses Name</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($assignData as $AssignData => $value)
+                    @if ($assignData)
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
                                     <tr>
-                                        <th>{{ $AssignData }}</th>
-                                        <td>
-                                            <table>
-                                                <tbody>
-                                                    @foreach ($value as $key => $data)
-                                                        <tr>
-                                                            <td>{{ $data }}</td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <a href="#" class="mr-2 text-black text-decoration-none">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </a>
-                                            <a href="#" class="mr-2 text-black text-decoration-none">
-                                                <i class="fa-solid fa-trash-can"></i>
-                                            </a>
-                                        </td>
+                                        <th scope="col">Class Name</th>
+                                        <th scope="col">Courses Name</th>
+                                        <th scope="col">Action</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                                </thead>
+                                <tbody>
+                                    @foreach ($assignData as $AssignData => $value)
+                                        <tr>
+                                            <th>{{ $AssignData }}</th>
+                                            <td>
+                                                <table>
+                                                    <tbody>
+                                                        @foreach ($value as $key => $data)
+                                                            <tr>
+                                                                <td>{{ $data }}</td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                            <td>
+                                                <a href="#" class="mr-2 text-black text-decoration-none">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                </a>
+                                                <a href="#" class="mr-2 text-black text-decoration-none">
+                                                    <i class="fa-solid fa-trash-can"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

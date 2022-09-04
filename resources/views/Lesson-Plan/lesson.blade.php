@@ -41,48 +41,50 @@
             <div class="col-md-8 p-2">
                 <div class="border p-2  rounded hover:shadow-2xl shadow-md">
                     <div class="border-t-2 border-black p-2 mb-4 mr-2">Lesson List</div>
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Class Name</th>
-                                    <th scope="col">Courses Name</th>
-                                    <th scope="col">Lesson Name</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($Lesson_detail as $key => $value)
-                                    @foreach ($value as $course_name => $lesson_detail)
-                                        <tr>
-                                            <td>{{ $key }}</td>
-                                            <td>{{ $course_name }}</td>
-                                            {{-- <th>{{ $AssignData }}</th> --}}
-                                            <td>
-                                                <table>
-                                                    <tbody>
-                                                        @foreach ($lesson_detail as $lesson_key => $lesson_name)
-                                                        <tr>
-                                                             <td>{{ $lesson_name }}</td>
-                                                        </tr>
-                                                        @endforeach
-                                                    </tbody>
-                                                </table>
-                                            </td>
-                                            <td>
-                                                <a href="#" class="mr-2 text-black text-decoration-none">
-                                                    <i class="fa-solid fa-pen-to-square"></i>
-                                                </a>
-                                                <a href="#" class="mr-2 text-black text-decoration-none">
-                                                    <i class="fa-solid fa-trash-can"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
+                    @if ($Lesson_detail)
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Class Name</th>
+                                        <th scope="col">Courses Name</th>
+                                        <th scope="col">Lesson Name</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($Lesson_detail as $key => $value)
+                                        @foreach ($value as $course_name => $lesson_detail)
+                                            <tr>
+                                                <td>{{ $key }}</td>
+                                                <td>{{ $course_name }}</td>
+                                                {{-- <th>{{ $AssignData }}</th> --}}
+                                                <td>
+                                                    <table>
+                                                        <tbody>
+                                                            @foreach ($lesson_detail as $lesson_key => $lesson_name)
+                                                                <tr>
+                                                                    <td>{{ $lesson_name }}</td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                                <td>
+                                                    <a href="#" class="mr-2 text-black text-decoration-none">
+                                                        <i class="fa-solid fa-pen-to-square"></i>
+                                                    </a>
+                                                    <a href="#" class="mr-2 text-black text-decoration-none">
+                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     @endforeach
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                                </tbody>
+                            </table>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

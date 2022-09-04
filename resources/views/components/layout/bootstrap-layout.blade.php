@@ -120,7 +120,8 @@
                                     </button>
                                 </x-slot>
                                 <x-sidebar.dropdown-item href="/add-courses">Add Courses</x-sidebar.dropdown-item>
-                                <x-sidebar.dropdown-item href="/assign-courses">Assign Courses</x-sidebar.dropdown-item>
+                                <x-sidebar.dropdown-item href="/assign-courses">Assign Courses
+                                </x-sidebar.dropdown-item>
                             </x-sidebar.dropdown>
                         </div>
 
@@ -216,7 +217,7 @@
                                         <span class="pl-2">Exams</span>
                                     </button>
                                 </x-slot>
-                                <x-sidebar.dropdown-item href="#">Create New Exams</x-sidebar.dropdown-item>
+                                <x-sidebar.dropdown-item href="/MakeExam">Create New Exams</x-sidebar.dropdown-item>
                                 <x-sidebar.dropdown-item href="#">Edit or Delete</x-sidebar.dropdown-item>
                                 <x-sidebar.dropdown-item href="#">Add / Update Exams Marks
                                 </x-sidebar.dropdown-item>

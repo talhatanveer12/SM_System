@@ -114,7 +114,7 @@ Route::get('/Lesson',function(){
         unset($lesson_name);
     }
 
-    return view('Lesson-Plan.lesson',['Classes' => Classes::all(),'Lesson_detail' => $class_name]);
+    return view('Lesson-Plan.lesson',['Classes' => Classes::all(),'Lesson_detail' => $class_name ?? '']);
 });
 
 Route::get('/Topic',function(){
@@ -215,6 +215,14 @@ Route::post('/update-topics-details',function(){
 
     return back()->with('success',"successfuly Topic update");
     //dd(request()->all());
+});
+
+Route::get('/MakeExam',function(){
+    return view('Exam.make-exam');
+});
+
+Route::post('/add-exam',function(){
+    dd(request()->all());
 });
 
 

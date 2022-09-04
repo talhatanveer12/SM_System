@@ -42,7 +42,7 @@ class CourseController extends Controller
             unset($temp);
         }
         //dd($AssignData);
-        return view('Courses.assign-courses',['Courses' => $course , 'Classes' => $class, 'assignData' => $AssignData]);
+        return view('Courses.assign-courses',['Courses' => $course , 'Classes' => $class, 'assignData' => $AssignData ?? '']);
     }
 
     public function StoreAssignCourse(){
