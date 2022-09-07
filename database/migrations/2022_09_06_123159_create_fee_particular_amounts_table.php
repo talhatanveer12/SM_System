@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('fee_particulars', function (Blueprint $table) {
+        Schema::create('fee_particular_amounts', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('admission_fee');
             $table->unsignedInteger('registration_fee');
             $table->unsignedInteger('books');
-            $table->striunsignedIntegerng('uniform');
-            $table->striunsignedIntegerng('fine');
+            $table->unsignedInteger('uniform');
+            $table->unsignedInteger('fine');
             $table->unsignedInteger('other');
             $table->unsignedInteger('per_course_fee');
             $table->timestamps();
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fee_particulars');
+        Schema::dropIfExists('fee_particular_amounts');
     }
 };

@@ -2,19 +2,21 @@
     <main class="col grid grid-cols-12 ps-md-2 pt-2">
         <div class=" col-span-12">
             <div class=" flex flex-wrap ">
-                @foreach ($Classes as $classes)
-                    <div class="px-6 py-4 m-4 bg-blue-200 w-64 rounded-2xl shadow-md hover:shadow-2xl ">
-                        <span>{{ $classes->class_name }}</span>
-                        <div class="flex justify-between items-center text-4xl my-2">
-                            <span>0</span>
-                            <i class="fa-solid fa-graduation-cap"></i>
+                @if ($Classes)
+                    @foreach ($Classes as $classes)
+                        <div class="px-6 py-4 m-4 bg-blue-200 w-64 rounded-2xl shadow-md hover:shadow-2xl ">
+                            <span>{{ $classes->class_name }}</span>
+                            <div class="flex justify-between items-center text-4xl my-2">
+                                <span>0</span>
+                                <i class="fa-solid fa-graduation-cap"></i>
+                            </div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span>Student</span>
+                                {{-- <span class="text-sm">Left 40</span> --}}
+                            </div>
                         </div>
-                        <div class="flex justify-between items-center mb-2">
-                            <span>Student</span>
-                            {{-- <span class="text-sm">Left 40</span> --}}
-                        </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                @endif
                 <div class="px-6 pt-10 pb-10 m-4 bg-blue-200 text-center w-64 rounded-2xl shadow-md hover:shadow-2xl ">
                     <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         <i class="fa-plus fa-solid text-4xl"></i>

@@ -70,7 +70,8 @@
                                             <ul>
                                                 @if ($value)
                                                     @foreach ($value as $key_1 => $value_1)
-                                                        <li class="mb-2">{{ $value_1->completion_date }}</li>
+                                                        <li class="{{$value_1->completion_date ? 'mb-2' : 'mb-10'}}">{{$value_1->completion_date }}</li>
+                                                        {{-- <li class="mb-2">{{ $value_1->completion_date }}</li> --}}
                                                     @endforeach
                                                 @endif
                                             </ul>
@@ -126,39 +127,27 @@
             $(document).on('click', '#flexSwitchCheckChecked', function() {
                 var checked = $(this).is(':checked');
                 var rowid = $(this).data('rowid');
-                //console.log(checked);
-                //console.log(rowid);
-
                 if (checked) {
                     var status = "1";
                     $('#exampleModal').modal('show');
                     $('#sdsd').val(rowid);
-
-
                 } else {
                     if (!confirm('Change Status')) {
                         $(this).removeAttr('checked');
 
                     } else {
-
                         var status = "0";
                         changeTopicStatus(rowid, status);
-
-
                     }
-
                 }
             });
+
         });
 
         function changeTopicStatus(rowid,status) {
-            // console.log("Sdsdsdsdsdsdsdsd");
-            // console.log(rowid);
             const xmlhttp = new XMLHttpRequest();
                 xmlhttp.onload = function() {
-                    //successMsg("sd");
                     var html_body = this.responseText;
-                    //$('#course_id').html(html_body);
                     console.log(html_body);
                 }
                 xmlhttp.open("GET", "/changeTopicStatus/" + rowid);
@@ -189,15 +178,15 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Completion date</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="/update-topics-details" method="POST">
                         @csrf
                         <input type="hidden" id="sdsd" name="topic_id">
-                        <input class="" type="date" name="completion_date" />
-                        <button type="submit">Save</button>
+                        <input class="form-control" type="date" name="completion_date" />
+                        <button class="btn btn-primary mt-4" type="submit">Save</button>
                     </form>
                 </div>
                 <div class="modal-footer">

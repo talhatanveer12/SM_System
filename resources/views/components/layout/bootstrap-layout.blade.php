@@ -18,7 +18,7 @@
 <title>Document1</title>
 </head>
 
-<body>
+<body id='body'>
     <nav class="navbar bg-light">
         <div class="container-fluid">
             <ul class="nav">
@@ -164,7 +164,7 @@
                                         <span class="pl-2">Fee</span>
                                     </button>
                                 </x-slot>
-                                <x-sidebar.dropdown-item href="#">Fee Collect</x-sidebar.dropdown-item>
+                                <x-sidebar.dropdown-item href="/fee-collect">Fee Collect</x-sidebar.dropdown-item>
                                 <x-sidebar.dropdown-item href="#">Fee Slip</x-sidebar.dropdown-item>
                                 <x-sidebar.dropdown-item href="#">fee defaulters</x-sidebar.dropdown-item>
                             </x-sidebar.dropdown>
@@ -217,12 +217,26 @@
                                         <span class="pl-2">Exams</span>
                                     </button>
                                 </x-slot>
-                                <x-sidebar.dropdown-item href="/MakeExam">Create New Exams</x-sidebar.dropdown-item>
-                                <x-sidebar.dropdown-item href="#">Edit or Delete</x-sidebar.dropdown-item>
-                                <x-sidebar.dropdown-item href="#">Add / Update Exams Marks
+                                <x-sidebar.dropdown-item href="/create-exam">Create New Exams</x-sidebar.dropdown-item>
+                                {{-- <x-sidebar.dropdown-item href="#">Edit or Delete</x-sidebar.dropdown-item> --}}
+                                <x-sidebar.dropdown-item href="/add-exam-marks">Add / Update Exams Marks
                                 </x-sidebar.dropdown-item>
-                                <x-sidebar.dropdown-item href="#">Result Card</x-sidebar.dropdown-item>
-                                <x-sidebar.dropdown-item href="#">Exam Results</x-sidebar.dropdown-item>
+                                <x-sidebar.dropdown-item href="/result-cards">Result Card</x-sidebar.dropdown-item>
+                                {{-- <x-sidebar.dropdown-item href="#">Exam Results</x-sidebar.dropdown-item> --}}
+                            </x-sidebar.dropdown>
+                        </div>
+
+                        <div class="flex items-center">
+                            <x-sidebar.dropdown>
+                                <x-slot name="trigger">
+                                    <button
+                                        class="focus-within:text-blue-500 hover:text-blue-500 m-2 text-left text-sm w-full">
+                                        <i class="fa-solid fa-file-circle-check"></i>
+                                        <span class="pl-2">Test</span>
+                                    </button>
+                                </x-slot>
+                                <x-sidebar.dropdown-item href="/create-test">Create Test</x-sidebar.dropdown-item>
+                                {{-- <x-sidebar.dropdown-item href="#">Edit Tes</x-sidebar.dropdown-item> --}}
                             </x-sidebar.dropdown>
                         </div>
 

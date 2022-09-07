@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Exam;
+use App\Models\Test;
 use App\Models\User;
 use App\Models\Topic;
 use App\Models\Course;
@@ -8,7 +10,9 @@ use App\Models\Classes;
 use App\Models\Student;
 use App\Models\Employee;
 use App\Mail\WelcomeMail;
+use App\Models\Institute;
 use App\Models\Attendance;
+use App\Models\ExamResult;
 use App\Models\AssignCourse;
 use App\Models\MarksGrading;
 use App\Models\FeeParticulars;
@@ -19,7 +23,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ExamController;
+use App\Http\Controllers\TestController;
+use App\Http\Controllers\TopicController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ClassesController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\StudentController;
@@ -29,6 +37,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\MarksGradingController;
 use App\Http\Controllers\FeeParticularsController;
 use App\Http\Controllers\EmployeeAttendanceController;
+use App\Http\Controllers\FeeParticularAmountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,8 +66,8 @@ Route::get('/institute-profile',[InstituteController::class,'index']);
 Route::post('/updatelogo/{institute}', [InstituteController::class,'storeLogo']);
 Route::post('/update/{institute}', [InstituteController::class,'store']);
 
-Route::get('/fee-particulars',[FeeParticularsController::class,'index']);
-Route::post('/update', [FeeParticularsController::class,'store']);
+Route::get('/fee-particulars',[FeeParticularAmountController::class,'index']);
+Route::post('/update', [FeeParticularAmountController::class,'store']);
 
 Route::post('/add-class',[ClassesController::class,'store']);
 Route::get('/all-classes',[ClassesController::class,'index']);
@@ -92,140 +101,39 @@ Route::post('/save-employee-attendance',[EmployeeAttendanceController::class,'st
 Route::get('/employee-attendance-report',[EmployeeAttendanceController::class,'show']);
 
 
-Route::get('/Lesson',function(){
-    $get_ids = Lesson::select('class_id','course_id')->groupBy('class_id','course_id')->get();
-    $course_name;
-    $lesson_name = array();
-    $class_name;
-    $swap = -1;
-    foreach ($get_ids as $key => $value) {
-        if($swap != $value['class_id']){
-            unset($course_name);
-            $swap = $value['class_id'];
-        }
-        $classes_name = Classes::select('class_name')->where('id', '=', $value['class_id'])->first();
-        $courses_name = Course::select('course_name')->where('id', '=', $value['course_id'])->first();
-        $get_lessons = Lesson::select('lesson_name')->where('class_id','=',$value->class_id)->where('course_id','=',$value->course_id)->get();
-        foreach ($get_lessons as $key_1 => $value_1) {
-            $lesson_name[] = $value_1['lesson_name'];
-        }
-        $course_name[$courses_name['course_name']] = $lesson_name;
-        $class_name[$classes_name['class_name']] = $course_name;
-        unset($lesson_name);
+Route::get('/Lesson',[LessonController::class,'index']);
+Route::get('/Topic',[TopicController::class,'index']);
+Route::post('/save-lesson',[LessonController::class,'store']);
+Route::post('/save-topic', [TopicController::class,'store']);
+Route::get('/syllabus-status',[LessonController::class,'syllabus_index']);
+Route::post('/update-topics-details',[TopicController::class,'update']);
+Route::get('/create-test',[TestController::class,'index']);
+Route::post('/add-test',[TestController::class,'store']);
+
+Route::get('/create-exam',[ExamController::class,'index']);
+Route::post('/add-exam',[ExamController::class,'store']);
+Route::get('/add-exam-marks',[ExamController::class,'storeResult']);
+Route::post('/save-exam-marks',[ExamController::class,'saveResult']);
+Route::get('/result-cards',[ExamController::class,'ResultCard']);
+
+Route::get('/fee-collect',function(){
+    $Students;
+    if(request('roll_no')){
+        $Students = Student::where('class_id','=',request('class_id'))->get();
     }
-
-    return view('Lesson-Plan.lesson',['Classes' => Classes::all(),'Lesson_detail' => $class_name ?? '']);
+    return view('Fee.fee-collect',['Classes' => Classes::all(),'Students' => $Students ?? '']);
 });
 
-Route::get('/Topic',function(){
-
-    $get_ids = Lesson::select('class_id','course_id')->groupBy('class_id','course_id')->get();
-    $course_name;
-    $lesson_name;
-    $topic_name;
-    $class_name;
-    $swap = -1;
-    foreach ($get_ids as $key => $value) {
-        if($swap != $value['class_id']){
-            unset($course_name);
-            $swap = $value['class_id'];
-        }
-        $classes_name = Classes::select('class_name')->where('id', '=', $value['class_id'])->first();
-        $courses_name = Course::select('course_name')->where('id', '=', $value['course_id'])->first();
-        $get_lessons = Lesson::select('lesson_name','id')->where('class_id','=',$value->class_id)->where('course_id','=',$value->course_id)->get();
-        //dd($get_lessons);
-        foreach ($get_lessons as $key_1 => $value_1) {
-            $get_topic = Topic::where('lesson_id','=',$value_1['id'])->get();
-            if(count($get_topic)){
-                foreach ($get_topic as $key_2 => $value_2) {
-                    $topic_name[] = $value_2['topic_name'];
-                }
-                $lesson_name[$value_1['lesson_name']] = $topic_name;
-                unset($topic_name);
-                $course_name[$courses_name['course_name']] = $lesson_name;
-                $class_name[$classes_name['class_name']] = $course_name;
-                unset($lesson_name);
-            }
-            else{
-                //$lesson_name[] = $value_1['lesson_name'];
-            }
-        }
-
-    }
-    //dd($class_name);
-    return view('Lesson-Plan.topic',['Classes' => Classes::all(),'topic_detail' => $class_name ?? '']);
+Route::post('/save-fee-collect',function(){
+    //dd(request('fee_month')->format('M'));
 });
 
 
-Route::post('/save-lesson', function () {
-    $values = request()->validate([
-        'class_id' => 'required',
-        'course_id' => 'required',
-        'lesson_name' => 'required|unique:lessons,lesson_name',
-    ]);
-    Lesson::create($values);
-    return back()->with('success',"successfuly Lesson created");
-});
 
 
-Route::post('/save-topic', function () {
-    //dd(request()->all());
-    $values = request()->validate([
-        'class_id' => 'required',
-        'course_id' => 'required',
-        'lesson_id' => 'required',
-        'topic_name' => 'required|unique:topics,topic_name',
-    ]);
-    Topic::create([
-        'lesson_id' => request('lesson_id'),
-        'topic_name' => request('topic_name'),
-    ]);
-    return back()->with('success',"successfuly Topic created");
-});
-
-Route::get('/syllabus-status',function(){
-
-    $topic_name;
-    $completion_date;
-    $lesson;
-    $Course_name = '';
-    if(request('class_id') && request('course_id')){
-        $Course_name = Course::select('course_name')->where('id','=',request('course_id'))->first();
-        $result = Lesson::where('class_id','=',request('class_id'))->where('course_id','=',request('course_id'))->get();
-        foreach ($result as $key => $value) {
-            $get_topic = Topic::where('lesson_id','=',$value->id)->get();
-            if(count($get_topic)){
-                $lesson[$value->lesson_name] = $get_topic;
-            }
-            else{
-                $lesson[$value->lesson_name] = '';
-            }
-            unset($topic_name);
-        }
-        //dd($lesson);
-    }
-    return view('Lesson-Plan.syllabus-status',['Classes' => Classes::all(),'Courses' => Course::all(),'Course_name' => $Course_name,'lesson' => $lesson ?? '']);
-});
-
-Route::post('/update-topics-details',function(){
-
-    Topic::where('id','=',request('topic_id'))->update([
-        'completion_date' => request('completion_date'),
-    ]);
-
-    return back()->with('success',"successfuly Topic update");
-    //dd(request()->all());
-});
-
-Route::get('/MakeExam',function(){
-    return view('Exam.make-exam');
-});
-
-Route::post('/add-exam',function(){
-    dd(request()->all());
-});
 
 
+// Ajax
 Route::get('/getcourse/{id}',function($id){
     $result = Classes::find($id)->courses;
     $html_body ='<option value="">Select Course</option>';
@@ -237,7 +145,6 @@ Route::get('/getcourse/{id}',function($id){
 
 Route::get('/getlesson/{id}/{class_id}',function($id,$class_id){
     $result = Lesson::where('course_id','=',$id)->where('class_id','=',$class_id)->get();
-    //dd($result);
     $html_body ='<option value="">Select Lesson</option>';
     foreach ($result as $key => $value) {
         $html_body .= '<option value="'.$value->id.'">'.$value->lesson_name.'</option>';
@@ -246,21 +153,33 @@ Route::get('/getlesson/{id}/{class_id}',function($id,$class_id){
 });
 
 Route::get('/changeTopicStatus/{id}',function($id){
-    Topic::where('id','=',request('topic_id'))->update([
+    Topic::where('id','=',$id)->update([
         'completion_date' => NULL,
     ]);
     return 'update';
 });
 
-
-
-
-// Route::get('/temp', function () {
-//     return view('Classes.temp');
-// });
-
-
-// Route::get('/email', function () {
-//     Mail::to('talhatanveer930@gmail.com')->send(new WelcomeMail('Talha','122121','12121212'));
-//     return new WelcomeMail('Talha','122121','12121212');
-// });
+Route::get('/getexamresult/{id}/{exam_id}/{class_id}',function($id,$exam_id,$class_id){
+    $exam_result = ExamResult::where('student_id','=',$id)->where('exam_id','=',$exam_id)->with('courses','students')->get();
+    $html_body = '';
+    if(count($exam_result)){
+        foreach ($exam_result as $course){
+            $html_body.='<input class="form-control" type="hidden" name="course_id[]"';
+            $html_body.='value="'.$course->courses->id.'"/>';
+            $html_body.='<h6 class="mt-3">'.$course->courses->course_name.'</h6>';
+            $html_body.='<input class="form-control" type="number" name="total marks[]" value="'.$course->total_marks.'"/>';
+            $html_body.='<input class="form-control" type="number" name="obtain marks[]" value="'.$course->obtain_marks.'"/>';
+        }
+    }
+    else{
+        $exam_result = Classes::find(request('class_id'))->courses;
+        foreach ($exam_result as $key => $value){
+            $html_body.='<input class="form-control" type="hidden" name="course_id[]"';
+            $html_body.='value="'.$value->id.'"/>';
+            $html_body.='<h6 class="mt-3">'.$value->course_name.'</h6>';
+            $html_body.='<input class="form-control" type="number" name="total marks[]"/>';
+            $html_body.='<input class="form-control" type="number" name="obtain marks[]"/>';
+        }
+    }
+    return $html_body;
+});
