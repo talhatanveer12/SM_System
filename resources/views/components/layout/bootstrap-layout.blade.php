@@ -165,8 +165,8 @@
                                     </button>
                                 </x-slot>
                                 <x-sidebar.dropdown-item href="/fee-collect">Fee Collect</x-sidebar.dropdown-item>
-                                <x-sidebar.dropdown-item href="#">Fee Slip</x-sidebar.dropdown-item>
-                                <x-sidebar.dropdown-item href="#">fee defaulters</x-sidebar.dropdown-item>
+                                <x-sidebar.dropdown-item href="/fee-slip">Fee Slip</x-sidebar.dropdown-item>
+                                {{-- <x-sidebar.dropdown-item href="#">fee defaulters</x-sidebar.dropdown-item> --}}
                             </x-sidebar.dropdown>
                         </div>
 

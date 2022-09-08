@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Fee;
 use App\Models\Exam;
 use App\Models\Test;
 use App\Models\User;
@@ -23,6 +24,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FeeController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\TopicController;
@@ -50,7 +52,7 @@ use App\Http\Controllers\FeeParticularAmountController;
 |
 */
 Route::get('/adminDashboard', function () {
-    return view('Dashboard.admin-dashboard');
+    return view('Dashboard.admin-dashboard',['T_Student' => count(Student::all()),'T_Employee' => count(Employee::all()),'Total' => Fee::pluck('Total_fee')->sum()]);
 });
 
 Route::get('/account-settings', function () {
@@ -116,17 +118,11 @@ Route::get('/add-exam-marks',[ExamController::class,'storeResult']);
 Route::post('/save-exam-marks',[ExamController::class,'saveResult']);
 Route::get('/result-cards',[ExamController::class,'ResultCard']);
 
-Route::get('/fee-collect',function(){
-    $Students;
-    if(request('roll_no')){
-        $Students = Student::where('class_id','=',request('class_id'))->get();
-    }
-    return view('Fee.fee-collect',['Classes' => Classes::all(),'Students' => $Students ?? '']);
-});
+Route::get('/fee-collect',[FeeController::class,'index']);
 
-Route::post('/save-fee-collect',function(){
-    //dd(request('fee_month')->format('M'));
-});
+Route::post('/save-fee-collect',[FeeController::class,'store']);
+
+Route::get('/fee-slip',[FeeController::class,'feeSlip']);
 
 
 
@@ -182,4 +178,9 @@ Route::get('/getexamresult/{id}/{exam_id}/{class_id}',function($id,$exam_id,$cla
         }
     }
     return $html_body;
+});
+
+Route::get('/checkFeeSubmit/{id}/{month}', function($id,$month){
+    $check = Fee::where('student_id','=',$id)->where('fee_month','=',$month)->first();
+    return $check;
 });
