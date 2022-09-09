@@ -6,7 +6,7 @@
                     <div class="px-6 py-4 m-4 bg-blue-200 w-64 rounded-2xl shadow-md hover:shadow-2xl ">
                         <span><b>Total Students</b></span>
                         <div class="flex justify-between items-center text-4xl my-2">
-                            <span>{{$T_Student}}</span>
+                            <span>{{ $T_Student }}</span>
                             <i class="fa-solid fa-user"></i>
                         </div>
                         <div class="flex justify-between items-center mb-2">
@@ -17,7 +17,7 @@
                     <div class="px-6 py-4 m-4 bg-blue-200 w-64 rounded-2xl shadow-md hover:shadow-2xl ">
                         <span><b>Total Employees</b></span>
                         <div class="flex justify-between items-center text-4xl my-2">
-                            <span>{{$T_Employee}}</span>
+                            <span>{{ $T_Employee }}</span>
                             <i class="fa-sharp fa-solid fa-briefcase"></i>
                         </div>
                         <div class="flex justify-between items-center mb-2">
@@ -28,7 +28,7 @@
                     <div class="px-6 py-4 m-4 bg-blue-200 w-64 rounded-2xl shadow-md hover:shadow-2xl ">
                         <span><b>Total Fee Collection</b></span>
                         <div class="flex justify-between items-center text-4xl my-2">
-                            <span>{{$Total}}</span>
+                            <span>{{ $Total }}</span>
                             <i class="fa-solid fa-money-bill"></i>
                         </div>
                         <div class="flex justify-between items-center mb-2">
@@ -39,10 +39,10 @@
 
                 </div>
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-lg-6">
                         <div id="piechart" style="width: 100%; height: 400px;"></div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-lg-6">
                         <div id="top_x_div" style="width: 100%; height: 400px;"></div>
                     </div>
                 </div>
@@ -64,15 +64,14 @@
         google.charts.setOnLoadCallback(drawChart);
 
         function drawChart() {
+            var S_count = <?= $S_count ?>;
+            var result = [];
+            result.push(['Task', 'Hours per Day']);
+            S_count.forEach(element => {
+                result.push([element['class_name'],element['students'].length]);
+            });
 
-            var data = google.visualization.arrayToDataTable([
-                ['Task', 'Hours per Day'],
-                ['Class 1', 2],
-                ['Class 2', 2],
-                ['Class 3', 2],
-                ['Class 4', 2],
-                //['Sleep',    2]
-            ]);
+            var data = google.visualization.arrayToDataTable(result);
 
             var options = {
                 colors: ['#1e90ff', '#a1caf1', '#0096FF', '#89CFF0', '#f6c7b6'],
@@ -85,19 +84,20 @@
         }
     </script>
     <script type="text/javascript">
-        google.charts.load('current', {
-            'packages': ['bar']
+
+        var Fee_Sum = <?= $Fee_Sum ?>;
+        var Fee_result = [];
+        Fee_result.push(['Month', 'Fee collection']);
+        Fee_Sum.forEach(element => {
+            console.log(element);
+            Fee_result.push([element['fee_month'],parseInt(element['fee_sum'])]);
         });
+        console.log((Fee_result));
+        google.charts.load('current', {'packages':['bar']});
         google.charts.setOnLoadCallback(drawStuff);
 
         function drawStuff() {
-            var data = new google.visualization.arrayToDataTable([
-                ['Year', 'Sales', 'Expenses', 'Profit'],
-                ['2014', 1000, 400, 200],
-                ['2015', 1170, 460, 250],
-                ['2016', 660, 1120, 300],
-                ['2017', 1030, 540, 350]
-            ]);
+            var data = new google.visualization.arrayToDataTable(Fee_result);
 
             var options = {
                 colors: ['#1e90ff', '#a1caf1', '#0096FF', '#f3b49f', '#f6c7b6'],
@@ -114,12 +114,12 @@
                     x: {
                         0: {
                             side: 'buttom',
-                            label: 'Percentage'
+                            label: 'Month'
                         } // Top x-axis.
                     }
                 },
                 bar: {
-                    groupWidth: "90%"
+                    groupWidth: "10%"
                 }
             };
 
@@ -128,5 +128,3 @@
         };
     </script>
 </x-layout.bootstrap-layout>
-
-

@@ -23,7 +23,7 @@
         <div class="container-fluid">
             <ul class="nav">
                 <li class="d-lg-inline d-md-inline d-none nav-item">
-                    <a class="navbar-brand" href="/">
+                    <a class="navbar-brand" href="/adminDashboard">
                         <img src="/images/logo.svg" alt="Laracasts Logo" width="165" height="16">
                     </a>
                 </li>
@@ -43,11 +43,11 @@
                 </button>
 
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">
+                    <li><a class="dropdown-item" href="/institute-profile">
                             <i class="fa-solid fa-user"></i>
                             <span class="pl-2">Profile</span>
                         </a></li>
-                    <li><a class="dropdown-item" href="#">
+                    <li><a class="dropdown-item" href="/account-settings">
                             <i class="fa-solid fa-gear"></i>
                             <span class="pl-2">Account Settings</span>
                         </a></li>
@@ -105,7 +105,7 @@
                                 </button>
                             </x-slot>
                             <x-sidebar.dropdown-item href="/all-classes">All Classes</x-sidebar.dropdown-item>
-                            <x-sidebar.dropdown-item href="#">Class Details</x-sidebar.dropdown-item>
+                            {{-- <x-sidebar.dropdown-item href="#">Class Details</x-sidebar.dropdown-item> --}}
                             <x-sidebar.dropdown-item href="/edit-delete-class">Edit or Delete</x-sidebar.dropdown-item>
                         </x-sidebar.dropdown>
 

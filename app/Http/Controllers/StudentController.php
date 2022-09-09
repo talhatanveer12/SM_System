@@ -38,6 +38,17 @@ class StudentController extends Controller
             'last_name' => 'required',
             'gender' => 'required',
             'category' => 'required',
+            'father_name' => '',
+            'father_occupation' => '',
+            'father_phone' => '',
+            'father_photo' => '',
+            'mother_name' => '',
+            'mother_phone' => '',
+            'mother_occupation' => '',
+            'mother_photo' => '',
+            'guardian_photo' => '',
+            'guardian_occupation' => '',
+            'student_photo' => '',
             'email' => 'required|email|unique:students,email',
             'religion' => 'required',
             'admission_date' => 'required|date',
@@ -48,6 +59,19 @@ class StudentController extends Controller
             'guardian_phone' => 'required|numeric',
             'guardian_address' => 'required',
         ]);
+        if(isset($values['student_photo'])){
+            $values['student_photo'] = request()->file('student_photo')->store('studentImage');
+        }
+        if(isset($values['mother_photo'])){
+            $values['mother_photo'] = request()->file('mother_photo')->store('motherImage');
+        }
+        if(isset($values['father_photo'])){
+            $values['father_photo'] = request()->file('father_photo')->store('fatherImage');
+        }
+        if(isset($values['guardian_photo'])){
+            $values['guardian_photo'] = request()->file('guardian_photo')->store('guardianImage');
+        }
+
         $password = rand(10000000,99999999);
         $name = $values['first_name'].$values['last_name'];
         User::create([

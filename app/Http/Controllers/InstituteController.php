@@ -14,7 +14,7 @@ class InstituteController extends Controller
                 ->where('email', '=', auth()->user()->email)
                 ->get()->first();
         //dd($institute->email);
-        return view('General-Settings.institute-profile',[ 'Institute' => $institute]);
+        return view('General-Settings.institute-profile',[ 'Institute' => $institute ?? '']);
     }
 
     public function storeLogo(Institute $institute){

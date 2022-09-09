@@ -27,6 +27,7 @@ class EmployeeController extends Controller
         return view('Employees.add-employee',['Classes' => $class]);
     }
     public function store(){
+        //dd(request()->all());
         $values = request()->validate([
             'reg_no' => 'required|unique:employees,reg_no',
             'employee_no'=> 'required|unique:employees,employee_no',
@@ -44,7 +45,11 @@ class EmployeeController extends Controller
             'eduction' => 'required',
             'specialization' => 'required',
             'employee_address' => 'required',
+            'employee_photo' => '',
         ]);
+        if(isset($values['employee_photo'])){
+            $values['employee_photo'] = request()->file('employee_photo')->store('employeeImage');
+        }
 
         $password = rand(10000000,99999999);
         $name = $values['first_name'].$values['last_name'];

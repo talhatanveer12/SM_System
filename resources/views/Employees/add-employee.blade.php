@@ -2,7 +2,7 @@
     <div class="col">
         <div class="row">
             <div class="flex-col ">
-                <form action="/save-employee-detail" method="POST">
+                <form action="/save-employee-detail" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="bg-blue-200 border-b-2 border-black p-2">Student Admission</div>
                     <div class="flex p-2 bg-blue-100 justify-center flex-wrap">

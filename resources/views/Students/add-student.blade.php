@@ -3,7 +3,7 @@
         <div class="row">
             {{-- <main class="col grid grid-cols-12 ps-md-2 pt-2"> --}}
             <div class="flex-col ">
-                <form action="/save-student-detail" method="POST">
+                <form action="/save-student-detail" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="bg-blue-200 border-b-2 border-black p-2">Student Admission</div>
                     <div class="flex p-2 bg-blue-100 justify-center flex-wrap">

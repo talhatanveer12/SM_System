@@ -12,8 +12,8 @@
                             @csrf
 
                             <x-form.input name="email" type="email" />
-                            <x-form.input name="old_Password" type="password" placeholder="Old" />
-                            <x-form.input name="new_Password" type="password" placeholder="New" />
+                            <x-form.input name="old Password" type="password" />
+                            <x-form.input name="new Password" type="password" />
                             <x-form.button>Update</x-form.button>
                         </form>
                     </div>

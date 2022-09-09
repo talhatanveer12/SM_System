@@ -6,7 +6,7 @@
                     <div class="px-6 py-4 m-4 bg-blue-200 w-64 rounded-2xl shadow-md hover:shadow-2xl ">
                         <span>{{ $classes->class_name }}</span>
                         <div class="flex justify-between items-center text-4xl my-2">
-                            <span>0</span>
+                            <span>{{count($classes->students)}}</span>
                             <i class="fa-solid fa-graduation-cap"></i>
                         </div>
                         <div class="flex justify-between items-center mb-2">
