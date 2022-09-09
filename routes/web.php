@@ -56,6 +56,11 @@ Route::get('/adminDashboard', function () {
     $fee_sum = DB::table('fees')->select(DB::raw('SUM(fee_submit_amount) as fee_sum'), 'fee_month')
             ->groupBy('fee_month')->orderBy('fee_month', 'asc')->get();
     return view('Dashboard.admin-dashboard',['T_Student' => count(Student::all()),'T_Employee' => count(Employee::all()),'Total' => Fee::pluck('Total_fee')->sum(),'S_count' => $studentCount,'Fee_Sum' => $fee_sum]);
+})->middleware('admin');
+
+
+Route::get('/studentDashboard', function () {
+    return view('Dashboard.student-dashboard');
 });
 
 Route::get('/account-settings', function () {
@@ -120,6 +125,7 @@ Route::post('/add-exam',[ExamController::class,'store']);
 Route::get('/add-exam-marks',[ExamController::class,'storeResult']);
 Route::post('/save-exam-marks',[ExamController::class,'saveResult']);
 Route::get('/result-cards',[ExamController::class,'ResultCard']);
+Route::get('/view-result',[ExamController::class,'viewResult']);
 
 Route::get('/fee-collect',[FeeController::class,'index']);
 

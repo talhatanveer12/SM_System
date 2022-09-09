@@ -113,4 +113,8 @@ class ExamController extends Controller
         }
         return view('Exam.result-cards',['student' => $student ?? '','Exam_result' => $exam_result ?? '','Institute' => $Institute ?? '','grand_total' => $grand_total ?? '']);
     }
+
+    public function viewResult(){
+        return view('Exam.view-result');
+    }
 }

@@ -31,7 +31,11 @@ class SessionController extends Controller
 
         if (Auth::attempt($values)) {
             session()->regenerate();
-            return redirect('/adminDashboard')->with('success',"Welcome Back!!");
+            if(Auth::user()->type == 'admin')
+                return redirect('/adminDashboard')->with('success',"Welcome Back!!");
+            elseif (Auth::user()->type == 'student') {
+                return redirect('/studentDashboard')->with('success',"Welcome Back!!");
+            }
         }
 
         throw ValidationException::withMessages([
