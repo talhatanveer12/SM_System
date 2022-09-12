@@ -6,24 +6,35 @@
                     <div class="border-t-2 border-black p-2 mb-4 mr-2">Add Lesson</div>
                     <form method="POST" action="/save-lesson">
                         @csrf
+                        <div class="form-group">
+                            <label class="control-label">Class</label>
+                            <div>
+                                <select class="select2" data-allow-clear="true" data-placeholder="Select one class..."
+                                    name="class id" id="class_id">
+                                    <option></option>
+                                    <optgroup label="Class name">
+                                        @foreach ($Classes as $Class)
+                                            <option value="{{ $Class->id }}">{{ $Class->class_name }}</option>
+                                        @endforeach
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <x-form.error name="class_id" />
+                        </div>
 
-                        <x-form.label name="Class" /><br>
-                        <select class="form-select mb-4" aria-label="Default select example" name="class id"
-                            id="class_id">
-                            <option value="">Select Class</option>
-                            @foreach ($Classes as $Class)
-                                <option value="{{ $Class->id }}">{{ $Class->class_name }}</option>
-                            @endforeach
-                        </select>
-                        <x-form.error name="class_id" />
-
-                        <x-form.label name="Course" /><br>
-                        <select class="form-select mb-4" aria-label="Default select example" name="course id"
-                            id="course_id">
-                            <option value="">Select Course</option>
-                        </select>
-                        <x-form.error name="course_id" />
-
+                        <div class="form-group">
+                            <label class="control-label">Course</label>
+                            <div>
+                                <select class="select2" aria-label="Default select example" data-allow-clear="true"
+                                    data-placeholder="Select one class..." name="course id" id="course_id">
+                                    <option></option>
+                                    <optgroup label="Course name">
+                                        <option value="">Select Course</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <x-form.error name="course_id" />
+                        </div>
                         <x-form.input name="lesson name" error="lesson_name" />
 
 

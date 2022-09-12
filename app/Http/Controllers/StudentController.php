@@ -52,13 +52,14 @@ class StudentController extends Controller
             'email' => 'required|email|unique:students,email',
             'religion' => 'required',
             'admission_date' => 'required|date',
-            'guardian_options' => 'required',
+            'guardian_options' => '',
             'guardian_relation' => 'required',
             'guardian_name' => 'required',
             'guardian_email' => 'required|email',
             'guardian_phone' => 'required|numeric',
             'guardian_address' => 'required',
         ]);
+
         if(isset($values['student_photo'])){
             $values['student_photo'] = request()->file('student_photo')->store('studentImage');
         }
@@ -71,7 +72,7 @@ class StudentController extends Controller
         if(isset($values['guardian_photo'])){
             $values['guardian_photo'] = request()->file('guardian_photo')->store('guardianImage');
         }
-
+        $values['guardian_options'] = 'father';
         $password = rand(10000000,99999999);
         $name = $values['first_name'].$values['last_name'];
         User::create([
@@ -82,7 +83,7 @@ class StudentController extends Controller
         ]);
 
         Student::create($values);
-        Mail::to($values['email'])->send(new WelcomeMail($name,$values['roll_no'],$password));
+       // Mail::to($values['email'])->send(new WelcomeMail($name,$values['roll_no'],$password));
         return back()->with('success',"successfuly Student Create");
     }
 }

@@ -18,7 +18,7 @@ class EmployeeController extends Controller
             $employee->where('cnic_no','like','%'.request('CNIC_No').'%');
         }
         if(request('Course')){
-            $employee->where('course_id','=',request('Course'));
+            $employee->where('course_id','=',request('course_id'));
         }
         return view('Employees.all-employee',['Employee' => $employee->get(),'Course' => Course::all()]);
     }
@@ -61,7 +61,7 @@ class EmployeeController extends Controller
         ]);
 
         Employee::create($values);
-        Mail::to($values['email'])->send(new WelcomeMail($name,$values['employee_no'],$password));
+        //Mail::to($values['email'])->send(new WelcomeMail($name,$values['employee_no'],$password));
 
         return back()->with('success',"successfuly Employee Create");
     }

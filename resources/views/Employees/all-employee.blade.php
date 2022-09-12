@@ -1,9 +1,58 @@
-<x-layout.bootstrap-layout>
+<x-layout.layout>
     <div class="col">
         <div class="row">
             {{-- <main class="col grid grid-cols-12 ps-md-2 pt-2"> --}}
             <div class="col-span-12 flex-col ">
-                <div class="bg-blue-200 border-t-2 border-black p-2">Select Criteria </div>
+                <div class="row">
+                    <form action="#" method="GET">
+                        <div class="col-md-12">
+                            <div class="panel panel-primary mt-4 mb-4" data-collapsed="0">
+                                <div class="panel-heading backgroundColor">
+                                    <div class="panel-title">
+                                        Select Criteria
+                                    </div>
+                                    <div class="panel-options">
+                                        <a href="#" data-rel="collapse"><i
+                                                class="entypo-down-open backgroundColor"></i></a>
+                                        <a href="#" data-rel="reload"><i
+                                                class="entypo-arrows-ccw backgroundColor"></i></a>
+                                    </div>
+                                </div>
+                                <div class="panel-body ">
+                                    <div class="row">
+
+                                        <div class="col-md-3 mt-2">
+                                            <div class="form-group w-full">
+                                                <label class="control-label">Course</label>
+                                                <div class>
+                                                    <select class="selectboxit" data-first-option="false"
+                                                        name="course id" id="course id">
+                                                        <option>Select Course</option>
+                                                        <optgroup label="Course name">
+                                                            @foreach ($Course as $Course)
+                                                                <option value="{{ $Course->id }}"
+                                                                    {{ request('course_id') == $Course->id ? 'selected' : '' }}>
+                                                                    {{ $Course->course_name }}</option>
+                                                            @endforeach
+                                                        </optgroup>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <x-form.input name="CNIC No" type="number"
+                                                value="{{ request('CNIC_No') }}" />
+                                        </div>
+                                        <button type="submit" class="btn btn-primary mt-11">Search</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+
+                {{-- <div class="bg-blue-200 border-t-2 border-black p-2">Select Criteria </div>
 
                 <div class="flex p-2 bg-blue-100 flex-wrap ">
 
@@ -27,12 +76,14 @@
                             </div>
                         </div>
                     </form>
-                </div>
+                </div> --}}
                 @foreach ($Employee as $employee)
                     <div
                         class="bg-blue-200 border grid grid-cols-2 hover:shadow-2xl lg:grid-cols-12 md:grid-cols-9 px-6 py-8 rounded-2xl shadow-md sm:grid-cols-3">
                         <div class="col-span-2 lg:col-span-2 md:col-span-2 p-2 sm:col-span-1">
-                            <img class="rounded" src={{ $employee->employee_photo ? '/storage/' .$employee->employee_photo  : '/images/illustration-1.png'}} width="100%" height="100%" />
+                            <img class="rounded"
+                                src={{ $employee->employee_photo ? '/storage/' . $employee->employee_photo : '/images/illustration-1.png' }}
+                                width="100%" height="100%" />
                         </div>
                         <div class="lg:col-span-3 lg:col-start-5 md:col-span-3 md:col-start-4">
                             <h4>{{ $employee->first_name . ' ' . $employee->last_name }}</h4>
@@ -60,4 +111,4 @@
             {{-- </main> --}}
         </div>
     </div>
-</x-layout.bootstrap-layout>
+    </x-layout.bootstrap-layout>

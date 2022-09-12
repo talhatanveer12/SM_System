@@ -1,17 +1,33 @@
-<x-layout.bootstrap-layout>
+<x-layout.layout>
     <div class="col">
         <div class="row">
             <div class="col-span-12 flex-col ">
-                <div class="bg-blue-200 border-t-2 border-black p-2">Select Criteria </div>
-                <div class="flex p-2 bg-blue-100 flex-wrap ">
+                <div class="row">
                     <form action="#" method="GET">
-                        <div class='flex'>
-                            <div class="mb-4 mr-2 mt-10">
-                                <input class="form-control" type='date' name='attendance date' id="attendance_date"
-                                    value />
-                            </div>
-                            <div class=" mr-2 mt-3">
-                                <button type="submit" class="btn btn-primary mt-4">Search</button>
+                        <div class="col-md-12">
+                            <div class="panel panel-primary mt-4 mb-4" data-collapsed="0">
+                                <div class="panel-heading backgroundColor">
+                                    <div class="panel-title">
+                                        Select Criteria
+                                    </div>
+                                    <div class="panel-options">
+                                        <a href="#" data-rel="collapse"><i
+                                                class="entypo-down-open backgroundColor"></i></a>
+                                        <a href="#" data-rel="reload"><i
+                                                class="entypo-arrows-ccw backgroundColor"></i></a>
+                                    </div>
+                                </div>
+                                <div class="panel-body ">
+                                    <div class="row">
+
+                                        <div class="col-md-3 ">
+                                            <label class="control-label">Attendance Date</label>
+                                            <input class="form-control" type='date' name='attendance date'
+                                                id="attendance_date" value={{ request('attendance_date') }} />
+                                        </div>
+                                        <button type="submit" class="btn btn-primary mt-9">Search</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -38,7 +54,7 @@
                                         <td class='w-0'>
                                             <div class='flex'>
                                                 <span
-                                                    class="{{$attendance->attendance == 'persent' ? 'bg-green-500' : ( $attendance->attendance == 'late' ? 'bg-gray-500 ' : 'bg-red-500' )}}  flex-1 figure p-1 rounded text-center">{{ $attendance->attendance }}</span>
+                                                    class="{{ $attendance->attendance == 'persent' ? 'bg-green-500' : ($attendance->attendance == 'late' ? 'bg-gray-500 ' : 'bg-red-500') }}  flex-1 figure p-1 rounded text-center">{{ $attendance->attendance }}</span>
                                             </div>
                                         </td>
                                     </tr>
@@ -54,4 +70,4 @@
     <script>
         document.getElementById('attendance_date').valueAsDate = new Date();
     </script>
-</x-layout.bootstrap-layout>
+</x-layout.layout>
