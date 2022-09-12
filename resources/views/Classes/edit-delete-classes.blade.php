@@ -1,4 +1,4 @@
-<x-layout.bootstrap-layout>
+<x-layout.layout>
     <main class="col grid grid-cols-12 ps-md-2 pt-2">
         <div class=" col-span-12">
             <div class=" flex flex-wrap ">
@@ -90,4 +90,4 @@
 
         });
     </script>
-</x-layout.bootstrap-layout>
+</x-layout.layout>

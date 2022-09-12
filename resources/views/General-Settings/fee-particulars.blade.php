@@ -1,18 +1,19 @@
-<x-layout.bootstrap-layout>
+<x-layout.layout>
     <div class="col">
         <div class="row justify-content-md-center">
             {{-- <main class="col grid grid-cols-12 ps-md-2 pt-2"> --}}
+                <div class="col-lg-2"></div>
             <div class="col-md-8">
 
                 <div class="bg-blue-200 border hover:shadow-2xl rounded-2xl shadow-md">
                     <section class="px-6 py-8">
-                        <h5>Change Fee Particular </h5>
+                        <h3>Change Fee Particular </h3>
                         <div class="grid grid-cols-3 gap-2">
                             <div class="col-span-2 mt-4">
-                                <h5>Particular Name</h5>
+                                <h4>Particular Name</h4>
                             </div>
                             <div class="mt-4">
-                                <h5>Prefix Amount</h5>
+                                <h4>Prefix Amount</h4>
                             </div>
                             <form class="gap-2 grid grid-cols-2 col-span-3" method="POST" action="/update">
                                 @csrf
@@ -62,4 +63,4 @@
             {{-- </main> --}}
         </div>
     </div>
-</x-layout.bootstrap-layout>
+</x-layout.layout>

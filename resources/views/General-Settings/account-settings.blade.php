@@ -1,4 +1,4 @@
-<x-layout.bootstrap-layout>
+<x-layout.layout>
     <main class="col grid grid-cols-12 ps-md-2 pt-2">
         <div class=" col-span-12 col-span-4 lg:col-span-5 lg:col-start-5 md:col-span-6 md:col-start-4 sm:col-span-12 ">
             <div class="bg-blue-200 border hover:shadow-2xl rounded-2xl shadow-md">
@@ -21,4 +21,4 @@
             </div>
         </div>
     </main>
-</x-layout.bootstrap-layout>
+</x-layout.layout>

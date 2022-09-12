@@ -1,7 +1,8 @@
-<x-layout.bootstrap-layout>
+<x-layout.layout>
     <div class="col">
         <div class="row justify-content-md-center">
             {{-- <main class="col grid grid-cols-12 ps-md-2 pt-2"> --}}
+                <div class="col-lg-2"></div>
             <div class=" col-md-8">
                 <div class="bg-blue-200 border hover:shadow-2xl rounded-2xl shadow-md">
                     <section class="px-6 py-8">
@@ -28,4 +29,4 @@
             {{-- </main> --}}
         </div>
     </div>
-</x-layout.bootstrap-layout>
+</x-layout.layout>

@@ -14,11 +14,11 @@ class StudentController extends Controller
 {
     public function index(){
         $student = Student::latest();
-        if(request('Roll_No')){
-            $student->where('roll_no','like','%'.request('Roll_No').'%');
+        if(request('roll_no')){
+            $student->where('roll_no','like','%'.request('roll_no').'%');
         }
         if(request('Class')){
-            $student->where('class_id','=',request('Class'));
+            $student->where('class_id','=',request('class_id'));
         }
         return view('Students.all-student',['Student' => $student->get(), 'Classes' => Classes::all()]);
     }

@@ -64,6 +64,7 @@ class ExamController extends Controller
             ExamResult::updateOrCreate( [
                 'student_id' => $values['student_id'],
                 'course_id' => $values['course_id'][$key1],
+                'exam_id' => $values['exam_id'],
             ],[
                 'student_id' => $values['student_id'],
                 'exam_id' => $values['exam_id'],
@@ -115,6 +116,33 @@ class ExamController extends Controller
     }
 
     public function viewResult(){
-        return view('Exam.view-result');
+        $grand_total;
+        $student_id = Student::select('id')->where('email','=',auth()->user()->email)->first();
+        //dd($student_id->id);
+        $exam_result = ExamResult::where('student_id','=',$student_id->id)->with('courses','students')->get();
+        if(count($exam_result)){
+            foreach (Exam::all() as $key2 => $value2) {
+
+            $o_marks=0;
+            $t_marks=0;
+            foreach ($exam_result as $key => $value) {
+                if($value2->id == $value->exam_id){
+                $o_marks += $value->obtain_marks;
+                $t_marks += $value->total_marks;
+                }
+            }
+            $check_grade = MarksGrading::all();
+            $percent = $o_marks/$t_marks *100;
+            foreach ($check_grade as $key => $value) {
+                if((int)$percent >= (int)$value->percent_from && (int)$percent <= (int)$value->percent_upto){
+                    $grand_total[$key2]['grade'] = $value->grade_name;
+                }
+            }
+            $grand_total[$key2]['obtain_marks'] = $o_marks;
+            $grand_total[$key2]['total_marks'] = $t_marks;
+            $grand_total[$key2]['percent'] = $percent;
+        }
+        }
+        return view('Exam.view-result',['Exam_Result' => $exam_result,'Exam' => Exam::all(),'grand_total' => $grand_total ?? '']);
     }
 }

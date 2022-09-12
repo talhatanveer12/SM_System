@@ -1,31 +1,53 @@
-<x-layout.bootstrap-layout>
+
+<x-layout.layout>
     <div class="col">
         <div class="row">
             <div class="col-span-12 flex-col ">
-                <div class="bg-blue-200 border-t-2 border-black p-2">Select Criteria </div>
-                <div class="flex p-2 bg-blue-100 flex-wrap ">
+                <div class="row">
                     <form action="#" method="GET">
-                        <div class='flex'>
-                            <div class=" mr-2 mt-2">
-                                <x-form.label name="Class" type="number" />
-                                <select class="form-select mb-4 p-6" aria-label="Default select example" name="class_id"
-                                    id="Class">
-                                    <option value="" selected>Select Class</option>
-                                    @foreach ($Classes as $Class)
-                                        <option value="{{ $Class->id }}"
-                                            {{ request('class_id') == $Class->id ? 'selected' : '' }}>
-                                            {{ $Class->class_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="mb-4 mr-2 mt-10">
-                                <input class="form-control" type='date' name='attendance date' id="attendance_date"
-                                    value ={{request('attendance_date')}} />
-                            </div>
-                            <div class=" mr-2 mt-3">
-                                <button type="submit" class="btn btn-primary mt-4">Search</button>
+                        <div class="col-md-12">
+                            <div class="panel panel-primary mt-4 mb-4" data-collapsed="0">
+                                <div class="panel-heading backgroundColor">
+                                    <div class="panel-title">
+                                        Select Criteria
+                                    </div>
+                                    <div class="panel-options">
+                                        <a href="#" data-rel="collapse"><i
+                                                class="entypo-down-open backgroundColor"></i></a>
+                                        <a href="#" data-rel="reload"><i
+                                                class="entypo-arrows-ccw backgroundColor"></i></a>
+                                    </div>
+                                </div>
+                                <div class="panel-body ">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group w-full">
+                                                <label class="control-label">Class</label>
+                                                <div class>
+                                                    <select class="selectboxit" data-first-option="false"
+                                                        name="class id" id="class id">
+                                                        <option>Select Class</option>
+                                                        <optgroup label="Class name">
+                                                            @foreach ($Classes as $Class)
+                                                                <option value="{{ $Class->id }}">
+                                                                    {{ $Class->class_name }}</option>
+                                                            @endforeach
+                                                        </optgroup>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 ">
+                                            <label class="control-label">Attendance Date</label>
+                                            <input class="form-control" type='date' name='attendance date' id="attendance_date"
+                                                    value ={{request('attendance_date')}} />
+                                        </div>
+                                        <button type="submit" class="btn btn-primary mt-9">Search</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
                     </form>
                 </div>
                 @if ($Attendance)
@@ -108,4 +130,4 @@
     <script>
         document.getElementById('attendance_date').valueAsDate = new Date();
     </script>
-</x-layout.bootstrap-layout>
+</x-layout.layout>

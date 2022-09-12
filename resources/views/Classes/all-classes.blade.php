@@ -1,4 +1,4 @@
-<x-layout.bootstrap-layout>
+<x-layout.layout>
     <main class="col grid grid-cols-12 ps-md-2 pt-2">
         <div class=" col-span-12">
             <div class=" flex flex-wrap ">
@@ -18,7 +18,7 @@
                     @endforeach
                 @endif
                 <div class="px-6 pt-10 pb-10 m-4 bg-blue-200 text-center w-64 rounded-2xl shadow-md hover:shadow-2xl ">
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button  onclick="jQuery('#exampleModal').modal('show');">
                         <i class="fa-plus fa-solid text-4xl"></i>
                         <p class="text-2xl">Add Class</p>
                     </button>
@@ -28,6 +28,30 @@
     </main>
 
     <!-- Modal -->
+    <div class="modal fade" id="exampleModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Create New Class</h4>
+				</div>
+
+				<div class="modal-body">
+                    <form action="/add-class" method="POST">
+                        @csrf
+
+                        <x-form.input name="class name" />
+                        <x-form.button>Save</x-form.button>
+                    </form>
+                </div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -50,4 +74,4 @@
         </div>
     </div>
 
-</x-layout.bootstrap-layout>
+</x-layout.layout>

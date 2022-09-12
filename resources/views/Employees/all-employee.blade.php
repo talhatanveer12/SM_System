@@ -48,7 +48,7 @@
                             <span><b>Phone: </b> {{ $employee->phone }}</span><br>
                             <span><b>Email: </b>{{ $employee->email }}</span><br>
                             <span><b>Current Address: </b> {{ $employee->employee_address }}</span><br>
-                            <x-form.button>Show All Details</x-form.button>
+                            {{-- <x-form.button>Show All Details</x-form.button> --}}
 
                         </div>
                     </div>

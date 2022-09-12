@@ -1,177 +1,192 @@
-<x-layout.bootstrap-layout>
+<x-layout.layout>
     <div class="col">
         <div class="row">
-            <div class="col-span-12 flex-col ">
-                <div class="bg-blue-200 border-t-2 border-black p-2">Select Criteria </div>
-                <div class="flex p-2 bg-blue-100 flex-wrap ">
-                    <form action="#" method="GET">
-                        <div class='flex'>
-                            <x-form.input name="roll_no" type="number" value="{{ request('roll_no') }}" />
-                            <div class=" mr-2 mt-3">
-                                <button type="submit" class="btn btn-primary mt-4">Search</button>
+
+            <form action="#" method="GET">
+                <div class="col-md-12">
+                    <div class="panel panel-primary mt-4 mb-4" data-collapsed="0">
+                        <div class="panel-heading backgroundColor">
+                            <div class="panel-title">
+                                Select Criteria
+                            </div>
+                            <div class="panel-options">
+                                <a href="#" data-rel="collapse"><i
+                                        class="entypo-down-open backgroundColor"></i></a>
+                                <a href="#" data-rel="reload"><i
+                                        class="entypo-arrows-ccw backgroundColor"></i></a>
                             </div>
                         </div>
-                    </form>
-                </div>
-            </div>
-            @if ($Students)
-                <div class="row mt-4">
-                    <div class="col-lg-2 text-center"></div>
-                    <div class="col-lg-8 text-center bg-blue-200">
-                        <h3 class="mt-3">Fee Collection</h3>
-                        <hr>
-                        <div class="row text-left mt-4">
-                            <div class="col-lg-4 text-center">
-                                <span><b>Admission No</b></span><br>
-                                <span>{{ $Students->admission_no }}</span>
-                            </div>
-                            <div class="col-lg-4 text-center">
-                                <span><b>Roll No</b></span><br>
-                                <span>{{ $Students->roll_no }}</span>
-                            </div>
-                            <div class="col-lg-4 text-center">
-                                <span><b>Name</b></span><br>
-                                <span>{{ $Students->first_name . ' ' . $Students->last_name }}</span>
+                        <div class="panel-body ">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <x-form.input name="roll no" type="number" value="{{ request('roll_no') }}" />
+                                </div>
+                                <button type="submit" class="btn btn-primary mt-11">Search</button>
                             </div>
                         </div>
-                        <form action="/save-fee-collect" method="POST">
-                            @csrf
-                            <div class="row text-left mb-4">
-                                <div class="col-lg-6">
-                                    <x-form.label name="Fee Month" type="number" />
-                                    <input type="month" name="fee month" id='fee_months' class="form-control"
-                                        value="{{ old('fee_month') }}">
-                                    <x-form.error name="fee_month" />
-                                </div>
-                                <div class="col-lg-6">
-                                    <x-form.label name="Date" type="number" />
-                                    <input type="date" name="fee_submit_date" class="form-control">
-                                    <x-form.error name="fee_submit_date" />
-                                </div>
-                            </div>
-                            <input type="hidden" name='student_id' id="s_id" value={{ $Students->id }}>
-                            <input type="hidden" name='admission_fee_status' value={{ $Fee['admission_fee_status'] }}>
-                            <div id="form_body" class="row text-left">
-
-                                <div class="table">
-                                    <table class="table">
-                                        <tbody>
-                                            <tr class="text-center">
-                                                <td>Sr#</td>
-                                                <td>Particulars</td>
-                                                <td>Amount</td>
-                                            </tr>
-                                            <tr class="text-center">
-                                                <td class="align-middle">1</td>
-                                                <td class="align-middle">Admission Fee</td>
-                                                <td class="align-middle w-0">
-                                                    <div class="text-center w-48">
-                                                        <input type="number" name="admission_fee" id="admission_fee"
-                                                            class="form-control text-center"
-                                                            value={{ $Fee['admission_fee_status'] == 'No' ? $FeeParticular->admission_fee : 0 }}>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="text-center">
-                                                <td class="align-middle">2</td>
-                                                <td class="align-middle">Registration Fee</td>
-                                                <td class="align-middle w-0">
-                                                    <div class="text-center w-48">
-                                                        <input type="number" name="registration_fee" id="reg_fee"
-                                                            class="form-control text-center"
-                                                            value={{ $Fee['admission_fee_status'] == 'No' ? $FeeParticular->registration_fee : 0 }}>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="text-center">
-                                                <td class="align-middle">3</td>
-                                                <td class="align-middle">Book</td>
-                                                <td class="align-middle w-0">
-                                                    <div class="text-center w-48">
-                                                        <input type="number" name="books" id="books"
-                                                            class="form-control text-center"
-                                                            value={{ $Fee['admission_fee_status'] == 'No' ? $FeeParticular->books : 0 }}>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="text-center">
-                                                <td class="align-middle">4</td>
-                                                <td class="align-middle">Uniform</td>
-                                                <td class="align-middle w-0">
-                                                    <div class="text-center w-48">
-                                                        <input type="number" name="uniform" id="uniform"
-                                                            class="form-control text-center"
-                                                            value={{ $Fee['admission_fee_status'] == 'No' ? $FeeParticular->uniform : 0 }}>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="text-center">
-                                                <td class="align-middle">5</td>
-                                                <td class="align-middle">Monthly Fee</td>
-                                                <td class="align-middle w-0">
-                                                    <div class="text-center w-48">
-                                                        <input type="number" name="monthly_fee" id="monthly_fee"
-                                                            class="form-control text-center"
-                                                            value={{ $Fee['monthly_fee'] }}>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="text-center">
-                                                <td class="align-middle">6</td>
-                                                <td class="align-middle">Remaining Amount</td>
-                                                <td class="align-middle w-0">
-                                                    <div class="text-center w-48">
-                                                        <input type="number" id="remaining_fee"
-                                                            class="form-control text-center"
-                                                            value={{ $Fee['remaining_fee'] }} disabled>
-
-                                                        <input type="hidden" name="remaining_fee"
-                                                            value={{ $Fee['remaining_fee'] }}>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="text-center">
-                                                <td class="align-middle"></td>
-                                                <td class="align-middle text-end">Total</td>
-                                                <td class="align-middle">
-                                                    <input type="number" name="total_fee" id="total_fee"
-                                                        class="form-control text-center" value={{ $Fee['total_fee'] }}
-                                                        disabled>
-
-                                                    <input type="hidden" name="total_fee" id='t_fee'
-                                                        value={{ $Fee['total_fee'] }}>
-                                                    {{-- <div class="text-center w-48">
-                                            <input type="number" class="form-control text-center" value={{$FeeParticular->uniform}}>
-                                            </div> --}}
-                                                </td>
-                                            </tr>
-                                            <tr class="text-center">
-                                                <td class="align-middle"></td>
-                                                <td class="align-middle text-end">Deposit</td>
-                                                <td class="align-middle">
-                                                    <div>
-                                                        <input type="number" name="fee_submit_amount"
-                                                            id="total_fee1" class="form-control text-center" value=0>
-                                                        <x-form.error name="fee_submit_amount" />
-                                                    </div>
-                                                    {{-- <div class="text-center w-48">
-                                            <input type="number" class="form-control text-center" value={{$FeeParticular->uniform}}>
-                                            </div> --}}
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-primary mt-4">Submit</button>
-                                    </div>
-                                </div>
-
-                        </form>
                     </div>
                 </div>
-                <div class="col-lg-2 text-center"></div>
-            @endif
-            {{-- <div class="mt-4" >
+
+            </form>
+        </div>
+    </div>
+    @if ($Students)
+        <div class="row mt-4">
+            <div class="col-lg-2 text-center"></div>
+            <div class="col-lg-8 text-center bg-blue-200">
+                <h3 class="mt-3">Fee Collection</h3>
+                <hr>
+                <div class="row text-left mt-4">
+                    <div class="col-lg-4 text-center">
+                        <span><b>Admission No</b></span><br>
+                        <span>{{ $Students->admission_no }}</span>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <span><b>Roll No</b></span><br>
+                        <span>{{ $Students->roll_no }}</span>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <span><b>Name</b></span><br>
+                        <span>{{ $Students->first_name . ' ' . $Students->last_name }}</span>
+                    </div>
+                </div>
+                <form action="/save-fee-collect" method="POST">
+                    @csrf
+                    <div class="row text-left mb-4">
+                        <div class="col-lg-6">
+                            <x-form.label name="Fee Month" type="number" />
+                            <input type="month" name="fee month" id='fee_months' class="form-control"
+                                value="{{ old('fee_month') }}">
+                            <x-form.error name="fee_month" />
+                        </div>
+                        <div class="col-lg-6">
+                            <x-form.label name="Date" type="number" />
+                            <input type="date" name="fee_submit_date" class="form-control">
+                            <x-form.error name="fee_submit_date" />
+                        </div>
+                    </div>
+                    <input type="hidden" name='student_id' id="s_id" value={{ $Students->id }}>
+                    <input type="hidden" name='admission_fee_status' value={{ $Fee['admission_fee_status'] }}>
+                    <div id="form_body" class="row text-left">
+
+                        <div class="table">
+                            <table class="table">
+                                <tbody>
+                                    <tr class="text-center">
+                                        <td>Sr#</td>
+                                        <td>Particulars</td>
+                                        <td>Amount</td>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <td class="align-middle">1</td>
+                                        <td class="align-middle">Admission Fee</td>
+                                        <td class="align-middle w-0">
+                                            <div class="text-center w-48">
+                                                <input type="number" name="admission_fee" id="admission_fee"
+                                                    class="form-control text-center"
+                                                    value={{ $Fee['admission_fee_status'] == 'No' ? $FeeParticular->admission_fee : 0 }}>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <td class="align-middle">2</td>
+                                        <td class="align-middle">Registration Fee</td>
+                                        <td class="align-middle w-0">
+                                            <div class="text-center w-48">
+                                                <input type="number" name="registration_fee" id="reg_fee"
+                                                    class="form-control text-center"
+                                                    value={{ $Fee['admission_fee_status'] == 'No' ? $FeeParticular->registration_fee : 0 }}>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <td class="align-middle">3</td>
+                                        <td class="align-middle">Book</td>
+                                        <td class="align-middle w-0">
+                                            <div class="text-center w-48">
+                                                <input type="number" name="books" id="books"
+                                                    class="form-control text-center"
+                                                    value={{ $Fee['admission_fee_status'] == 'No' ? $FeeParticular->books : 0 }}>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <td class="align-middle">4</td>
+                                        <td class="align-middle">Uniform</td>
+                                        <td class="align-middle w-0">
+                                            <div class="text-center w-48">
+                                                <input type="number" name="uniform" id="uniform"
+                                                    class="form-control text-center"
+                                                    value={{ $Fee['admission_fee_status'] == 'No' ? $FeeParticular->uniform : 0 }}>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <td class="align-middle">5</td>
+                                        <td class="align-middle">Monthly Fee</td>
+                                        <td class="align-middle w-0">
+                                            <div class="text-center w-48">
+                                                <input type="number" name="monthly_fee" id="monthly_fee"
+                                                    class="form-control text-center" value={{ $Fee['monthly_fee'] }}>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <td class="align-middle">6</td>
+                                        <td class="align-middle">Remaining Amount</td>
+                                        <td class="align-middle w-0">
+                                            <div class="text-center w-48">
+                                                <input type="number" id="remaining_fee"
+                                                    class="form-control text-center" value={{ $Fee['remaining_fee'] }}
+                                                    disabled>
+
+                                                <input type="hidden" name="remaining_fee"
+                                                    value={{ $Fee['remaining_fee'] }}>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <td class="align-middle"></td>
+                                        <td class="align-middle text-end">Total</td>
+                                        <td class="align-middle">
+                                            <input type="number" name="total_fee" id="total_fee"
+                                                class="form-control text-center" value={{ $Fee['total_fee'] }}
+                                                disabled>
+
+                                            <input type="hidden" name="total_fee" id='t_fee'
+                                                value={{ $Fee['total_fee'] }}>
+                                            {{-- <div class="text-center w-48">
+                                            <input type="number" class="form-control text-center" value={{$FeeParticular->uniform}}>
+                                            </div> --}}
+                                        </td>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <td class="align-middle"></td>
+                                        <td class="align-middle text-end">Deposit</td>
+                                        <td class="align-middle">
+                                            <div>
+                                                <input type="number" name="fee_submit_amount" id="total_fee1"
+                                                    class="form-control text-center" value=0>
+                                                <x-form.error name="fee_submit_amount" />
+                                            </div>
+                                            {{-- <div class="text-center w-48">
+                                            <input type="number" class="form-control text-center" value={{$FeeParticular->uniform}}>
+                                            </div> --}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary mt-4">Submit</button>
+                            </div>
+                        </div>
+
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-2 text-center"></div>
+    @endif
+    {{-- <div class="mt-4" >
             <h2 class="text-center">Fee Collection</h2>
             <form action="#" method="GET">
                 <div class="flex">
@@ -186,7 +201,7 @@
                 </div>
             </form>
             </div> --}}
-        </div>
+    </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
@@ -365,7 +380,7 @@
             </div>
         </div>
     </div> --}}
-</x-layout.bootstrap-layout>
+</x-layout.layout>
 
 
 {{-- 07-09-2022

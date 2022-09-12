@@ -1,4 +1,4 @@
-<x-layout.bootstrap-layout>
+<x-layout.layout>
     <div class="col">
         <div class="row">
             <div class="col-md-4 p-2">
@@ -6,13 +6,27 @@
                     <div class="border-t-2 border-black p-2 mb-4 mr-2">Assign Course</div>
                     <form method="POST" action="/save-assign-course">
                         @csrf
+                        <div class="form-group">
+                            <label class="control-label">Class</label>
+                            <div>
+                                <select class="select2" data-allow-clear="true"
+                                    data-placeholder="Select one class..." name="class id" id="class id">
+                                    <option></option>
+                                    <optgroup label="Class name">
+                                        @foreach ($Classes as $Class)
+                                            <option value="{{ $Class->id }}">{{ $Class->class_name }}</option>
+                                        @endforeach
+                                    </optgroup>
+                                </select>
+                            </div>
+                        </div>
 
-                        <select class="form-select mb-4" aria-label="Default select example" name="class id"
+                        {{-- <select class="form-select mb-4" aria-label="Default select example" name="class id"
                             id="class id">
                             @foreach ($Classes as $Class)
                                 <option value="{{ $Class->id }}">{{ $Class->class_name }}</option>
                             @endforeach
-                        </select>
+                        </select> --}}
                         <x-form.label name="Course" /><br>
                         @foreach ($Courses as $course)
                             <div class="form-check ">
@@ -71,4 +85,4 @@
             </div>
         </div>
     </div>
-</x-layout.bootstrap-layout>
+</x-layout.layout>

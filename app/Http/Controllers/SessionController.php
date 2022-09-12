@@ -66,5 +66,9 @@ class SessionController extends Controller
     public function logout(){
         Auth::logout();
         return redirect('/')->with('success', 'Goodbye!!');
-     }
+    }
+
+    public function accountSettings(){
+        return view('General-Settings.account-settings');
+    }
 }
