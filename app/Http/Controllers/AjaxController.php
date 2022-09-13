@@ -21,7 +21,7 @@ class AjaxController extends Controller
         return $html_body;
     }
     public function getlesson($id,$class_id){
-        $result = Lesson::where('course_id','=',$id)->where('class_id','=',$class_id)->get();
+        $result = Lesson::where('course_id','=',$id)->get();
         $html_body ='<option value="">Select Lesson</option>';
         foreach ($result as $key => $value) {
             $html_body .= '<option value="'.$value->id.'">'.$value->lesson_name.'</option>';

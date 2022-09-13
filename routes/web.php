@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\timetable;
 use Illuminate\Validation\Rule;
 use App\Models\EmployeeAttendance;
 use Illuminate\Support\Facades\DB;
@@ -92,6 +93,7 @@ Route::get('/employee-attendance-report',[EmployeeAttendanceController::class,'s
 Route::get('/Lesson',[LessonController::class,'index']);
 Route::post('/save-lesson',[LessonController::class,'store']);
 Route::get('/syllabus-status',[LessonController::class,'syllabus_index']);
+Route::get('/manage-lesson-plan',[LessonController::class,'lessonPlan']);
 
 
 Route::get('/Topic',[TopicController::class,'index']);
@@ -119,4 +121,27 @@ Route::get('/changeTopicStatus/{id}',[AjaxController::class,'changeTopicStatus']
 Route::get('/getexamresult/{id}/{exam_id}/{class_id}',[AjaxController::class,'getexamresult']);
 Route::get('/checkFeeSubmit/{id}/{month}', [AjaxController::class,'checkFeeSubmit']);
 
+// Route:post('/full-calender/action',[LessonController::class,'addfunction']);
 
+Route::get('/title',function(){
+    //$v = JSON.stringify([{title:"lesson no 1",start:"2022-09-14",end:"2022-09-14"}]);
+    $data = timetable::whereDate('start', '>=', '2022-09-13')
+                       ->whereDate('end',   '<=', '2022-09-13')
+                       ->get(['id', 'lesson as title', 'start', 'end']);
+        return response()->json($data);
+});
+
+
+Route::post('/save-timetable',function(){
+    $values = request()->validate([
+        'course_id' => 'required',
+        'lesson_id' => 'required',
+        'start' => 'required',
+        'end' => 'required',
+
+    ]);
+    timetable::create($values);
+
+    return back()->with('success',"successfuly Student Create");
+    //dd(request()->all());
+});

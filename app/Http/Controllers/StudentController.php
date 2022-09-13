@@ -83,7 +83,7 @@ class StudentController extends Controller
         ]);
 
         Student::create($values);
-       // Mail::to($values['email'])->send(new WelcomeMail($name,$values['roll_no'],$password));
+        Mail::to($values['email'])->send(new WelcomeMail($name,$values['roll_no'],$password));
         return back()->with('success',"successfuly Student Create");
     }
 }

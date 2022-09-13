@@ -61,7 +61,7 @@ class EmployeeController extends Controller
         ]);
 
         Employee::create($values);
-        //Mail::to($values['email'])->send(new WelcomeMail($name,$values['employee_no'],$password));
+        Mail::to($values['email'])->send(new WelcomeMail($name,$values['employee_no'],$password));
 
         return back()->with('success',"successfuly Employee Create");
     }

@@ -12,6 +12,15 @@ var neonCalendar = neonCalendar || {};
 
 	$(document).ready(function()
 	{
+
+        $.ajaxSetup({
+            headers:{
+                'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+
+
 		neonCalendar.$container = $(".calendar-env");
 
 		$.extend(neonCalendar, {
@@ -53,12 +62,18 @@ var neonCalendar = neonCalendar || {};
 						right: 'month,agendaWeek,agendaDay today prev,next'
 					},
 
-					//defaultView: 'basicWeek',
+					defaultView: 'basicWeek',
+					events:'/title',
 
+					selectable:true,
+					selecthelper:true,
 					editable: true,
 					firstDay: 1,
 					height: 600,
 					droppable: true,
+					select: function(start,end,allDay){
+						var title = prompt("Enter event");
+					},
 					drop: function(date, allDay) {
 
 						var $this = $(this),
@@ -74,6 +89,7 @@ var neonCalendar = neonCalendar || {};
 						$this.remove();
 					}
 				});
+                console.log(calendar);
 
 				$("#draggable_events li a").draggable({
 					zIndex: 999,
@@ -96,6 +112,7 @@ var neonCalendar = neonCalendar || {};
 
 				var text = $("#add_event_form input");
 
+
 				if(text.val().length == 0)
 					return false;
 
@@ -116,7 +133,7 @@ var neonCalendar = neonCalendar || {};
 					return false;
 				});
 
-				fit_calendar_container_height();
+				//fit_calendar_container_height();
 
 				$event.hide().slideDown('fast');
 				text.val('');
@@ -128,6 +145,25 @@ var neonCalendar = neonCalendar || {};
 
 })(jQuery, window);
 
+function display(){
+    var data;
+        const xmlhttp = new XMLHttpRequest();
+                xmlhttp.onload = function() {
+                    var html_body = this.responseText;
+                    //$('#course_id').html(html_body);
+                    data = html_body;
+                    console.log("sdds");
+                    console.log(data);
+                    console.log("sdds");
+                }
+                xmlhttp.open("GET", "/title");
+                xmlhttp.send();
+    console.log("sddssss");
+    console.log(data);
+    console.log("sddssss");
+    return data;
+    //return [{"id":1,"title":"lesson no 1","start":"2022-09-13 15:12:06","end":"2022-09-13 16:12:06"}];
+}
 
 function fit_calendar_container_height()
 {

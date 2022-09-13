@@ -184,7 +184,7 @@
                 </a>
                 <ul>
                     <li>
-                        <a href="/marks-student-attendance">
+                        <a href="/manage-lesson-plan">
                             <span class="title">Manage Lesson Plan</span>
                         </a>
                     </li>

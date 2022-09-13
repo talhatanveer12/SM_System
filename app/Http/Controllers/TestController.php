@@ -8,7 +8,9 @@ use App\Models\Option;
 use App\Models\Classes;
 use App\Models\Question;
 use App\Models\LessonTest;
+use App\Models\TestQuestion;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class TestController extends Controller
 {

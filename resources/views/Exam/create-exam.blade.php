@@ -1,4 +1,4 @@
-<x-layout.bootstrap-layout>
+<x-layout.layout>
     <div class="col">
         <div class="row">
             <div class="col-md-4 p-2">
@@ -110,4 +110,4 @@
         </div>
     </div>
 
-</x-layout.bootstrap-layout>
+</x-layout.layout>

@@ -6,6 +6,7 @@ use App\Models\Topic;
 use App\Models\Course;
 use App\Models\Lesson;
 use App\Models\Classes;
+use App\Models\timetable;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -67,5 +68,34 @@ class LessonController extends Controller
             //dd($lesson);
         }
         return view('Lesson-Plan.syllabus-status',['Classes' => Classes::all(),'Courses' => Course::all(),'Course_name' => $Course_name,'lesson' => $lesson ?? '']);
+    }
+
+    public function lessonPlan(Request $request){
+
+        //dd(timetable::with('courses')->get());
+        // $data = timetable::whereDate('start', '>=', '2022-09-13')
+        //                ->whereDate('end',   '<=', '2022-09-13')
+        //                ->get(['id', 'lesson as title', 'start', 'end']);
+        //dd($data);
+        
+
+        dd(response()->json(timetable::with('courses','lessons')->get()));
+
+        //
+
+        if(request()->ajax())
+    	{
+            //dd("sdsda");
+            dd(request()->ajax());
+    		$data = timetable::whereDate('start', '>=', $request->start)
+                       ->whereDate('end',   '<=', $request->end)
+                       ->get(['id', 'lesson', 'start', 'end']);
+            return response()->json($data);
+    	}
+        return view('Lesson-Plan.manage-lesson-plan',['Course' => Course::all()]);
+    }
+
+    public function addfunction(Request $request){
+
     }
 }

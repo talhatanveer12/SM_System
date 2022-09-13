@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Neon Admin Panel" />
     <meta name="author" content="" />
@@ -24,14 +25,20 @@
     <link rel="stylesheet" href="assets/css/custom.css">
 
 
+
+
+
+
+
     <script src="assets/js/jquery-1.11.3.min.js"></script>
     <style>
-        .backgroundColor{
+        .backgroundColor {
             color: white !important;
             background-color: #373e4a !important;
             //font-size: 120px !important;
         }
-        .fontcolor{
+
+        .fontcolor {
             color: white !important;
             font-size: 12px !important;
         }
@@ -48,7 +55,7 @@
 
 </head>
 
-<body class="page-body  page-fade" style="color: black;">
+<body class="page-body  page-fade" style="color: black;" id='body'>
 
     <div class="page-container">
         <!-- add class "sidebar-collapsed" to close sidebar by default, "chat-visible" to make chat appear always -->
@@ -63,9 +70,9 @@
                             <!-- add class "pull-right" if you want to place this from right -->
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <div class="flex">
-                                <img src="assets/images/thumb-1@2x.png" alt="" class="img-circle"
-                                    width="44" />
-                                <span class="pt-5">{{ auth()->user()->name }}</span>
+                                    <img src="assets/images/thumb-1@2x.png" alt="" class="img-circle"
+                                        width="44" />
+                                    <span class="pt-5">{{ auth()->user()->name }}</span>
                                 </div>
                             </a>
                             <ul class="dropdown-menu">
@@ -149,8 +156,8 @@
 
 
     <script src="assets/js/fileinput.js"></script>
-	<script src="assets/js/dropzone/dropzone.js"></script>
-	<script src="assets/js/neon-chat.js"></script>
+    <script src="assets/js/dropzone/dropzone.js"></script>
+    <script src="assets/js/neon-chat.js"></script>
 
     <!-- JavaScripts initializations and stuff -->
     <script src="assets/js/neon-custom.js"></script>
@@ -160,28 +167,31 @@
     <script src="assets/js/neon-demo.js"></script>
 
     <link rel="stylesheet" href="assets/js/select2/select2-bootstrap.css">
-	<link rel="stylesheet" href="assets/js/select2/select2.css">
-	<link rel="stylesheet" href="assets/js/selectboxit/jquery.selectBoxIt.css">
-	<link rel="stylesheet" href="assets/js/daterangepicker/daterangepicker-bs3.css">
-	<link rel="stylesheet" href="assets/js/icheck/skins/minimal/_all.css">
-	<link rel="stylesheet" href="assets/js/icheck/skins/square/_all.css">
-	<link rel="stylesheet" href="assets/js/icheck/skins/flat/_all.css">
-	<link rel="stylesheet" href="assets/js/icheck/skins/futurico/futurico.css">
-	<link rel="stylesheet" href="assets/js/icheck/skins/polaris/polaris.css">
+    <link rel="stylesheet" href="assets/js/select2/select2.css">
+    <link rel="stylesheet" href="assets/js/selectboxit/jquery.selectBoxIt.css">
+    <link rel="stylesheet" href="assets/js/daterangepicker/daterangepicker-bs3.css">
+    <link rel="stylesheet" href="assets/js/icheck/skins/minimal/_all.css">
+    <link rel="stylesheet" href="assets/js/icheck/skins/square/_all.css">
+    <link rel="stylesheet" href="assets/js/icheck/skins/flat/_all.css">
+    <link rel="stylesheet" href="assets/js/icheck/skins/futurico/futurico.css">
+    <link rel="stylesheet" href="assets/js/icheck/skins/polaris/polaris.css">
 
     <script src="assets/js/select2/select2.min.js"></script>
-	<script src="assets/js/bootstrap-tagsinput.min.js"></script>
-	<script src="assets/js/typeahead.min.js"></script>
-	<script src="assets/js/selectboxit/jquery.selectBoxIt.min.js"></script>
-	<script src="assets/js/bootstrap-datepicker.js"></script>
-	<script src="assets/js/bootstrap-timepicker.min.js"></script>
-	<script src="assets/js/bootstrap-colorpicker.min.js"></script>
-	<script src="assets/js/moment.min.js"></script>
-	<script src="assets/js/daterangepicker/daterangepicker.js"></script>
-	<script src="assets/js/jquery.multi-select.js"></script>
-	<script src="assets/js/icheck/icheck.min.js"></script>
-	<script src="assets/js/neon-chat.js"></script>
+    <script src="assets/js/bootstrap-tagsinput.min.js"></script>
+    <script src="assets/js/typeahead.min.js"></script>
+    <script src="assets/js/selectboxit/jquery.selectBoxIt.min.js"></script>
+    <script src="assets/js/bootstrap-datepicker.js"></script>
+    <script src="assets/js/bootstrap-timepicker.min.js"></script>
+    <script src="assets/js/bootstrap-colorpicker.min.js"></script>
+    <script src="assets/js/moment.min.js"></script>
+    <script src="assets/js/daterangepicker/daterangepicker.js"></script>
+    <script src="assets/js/jquery.multi-select.js"></script>
+    <script src="assets/js/icheck/icheck.min.js"></script>
+    <script src="assets/js/neon-chat.js"></script>
 
+
+
+    {{-- <script src="assets/js/neon-calendar.js"></script> --}}
 </body>
 
 </html>
