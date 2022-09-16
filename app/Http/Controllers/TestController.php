@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use id;
 use App\Models\Test;
 use App\Models\Course;
+use App\Models\Lesson;
 use App\Models\Option;
 use App\Models\Classes;
+use App\Models\Student;
+use App\Models\Employee;
 use App\Models\Question;
 use App\Models\LessonTest;
 use App\Models\TestQuestion;
@@ -16,6 +20,9 @@ class TestController extends Controller
 {
     public function index(){
         $result;
+        if(auth()->user()->type == 'teacher'){
+            $Lesson = Lesson::where('course_id','=',Employee::select('course_id')->where('email','=',auth()->user()->email)->first()->course_id)->get();
+        }
         if(request('lesson_id')){
             $result= LessonTest::where('lesson_id','=',request('lesson_id'))->with('questions')->get();
         }
@@ -33,7 +40,7 @@ class TestController extends Controller
         //dd(request()->all());
         //$result = Test::where('lesson_id','=',request('lesson_id'))->get();
         //dd($result);
-        return view('Lesson-Test.create-test',['Classes' => Classes::all(),'Courses' => Course::all(),'Questions' => $result ?? '']);
+        return view('Lesson-Test.create-test',['Classes' => Classes::all(),'Courses' => Course::all(),'Questions' => $result ?? '','Lesson' => $Lesson ?? '']);
     }
 
     public function store(){
@@ -125,4 +132,39 @@ class TestController extends Controller
 
        return back()->with('success',"successfuly Question add");
     }
+
+    public function viewTest(){
+        $test =LessonTest::whereHas('lessons', function ($query) {
+                $query->where('class_id','=', Student::select('class_id')->where('email','=',auth()->user()->email)->first()->class_id);
+                })->with('lessons','testresult')->get();
+        // $test_result = LessonTest::whereHas('testresult', function ($query) {
+        //     $query->where('student_id','=', 4);
+        //     })->with('testresult')->get();
+        //dd($test_result);
+        //dd($test);
+        $id= Student::select('id')->where('email','=',auth()->user()->email)->first()->id;
+        foreach ($test as $key => $value) {
+            foreach ($value->testresult as $key1 => $value1) {
+                if($value1->student_id == $id){
+                    $value->testresult[0] = $value1;
+                    unset($value->testresult[$key1]);
+                }
+                else{
+                    unset($value->testresult[$key1]);
+                }
+            }
+            // if($value->testresult[$key]->student_id == $id){
+
+            // }
+
+            //dd($value->testresult[0]->student_id);
+            # code...
+        }
+
+        //dd($test);
+
+        return view('Lesson-Test.view-test',['Test' => $test]);
+    }
+
+
 }

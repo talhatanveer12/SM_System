@@ -65,4 +65,29 @@ class AttendanceController extends Controller
         }
         return view('Attendance.student-attendance-report',['Classes' => Classes::all(),'Attendance' => $attendance]);
     }
+
+    public function viewAttendance(){
+
+        return view('Attendance.view-attendance');
+    }
+    public function getAttendance(){
+        $Student_id = Student::select('id')->where('email','=',auth()->user()->email)->first();
+        $result = Attendance::where('student_id','=',$Student_id->id)->get();
+        $attendance_result = array();
+        $check;
+        foreach ($result as $key => $value) {
+            $check['title'] = $value->attendance;
+            $check['start'] = $value->attendance_date;
+            //$check['allDay'] = false;
+            if($value->attendance == 'persent')
+                $check['color'] = 'green';
+            elseif ($value->attendance == 'absent') {
+                $check['color'] = 'red';
+            }
+            else
+                $check['color'] = 'gray';
+            $attendance_result[] = $check;
+        }
+        return response()->json($attendance_result);
+    }
 }

@@ -4,7 +4,7 @@
         {{-- <main class="col grid grid-cols-12 ps-md-2 pt-2"> --}}
         <div class="col-lg-7 col-md-6">
             <section class="px-6 py-8">
-                <div class="row bg-blue-200  flex border hover:shadow-2xl px-6 py-8 rounded-2xl shadow-md">
+                <div class="row bg-blue-200 flex border hover:shadow-2xl px-6 py-8 rounded-2xl shadow-md">
                     <div class="col-lg-8">
                         <h3>Update Institute Logo Here</h3>
                         <form method="POST" action="/updatelogo/{{ $Institute->id }}" enctype="multipart/form-data">

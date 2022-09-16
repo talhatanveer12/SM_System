@@ -69,7 +69,7 @@
 
 
                 @if ($lesson)
-                    <h5 class='m-2'>Syllabus Status For: {{ $Course_name->course_name }}</h5>
+                    <h4 class='m-2'>Syllabus Status For: {{ $Course_name->course_name }}</h4>
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
@@ -84,7 +84,7 @@
                                 @foreach ($lesson as $key => $value)
                                     <tr>
                                         <td>
-                                            <h6>{{ $key }}</h6>
+                                            <h5>{{ $key }}</h5>
                                             <ul>
                                                 @if ($value)
                                                     @foreach ($value as $key_1 => $value_1)
@@ -112,7 +112,7 @@
                                                     @foreach ($value as $key_1 => $value_1)
                                                         <li class="mb-2">
                                                             <span
-                                                                class="{{ $value_1->completion_date ? 'bg-blue-600' : 'bg-gray-600' }} p-1 rounded text-white text-xs">{{ $value_1->completion_date ? 'complete' : 'incomplete' }}</span>
+                                                                class="{{ $value_1->completion_date ? 'bg-blue-600' : 'bg-gray-600' }} p-1 rounded text-white">{{ $value_1->completion_date ? 'complete' : 'incomplete' }}</span>
                                                         </li>
                                                     @endforeach
                                                 @endif

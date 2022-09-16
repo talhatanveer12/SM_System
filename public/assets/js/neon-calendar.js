@@ -63,31 +63,23 @@ var neonCalendar = neonCalendar || {};
 					},
 
 					defaultView: 'basicWeek',
-					events:'/title',
-
-					selectable:true,
-					selecthelper:true,
+					events: '/title',
+                    eventTimeFormat: { // like '14:30:00'
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit',
+                        meridiem: false
+                      },
+					//selectable:true,
+					//selecthelper:true,
 					editable: true,
 					firstDay: 1,
 					height: 600,
-					droppable: true,
+					//droppable: true,
 					select: function(start,end,allDay){
 						var title = prompt("Enter event");
 					},
-					drop: function(date, allDay) {
 
-						var $this = $(this),
-							eventObject = {
-								title: $this.text(),
-								start: date,
-								allDay: allDay,
-								className: $this.data('event-class')
-							};
-
-						calendar.fullCalendar('renderEvent', eventObject, true);
-
-						$this.remove();
-					}
 				});
                 console.log(calendar);
 

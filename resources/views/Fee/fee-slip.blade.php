@@ -22,7 +22,7 @@
                                         <x-form.input name="roll no" type="number" value="{{ request('roll_no') }}" />
                                     </div>
                                     <div class="col-md-3">
-                                        <x-form.input name="fee_month" type="month"
+                                        <x-form.input name="fee month" type="month"
                                             value="{{ request('fee_month') }}" />
                                     </div>
                                     <button type="submit" class="btn btn-primary mt-11">Search</button>

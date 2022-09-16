@@ -55,7 +55,7 @@
                                 <tbody>
                                     @foreach ($assignData as $AssignData => $value)
                                         <tr>
-                                            <th>{{ $AssignData }}</th>
+                                            <td>{{ $AssignData }}</td>
                                             <td>
                                                 <table>
                                                     <tbody>

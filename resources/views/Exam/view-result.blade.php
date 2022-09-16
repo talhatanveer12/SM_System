@@ -1,4 +1,4 @@
-<x-layout.bootstrap-layout>
+<x-layout.layout>
     <div class="col">
         <div class="row">
             <div class="col-md-12">
@@ -7,17 +7,19 @@
                     @foreach ($Exam as $key => $value)
                         @if (count($Exam_Result))
                             <div>
-                                <div class="pl-4 py-2 bg-blue-400">
+                                <div class="pl-4 py-2 backgroundColor">
                                     <span><b>{{ $value->exam_name }}</b></span>
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead class="text-center">
-                                            <th>Subject</th>
-                                            <th>Total Marks</th>
-                                            <th>Marks Obtained</th>
-                                            <th>Grade</th>
-                                            <th>Result</th>
+                                            <tr>
+                                                <th class="text-center">Subject</th>
+                                                <th class="text-center">Total Marks</th>
+                                                <th class="text-center">Marks Obtained</th>
+                                                <th class="text-center">Grade</th>
+                                                <th class="text-center">Result</th>
+                                            </tr>
                                         </thead>
                                         @foreach ($Exam_Result as $key1 => $value1)
                                             @if ($value1->exam_id == $value->id)
@@ -49,4 +51,4 @@
             </div>
         </div>
     </div>
-</x-layout.bootstrap-layout>
+</x-layout.layout>

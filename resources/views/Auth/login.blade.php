@@ -34,7 +34,7 @@
                 <x-form.input name="email" type="email" />
                 <x-form.input name="password" type="password" />
                 <div class="float-end mb-4">
-                    <a class="text-decoration-none" href="#">forget password</a>
+                    <a class="text-decoration-none" href="/forgot-password">forget password</a>
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Login</button>
             </form>

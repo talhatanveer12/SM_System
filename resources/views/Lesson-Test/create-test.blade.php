@@ -20,53 +20,75 @@
                                 </div>
                                 <div class="panel-body ">
                                     <div class="row">
+                                        @can('admin')
 
-                                        <div class="col-md-3 mt-2">
-                                            <div class="form-group w-full">
-                                                <label class="control-label">Class</label>
-                                                <div class>
-                                                    <select class="select2" aria-label="Default select example"
-                                                        data-allow-clear="true" data-placeholder="Select one Class..."
-                                                        name="class id" id="class_id">
-                                                        <option></option>
-                                                        <optgroup label="Class name">
-                                                            @foreach ($Classes as $Class)
-                                                                <option value="{{ $Class->id }}">
-                                                                    {{ $Class->class_name }}</option>
-                                                            @endforeach
-                                                        </optgroup>
-                                                    </select>
+
+                                            <div class="col-md-3 mt-2">
+                                                <div class="form-group w-full">
+                                                    <label class="control-label">Class</label>
+                                                    <div class>
+                                                        <select class="select2" aria-label="Default select example"
+                                                            data-allow-clear="true" data-placeholder="Select one Class..."
+                                                            name="class id" id="class_id">
+                                                            <option></option>
+                                                            <optgroup label="Class name">
+                                                                @foreach ($Classes as $Class)
+                                                                    <option value="{{ $Class->id }}">
+                                                                        {{ $Class->class_name }}</option>
+                                                                @endforeach
+                                                            </optgroup>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-3 mt-2">
-                                            <div class="form-group">
-                                                <label class="control-label">Course</label>
-                                                <div>
-                                                    <select class="select2" aria-label="Default select example"
-                                                        data-allow-clear="true" data-placeholder="Select one Course..."
-                                                        name="course id" id="course_id">
-                                                        <option></option>
-                                                        <optgroup label="Course name">
-                                                            <option value="">Select Course</option>
-                                                        </optgroup>
-                                                    </select>
-                                                </div>
-                                                <x-form.error name="course_id" />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 mt-2">
-                                            <div class="form-group w-full">
-                                                <label class="control-label">Lesson</label>
-                                                <div class>
-                                                    <select class="select2" aria-label="Default select example"
-                                                        data-allow-clear="true" data-placeholder="Select one Lesson..."
-                                                        name="lesson id" id="lesson_id">
-                                                        <option>Select Lesson</option>
-                                                    </select>
+                                            <div class="col-md-3 mt-2">
+                                                <div class="form-group">
+                                                    <label class="control-label">Course</label>
+                                                    <div>
+                                                        <select class="select2" aria-label="Default select example"
+                                                            data-allow-clear="true" data-placeholder="Select one Course..."
+                                                            name="course id" id="course_id">
+                                                            <option></option>
+                                                            <optgroup label="Course name">
+                                                                <option value="">Select Course</option>
+                                                            </optgroup>
+                                                        </select>
+                                                    </div>
+                                                    <x-form.error name="course_id" />
                                                 </div>
                                             </div>
-                                        </div>
+                                            <div class="col-md-3 mt-2">
+                                                <div class="form-group w-full">
+                                                    <label class="control-label">Lesson</label>
+                                                    <div class>
+                                                        <select class="select2" aria-label="Default select example"
+                                                            data-allow-clear="true" data-placeholder="Select one Lesson..."
+                                                            name="lesson id" id="lesson_id">
+                                                            <option>Select Lesson</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @else
+                                            <div class="col-md-3 mt-2">
+                                                <div class="form-group w-full">
+                                                    <label class="control-label">Lesson</label>
+                                                    <div class>
+                                                        <select class="selectboxit" aria-label="Default select example"
+                                                            data-allow-clear="true" data-placeholder="Select one Lesson..."
+                                                            name="lesson id" id="lesson_id">
+                                                            <option value=''>Select Lesson</option>
+                                                            @if ($Lesson)
+                                                                @foreach ($Lesson as $key => $value)
+                                                                    <option value="{{ $value->id }}">
+                                                                        {{ $value->lesson_name }}</option>
+                                                                @endforeach
+                                                            @endif
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endcan
                                         <button type="submit" class="btn btn-primary mt-11">Search</button>
                                     </div>
                                 </div>

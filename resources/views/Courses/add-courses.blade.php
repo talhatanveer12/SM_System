@@ -42,7 +42,7 @@
 
                                 @foreach ($Courses as $course)
                                     <tr>
-                                        <th>{{ $course->course_name }}</th>
+                                        <td>{{ $course->course_name }}</td>
                                         <td>{{ $course->course_code }}</td>
                                         <td>{{ $course->course_type }}</td>
                                         <td>

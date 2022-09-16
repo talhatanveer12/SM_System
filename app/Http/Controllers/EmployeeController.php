@@ -14,11 +14,14 @@ class EmployeeController extends Controller
 {
     public function index(){
         $employee = Employee::latest();
-        if(request('CNIC_No')){
-            $employee->where('cnic_no','like','%'.request('CNIC_No').'%');
+        if(request('cnic_no')){
+            $employee->where('cnic_no','like','%'.request('cnic_no').'%');
         }
-        if(request('Course')){
+        if(request('course_id')){
             $employee->where('course_id','=',request('course_id'));
+        }
+        elseif(request('course_id') || request('cnic_no')){
+            $employee->where('cnic_no','like','%'.request('cnic_no').'%')->where('course_id','=',request('course_id'));
         }
         return view('Employees.all-employee',['Employee' => $employee->get(),'Course' => Course::all()]);
     }

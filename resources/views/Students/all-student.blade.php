@@ -51,8 +51,70 @@
 
                     </form>
                 </div>
-                {{-- </form> --}}
+
                 @foreach ($Student as $student)
+
+                <div class="member-entry">
+
+                    <a href="#" class="member-img">
+                        <img src={{ $student->student_photo ? '/storage/' . $student->student_photo : '/images/illustration-1.png' }} class="img-rounded" />
+                        <i class="entypo-forward"></i>
+                    </a>
+
+                    <div class="member-details">
+                        <h4>
+                            <a href="#">{{ $student->first_name . ' ' . $student->last_name }}</a>
+                        </h4>
+
+                        <!-- Details with Icons -->
+                        <div class="row info-list">
+
+                            <div class="col-sm-4">
+                                <i class="entypo-doc-text-inv"></i>
+                                <b>Admission No: </b> {{ $student->admission_no }}
+                            </div>
+
+                            <div class="col-sm-4">
+                                <i class="entypo-doc-text-inv"></i>
+                                <b>Roll No: </b> {{ $student->roll_no }}
+                            </div>
+
+                            <div class="col-sm-4">
+                                <i class="entypo-user"></i>
+                                {{ $student->Gender }}
+                            </div>
+
+                            <div class="clear"></div>
+
+                            <div class="col-sm-4">
+                                <i class="entypo-location"></i>
+                                {{ $student->guardian_address }}
+                            </div>
+
+                            <div class="col-sm-4">
+                                <i class="entypo-mail"></i>
+                                {{ $student->email }}
+                            </div>
+
+                            <div class="col-sm-4">
+                                <i class="entypo-phone"></i>
+                                {{ $student->guardian_phone }}
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+                @endforeach
+
+
+
+
+                {{-- </form> --}}
+                {{-- @foreach ($Student as $student)
                     <div
                         class="bg-blue-200 border grid grid-cols-2 hover:shadow-2xl lg:grid-cols-12 md:grid-cols-9 px-6 py-8 rounded-2xl shadow-md sm:grid-cols-3">
                         <div class="col-span-2 lg:col-span-2 md:col-span-2 p-2 sm:col-span-1">
@@ -76,11 +138,11 @@
                             <span><b>Guardian Phone: </b> {{ $student->guardian_phone }}</span><br>
                             <span><b>Email: </b>{{ $student->guardian_email }}</span><br>
                             <span><b>Current Address: </b> {{ $student->guardian_address }}</span><br>
-                            {{-- <x-form.button>Show All Details</x-form.button> --}}
+
 
                         </div>
                     </div>
-                @endforeach
+                @endforeach --}}
 
 
 
@@ -88,4 +150,5 @@
             {{-- </main> --}}
         </div>
     </div>
+    {{ $Student->links() }}
 </x-layout.layout>

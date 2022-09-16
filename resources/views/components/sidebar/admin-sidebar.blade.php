@@ -24,10 +24,17 @@
         </header>
         <ul id="main-menu" class="main-menu fontcolor">
             <li class="active open">
+                @can('admin')
                 <a href="/adminDashboard">
                     <i class="fa-solid fa-house"></i>
                     <span class="title">Dashboard</span>
                 </a>
+                @else
+                <a href="/teacherDashboard">
+                    <i class="fa-solid fa-house"></i>
+                    <span class="title">Dashboard</span>
+                </a>
+                @endcan
             </li>
             <!-- add class "multiple-expanded" to allow multiple submenus to open -->
             <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
@@ -37,6 +44,7 @@
                     <span class="title">General Settings</span>
                 </a>
                 <ul>
+                    @can('admin')
                     <li>
                         <a href="/institute-profile">
                             <span class="title">institute Profile</span>
@@ -47,6 +55,7 @@
                             <span class="title">Fee Particular</span>
                         </a>
                     </li>
+                    @endcan
                     <li>
                         <a href="/marks-grading">
                             <span class="title">Marks Grading</span>
@@ -59,6 +68,7 @@
                     </li>
                 </ul>
             </li>
+            @can('admin')
             <li class="has-sub">
                 <a href="#">
                     <i class="fa-solid fa-pen-to-square"></i>
@@ -77,6 +87,7 @@
                     </li>
                 </ul>
             </li>
+
             <li class="has-sub">
                 <a href="#">
                     <i class="fa-solid fa-book-open"></i>
@@ -95,6 +106,7 @@
                     </li>
                 </ul>
             </li>
+            @endcan
             <li class="has-sub">
                 <a href="#">
                     <i class="fa-solid fa-user"></i>
@@ -106,13 +118,16 @@
                             <span class="title">All Students</span>
                         </a>
                     </li>
+                    @can('admin')
                     <li>
                         <a href="/add-student">
                             <span class="title">Add New Student</span>
                         </a>
                     </li>
+                    @endcan
                 </ul>
             </li>
+            @can('admin')
             <li class="has-sub">
                 <a href="#">
                     <i class="fa-solid fa-briefcase"></i>
@@ -131,6 +146,7 @@
                     </li>
                 </ul>
             </li>
+
             <li class="has-sub">
                 <a href="#">
                     <i class="fa-solid fa-money-check"></i>
@@ -149,6 +165,7 @@
                     </li>
                 </ul>
             </li>
+            @endcan
             <li class="has-sub">
                 <a href="#">
                     <i class="fa-solid fa-clipboard-user"></i>
@@ -160,21 +177,25 @@
                             <span class="title">Mark Students Attendance</span>
                         </a>
                     </li>
+                    @can('admin')
                     <li>
                         <a href="/marks-employee-attendance">
                             <span class="title">Mark Employees Attendance</span>
                         </a>
                     </li>
+                    @endcan
                     <li>
                         <a href="/student-attendance-report">
                             <span class="title">Students Attendance Report</span>
                         </a>
                     </li>
+                    @can('admin')
                     <li>
                         <a href="/employee-attendance-report">
                             <span class="title">Employees Attendance Report</span>
                         </a>
                     </li>
+                    @endcan
                 </ul>
             </li>
             <li class="has-sub">
@@ -211,11 +232,13 @@
                     <span class="title">Exams</span>
                 </a>
                 <ul>
+                    @can('admin')
                     <li>
                         <a href="/create-exam">
                             <span class="title">Create New Exams</span>
                         </a>
                     </li>
+                    @endcan
                     <li>
                         <a href="/add-exam-marks">
                             <span class="title">Add / Update Exams Marks</span>

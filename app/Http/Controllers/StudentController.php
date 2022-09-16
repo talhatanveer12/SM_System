@@ -20,7 +20,7 @@ class StudentController extends Controller
         if(request('Class')){
             $student->where('class_id','=',request('class_id'));
         }
-        return view('Students.all-student',['Student' => $student->get(), 'Classes' => Classes::all()]);
+        return view('Students.all-student',['Student' => $student->paginate(2), 'Classes' => Classes::all()]);
     }
 
     public function create(){

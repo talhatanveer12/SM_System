@@ -53,16 +53,31 @@
                 <form action="/save-fee-collect" method="POST">
                     @csrf
                     <div class="row text-left mb-4">
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
                             <x-form.label name="Fee Month" type="number" />
-                            <input type="month" name="fee month" id='fee_months' class="form-control"
+                            <input type="month"  name="fee month" id='fee_months' class="form-control"
                                 value="{{ old('fee_month') }}">
                             <x-form.error name="fee_month" />
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
                             <x-form.label name="Date" type="number" />
                             <input type="date" name="fee_submit_date" class="form-control">
                             <x-form.error name="fee_submit_date" />
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group w-full">
+                                <label class="control-label">Payment Method</label>
+                                <div class>
+                                    <select class="selectboxit" data-first-option="false"
+                                        name="payment method" id="payment method">
+                                        <option>Payment Method</option>
+                                        <optgroup label="Class name">
+                                            <option value="cash">Cash</option>
+                                            <option value="online">Online</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <input type="hidden" name='student_id' id="s_id" value={{ $Students->id }}>
@@ -177,7 +192,8 @@
                                 </tbody>
                             </table>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary mt-4">Submit</button>
+                                <button type="submit" class="btn btn-primary mt-4">Submit </button>
+
                             </div>
                         </div>
 

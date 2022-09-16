@@ -145,4 +145,10 @@ class ExamController extends Controller
         }
         return view('Exam.view-result',['Exam_Result' => $exam_result,'Exam' => Exam::all(),'grand_total' => $grand_total ?? '']);
     }
+
+
+    public function viewExam(){
+
+        return view('Exam.view-exam',['Exam'=> Exam::all()]);
+    }
 }
