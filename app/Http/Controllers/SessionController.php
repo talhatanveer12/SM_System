@@ -11,21 +11,24 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\ValidationException;
 
 class SessionController extends Controller
 {
-    public function create(){
-        return view('Auth.login');
+    public function create(Request $request){
+        $key = 'login.'.$request->ip();
+        return view('Auth.login',['key' => $key,'retries' => RateLimiter::retriesLeft($key,5),'seconds'=>RateLimiter::availableIn($key)]);
     }
 
-    public function store(){
+    public function store(Request $request){
         $values = request()->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
         if (Auth::attempt($values)) {
+            RateLimiter::clear('login.'.$request->ip());
             session()->regenerate();
             if(Auth::user()->type == 'admin')
                 return redirect('/adminDashboard')->with('success',"Welcome Back!!");
@@ -113,4 +116,3 @@ class SessionController extends Controller
                     : back()->withErrors(['email' => [__($status)]]);
     }
 }
-

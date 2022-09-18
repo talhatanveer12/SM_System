@@ -14,32 +14,42 @@
             background-image: url("images/background1.jpeg");
             height: 100%;
 
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-    <div class="align-items-center justify-content-center row vh-100">
-        <div class="bg-white col-lg-4 col-md-6 col-sm-8 p-4 rounded shadow">
-            <div class="mb-4 row text-center">
-                <h1>Login</h1>
-            </div>
-            <form method="POST" action="/login">
-                @csrf
-                <x-form.input name="email" type="email" />
-                <x-form.input name="password" type="password" />
-                <div class="float-end mb-4">
-                    <a class="text-decoration-none" href="/forgot-password">forget password</a>
+        <div class="align-items-center justify-content-center row vh-100">
+            <div class="bg-white col-lg-4 col-md-6 col-sm-8 p-4 rounded shadow">
+                <div class="mb-4 row text-center">
+                    <h1>Login</h1>
                 </div>
-                <button type="submit" class="btn btn-primary w-100">Login</button>
-            </form>
+                @if ($errors->any() && $retries > 0)
+                    <div class="alert alert-warning text-sm-center" role="alert">
+                        Remaining {{ $retries }} attempt.
+                    </div>
+                @endif
+                @if ($retries <= 0)
+                    <div class="alert alert-danger text-sm-center" role="alert">
+                        Please try again after {{ $seconds }} seconds.
+                    </div>
+                @endif
+                <form method="POST" action="/login">
+                    @csrf
+                    <x-form.input name="email" type="email" />
+                    <x-form.input name="password" type="password" />
+                    <div class="float-end mb-4">
+                        <a class="text-decoration-none" href="/forgot-password">forget password</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                </form>
+            </div>
         </div>
-    </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"

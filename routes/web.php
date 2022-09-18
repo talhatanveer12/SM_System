@@ -54,7 +54,7 @@ Route::get('/layout',function(){
 
 Route::get('/account-settings',[SessionController::class,'accountSettings']);
 Route::get('/',[SessionController::class,'create'])->name('login');
-Route::post('/login',[SessionController::class,'store']);
+Route::post('/login',[SessionController::class,'store'])->middleware('throttle:login');
 Route::post('/logout',[SessionController::class, 'logout']);
 Route::post('/changepassword',[SessionController::class,'ChangePassword']);
 Route::get('/forgot-password',[SessionController::class,'getForgotPassword'])->middleware('guest')->name('password.request');
