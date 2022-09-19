@@ -24,7 +24,8 @@ class DashboardController extends Controller
     }
     public function studentDashboard(){
         $Student = Student::where('email','=',auth()->user()->email)->with('classes')->first();
-        return view('Dashboard.student-dashboard',['Student' => $Student]);
+        $Fee = Fee::where('student_id','=',$Student->id)->get();
+        return view('Dashboard.student-dashboard',['Student' => $Student,'Fee' => $Fee]);
     }
     public function teacherDashboard(){
         $studentCount = Classes::with('students')->get();

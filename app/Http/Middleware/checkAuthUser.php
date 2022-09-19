@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class adminPanel
+class checkAuthUser
 {
     /**
      * Handle an incoming request.
@@ -17,17 +17,8 @@ class adminPanel
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::check()){
-            if(Auth::user()->type == 'admin'){
-                return redirect()->route('adminDashboard');
-            }
-            elseif (Auth::user()->type == 'student') {
-                return redirect()->route('studentDashboard');
-            }
-            else{
-                return redirect()->route('teacherDashboard');
-            }
-            //return redirect()->route('login');
+        if(!Auth::check()){
+            return redirect()->route('login');
         }
         return $next($request);
     }

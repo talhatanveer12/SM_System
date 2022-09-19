@@ -118,7 +118,7 @@ class FeeController extends Controller
         }
 
         //dd(Fee::where('student_id','=',1)->with('students')->get());
-        return view('Fee.fee-slip',['Fee' => $Fee ?? '','Institute' => Institute::all()->first(),'FeePrint' => $Fee_print ?? '']);
+        return view('Fee.fee-slip',['Fee' => $Fee ?? '','Institute' => Institute::InstituteData(),'FeePrint' => $Fee_print ?? '']);
     }
 
     public function viewFee(){

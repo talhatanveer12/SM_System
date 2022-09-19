@@ -9,8 +9,9 @@
                         <div class="form-group">
                             <label class="control-label">Class</label>
                             <div>
-                                <select class="select2" data-allow-clear="true"
-                                    data-placeholder="Select one class..." name="class id" id="class id">
+                                @if(!request('class_id'))
+                                <select class="select2" data-allow-clear="true" data-placeholder="Select one class..."
+                                    name="class id" id="class id">
                                     <option></option>
                                     <optgroup label="Class name">
                                         @foreach ($Classes as $Class)
@@ -18,24 +19,23 @@
                                         @endforeach
                                     </optgroup>
                                 </select>
+                                @else
+                                    <input class="form-control" type="text" name='class_id' value="{{$UpdateCourse->class_name}}" disabled>
+                                    <input class="form-control" type="hidden" name='class_id' value="{{$UpdateCourse->id}}">
+                                @endif
                             </div>
                         </div>
-
-                        {{-- <select class="form-select mb-4" aria-label="Default select example" name="class id"
-                            id="class id">
-                            @foreach ($Classes as $Class)
-                                <option value="{{ $Class->id }}">{{ $Class->class_name }}</option>
-                            @endforeach
-                        </select> --}}
                         <x-form.label name="Course" /><br>
-                        @foreach ($Courses as $course)
+                        @foreach ($Courses as $key =>$course)
                             <div class="form-check ">
+                                {{-- <input class="form-control" name='class_id' value="{{$UpdateCourse->class_name}}" > --}}
+                                {{-- $UpdateCourse->courses[$key] ?? '' ? ($UpdateCourse->courses[$key]->id == $course->id ? 'checked' : '') : '' --}}
                                 <input class="form-check-input" type="checkbox" name="course id[]" id="course id"
-                                    value="{{ $course->id }}">
+                                    value="{{ $course->id }}" {{$UpdateCourse ?  $UpdateCourse->courses->find($course->id ) ? 'checked' : '' : ''}} >
                                 <label class="form-check-label" for="course id">{{ $course->course_name }}</label>
                             </div>
                         @endforeach
-                        <button type="submit" class="btn btn-primary mt-4">Save</button>
+                        <button type="submit" class="btn btn-primary mt-4">{{request('class_id') ? 'Update' : 'Save'}}</button>
                     </form>
                 </div>
             </div>
@@ -54,28 +54,35 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($assignData as $AssignData => $value)
-                                        <tr>
-                                            <td>{{ $AssignData }}</td>
-                                            <td>
-                                                <table>
-                                                    <tbody>
-                                                        @foreach ($value as $key => $data)
-                                                            <tr>
-                                                                <td>{{ $data }}</td>
-                                                            </tr>
-                                                        @endforeach
-                                                    </tbody>
-                                                </table>
-                                            </td>
-                                            <td>
-                                                <a href="#" class="mr-2 text-black text-decoration-none">
-                                                    <i class="fa-solid fa-pen-to-square"></i>
-                                                </a>
-                                                <a href="#" class="mr-2 text-black text-decoration-none">
-                                                    <i class="fa-solid fa-trash-can"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
+                                        @if (count($value->courses))
+                                            <tr>
+                                                <td>{{ $value->class_name }}</td>
+                                                <td>
+                                                    <table>
+                                                        <tbody>
+                                                            @foreach ($value->courses as $key => $data)
+                                                                <tr>
+                                                                    <td>{{ $data->course_name }}</td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                                <td>
+                                                    <form action='#' method="GET">
+                                                        <input type="hidden" name="class_id" value={{$value->id}}>
+                                                        <button class="mr-2 text-black text-decoration-none">
+                                                            <i class="fa-solid fa-pen-to-square"></i>
+                                                        </button>
+                                                        <a href="/delete-assign-courses/{{ $value->id }}"
+                                                            class="mr-2 text-black text-decoration-none">
+                                                            <i class="fa-solid fa-trash-can"></i>
+                                                        </a>
+                                                    </form>
+
+                                                </td>
+                                            </tr>
+                                        @endif
                                     @endforeach
                                 </tbody>
                             </table>

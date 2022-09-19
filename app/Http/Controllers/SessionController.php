@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Student;
+use App\Models\Employee;
+use App\Models\Institute;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +21,7 @@ class SessionController extends Controller
 {
     public function create(Request $request){
         $key = 'login.'.$request->ip();
-        return view('Auth.login',['key' => $key,'retries' => RateLimiter::retriesLeft($key,5),'seconds'=>RateLimiter::availableIn($key)]);
+        return view('Auth.login',['key' => $key,'retries' => RateLimiter::retriesLeft($key,3),'seconds'=>RateLimiter::availableIn($key)]);
     }
 
     public function store(Request $request){
@@ -26,16 +29,22 @@ class SessionController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
+        RateLimiter::clear('login.'.$request->ip());
 
         if (Auth::attempt($values)) {
-            RateLimiter::clear('login.'.$request->ip());
+
+
             session()->regenerate();
-            if(Auth::user()->type == 'admin')
+            if(Auth::user()->type == 'admin'){
+                session(['photo' => Institute::where('email','=',auth()->user()->email)->first(['logo'])->logo]);
                 return redirect('/adminDashboard')->with('success',"Welcome Back!!");
+            }
             elseif (Auth::user()->type == 'student') {
+                session(['photo' => Student::where('email','=',auth()->user()->email)->first(['student_photo'])->student_photo]);
                 return redirect('/studentDashboard')->with('success',"Welcome Back!!");
             }
             else{
+                session(['photo' => Employee::where('email','=',auth()->user()->email)->first(['employee_photo'])->employee_photo]);
                 return redirect('/teacherDashboard')->with('success',"Welcome Back!!");
             }
         }
@@ -52,6 +61,8 @@ class SessionController extends Controller
         ]);
 
         if(request()->email !=auth()->user()->email){
+
+
             return back()->with('error',"Your Email not match");
         }
         if(!Hash::check(request()->old_Password, auth()->user()->password)){

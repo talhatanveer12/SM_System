@@ -10,11 +10,7 @@ use Illuminate\Support\Facades\DB;
 class InstituteController extends Controller
 {
     public function index(Institute $institute){
-        $institute = DB::table('institutes')
-                ->where('email', '=', auth()->user()->email)
-                ->get()->first();
-        //dd($institute->email);
-        return view('General-Settings.institute-profile',[ 'Institute' => $institute ?? '']);
+        return view('General-Settings.institute-profile',[ 'Institute' => Institute::InstituteData() ?? '']);
     }
 
     public function storeLogo(Institute $institute){
@@ -28,6 +24,7 @@ class InstituteController extends Controller
         }
 
         $institute->update($values);
+        session(['photo' => Institute::where('email','=',auth()->user()->email)->first(['logo'])->logo]);
 
         return back()->with('success',"Update Logo successfuly");
     }

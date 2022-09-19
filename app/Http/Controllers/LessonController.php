@@ -14,28 +14,7 @@ use App\Http\Controllers\Controller;
 class LessonController extends Controller
 {
     public function index(){
-        $get_ids = Lesson::select('class_id','course_id')->groupBy('class_id','course_id')->get();
-        $course_name;
-        $lesson_name = array();
-        $class_name;
-        $swap = -1;
-        foreach ($get_ids as $key => $value) {
-            if($swap != $value['class_id']){
-                unset($course_name);
-                $swap = $value['class_id'];
-            }
-            $classes_name = Classes::select('class_name')->where('id', '=', $value['class_id'])->first();
-            $courses_name = Course::select('course_name')->where('id', '=', $value['course_id'])->first();
-            $get_lessons = Lesson::select('lesson_name')->where('class_id','=',$value->class_id)->where('course_id','=',$value->course_id)->get();
-            foreach ($get_lessons as $key_1 => $value_1) {
-                $lesson_name[] = $value_1['lesson_name'];
-            }
-            $course_name[$courses_name['course_name']] = $lesson_name;
-            $class_name[$classes_name['class_name']] = $course_name;
-            unset($lesson_name);
-        }
-
-        return view('Lesson-Plan.lesson',['Classes' => Classes::all(),'Lesson_detail' => $class_name ?? '']);
+        return view('Lesson-Plan.lesson',['Classes' => Classes::all(),'Lesson_detail' => Course::with('lessons')->get() ?? '']);
     }
 
     public function store(){
@@ -66,6 +45,7 @@ class LessonController extends Controller
                 }
                 unset($topic_name);
             }
+
             //dd($lesson);
         }
         return view('Lesson-Plan.syllabus-status',['Classes' => Classes::all(),'Courses' => Course::all(),'Course_name' => $Course_name,'lesson' => $lesson ?? '']);

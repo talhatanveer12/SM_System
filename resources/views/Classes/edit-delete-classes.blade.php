@@ -3,7 +3,7 @@
         <div class=" col-span-12">
             <div class=" flex flex-wrap ">
                 @foreach ($Classes as $classes)
-                    <div class="px-6 py-4 m-4 bg-blue-200 w-64 rounded-2xl shadow-md hover:shadow-2xl ">
+                    <div class="px-6 py-4 m-4 bg-gray-200 w-64 rounded-2xl shadow-md hover:shadow-2xl ">
                         <span>{{ $classes->class_name }}</span>
                         <div class="flex justify-between items-center text-4xl my-2">
                             <span>{{count($classes->students)}}</span>
@@ -13,7 +13,7 @@
                             <span>Student</span>
                             <div>
                                 {{-- <a  class="bg-blue-600 p-1 text-decoration-none text-white" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" >Edit</a> --}}
-                                <a class="bg-red-600 p-1 text-decoration-none text-white"
+                                <a class="bg-red-400 p-1 text-decoration-none text-white"
                                     href="/delete/{{ $classes->id }}">Delete</a>
                             </div>
                             {{-- <span class="text-sm">Left 40</span> --}}

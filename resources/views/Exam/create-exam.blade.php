@@ -6,13 +6,21 @@
                     <div class="border-t-2 border-black p-2 mb-4 mr-2">Add Exam</div>
                     <form action="/add-exam" method="POST">
                         @csrf
-
-                        <x-form.input name="exam name" />
+                        <input type="hidden" value='{{ request('exam_id') }}' name='exam_id'>
+                        <div class="mb-4">
+                            <x-form.label name="exam name" />
+                            <input class="form-control" type="type" placeholder="Enter Exam Name" name="exam name"
+                                id='exam_name' value="{{ $UpdateExam ? $UpdateExam->exam_name : '' }}" />
+                            <x-form.error name="exam_name" />
+                        </div>
                         <x-form.label name="Starting Date" />
-                        <input class="form-control mb-4" type="date" name="starting_date" />
+                        <input class="form-control mb-4" type="date" name="starting_date"
+                            value="{{ $UpdateExam ? $UpdateExam->starting_date : '' }}" />
                         <x-form.label name="Ending Date" />
-                        <input class="form-control mb-4" type="date" name="ending_date" />
-                        <x-form.button>Save</x-form.button>
+                        <input class="form-control mb-4" type="date" name="ending_date"
+                            value="{{ $UpdateExam ? $UpdateExam->ending_date : '' }}" />
+
+                        <x-form.button>{{ request('exam_id') ? 'Update' : 'Save' }}</x-form.button>
                     </form>
                 </div>
             </div>
@@ -21,35 +29,39 @@
                     <div class="border-t-2 border-black p-2 mb-4 mr-2">Exam List</div>
                     @if ($Exams)
 
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Exam Name</th>
-                                    <th scope="col">Starting Date</th>
-                                    <th scope="col">Ending Date</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($Exams as $Exam)
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
                                     <tr>
-                                        <td>{{$Exam->exam_name}}</td>
-                                        <td>{{$Exam->starting_date}}</td>
-                                        <td>{{$Exam->ending_date}}</td>
-                                        <td>
-                                            <a href="#" class="mr-2 text-black text-decoration-none">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </a>
-                                            <a href="#" class="mr-2 text-black text-decoration-none">
-                                                <i class="fa-solid fa-trash-can"></i>
-                                            </a>
-                                        </td>
+                                        <th scope="col">Exam Name</th>
+                                        <th scope="col">Starting Date</th>
+                                        <th scope="col">Ending Date</th>
+                                        <th scope="col">Action</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                                </thead>
+                                <tbody>
+                                    @foreach ($Exams as $Exam)
+                                        <tr>
+                                            <td>{{ $Exam->exam_name }}</td>
+                                            <td>{{ $Exam->starting_date }}</td>
+                                            <td>{{ $Exam->ending_date }}</td>
+                                            <td>
+                                                <form action="#" method="GET">
+                                                    <input type="hidden" name='exam_id' value="{{ $Exam->id }}">
+                                                    <button class="mr-2 text-black text-decoration-none">
+                                                        <i class="fa-solid fa-pen-to-square"></i>
+                                                    </button>
+                                                    <a href="/delete-exam/{{ $Exam->id }}"
+                                                        class="mr-2 text-black text-decoration-none">
+                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    </a>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     @endif
                 </div>
             </div>
@@ -69,7 +81,7 @@
                             <div class="flex justify-between items-center mb-2">
                                 <span>Student</span>
                                 {{-- <span class="text-sm">Left 40</span> --}}
-                            {{-- </div>
+    {{-- </div>
                         </div>
                     @endforeach
                 @endif

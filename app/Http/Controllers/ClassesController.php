@@ -19,18 +19,11 @@ class ClassesController extends Controller
     }
 
     public function index(){
-        $studentCount = Classes::with('students')->get();
-        
-        //dd(count($t[0]->students));
-        //dd($t[0]->count);
-        //$classes = DB::table('classes')->get();
-        return view('Classes.all-classes', [ 'Classes' => $studentCount]);
+        return view('Classes.all-classes', [ 'Classes' => Classes::with('students')->get()]);
     }
 
     public function show(){
-        $studentCount = Classes::with('students')->get();
-        //$classes = DB::table('classes')->get();
-    return view('Classes.edit-delete-classes', [ 'Classes' => $studentCount]);
+    return view('Classes.edit-delete-classes', [ 'Classes' => Classes::with('students')->get()]);
     }
 
     public function destroy($id){

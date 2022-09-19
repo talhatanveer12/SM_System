@@ -4,7 +4,7 @@
         {{-- <main class="col grid grid-cols-12 ps-md-2 pt-2"> --}}
         <div class="col-lg-7 col-md-6">
             <section class="px-6 py-8">
-                <div class="row bg-blue-200 flex border hover:shadow-2xl px-6 py-8 rounded-2xl shadow-md">
+                <div class="row bg-gray-200 flex border hover:shadow-2xl px-6 py-8 rounded-2xl shadow-md">
                     <div class="col-lg-8">
                         <h3>Update Institute Logo Here</h3>
                         <form method="POST" action="/updatelogo/{{ $Institute->id }}" enctype="multipart/form-data">
@@ -43,7 +43,7 @@
                     </div>
             </section>
             <section class="px-6 py-8">
-                <div class="bg-blue-200  flex border hover:shadow-2xl px-6 py-8 rounded-2xl shadow-md">
+                <div class="bg-gray-200  flex border hover:shadow-2xl px-6 py-8 rounded-2xl shadow-md">
                     <div class="w-full">
                         <h6>Update Institute Info Here</h6>
                         <form method="POST" action="/update/{{ $Institute->id }}">
@@ -62,7 +62,7 @@
         <div class="col-lg-5 col-md-6">
             <section class="px-6 py-8">
                 <div
-                    class="bg-blue-200  flex flex-col items-center border hover:shadow-2xl px-6 py-8 rounded-2xl shadow-md">
+                    class="bg-gray-200  flex flex-col items-center border hover:shadow-2xl px-6 py-8 rounded-2xl shadow-md">
                     <img src={{ '/storage/' . $Institute->logo }} width="50%" height="50%" />
                     <h3>{{ $Institute->name }}</h3>
                     <span class="border border-b-0 mt-2 mb-2 w-full"></span>

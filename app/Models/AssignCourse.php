@@ -11,6 +11,10 @@ class AssignCourse extends Model
 {
     use HasFactory;
 
+    public function scopeAssignCourse(){
+        return Classes::with('courses')->get();
+    }
+
     protected $guarded = [];
 
 }

@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Lesson;
 use App\Models\Classes;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -27,5 +29,15 @@ class Course extends Model
     public function class_lesson(): BelongsToMany
     {
         return $this->belongsToMany(Course::class, 'lessons', 'class_id', 'course_id');
+    }
+
+    /**
+     * Get all of the comments for the Course
+     *
+     * @return HasMany
+     */
+    public function lessons(): HasMany
+    {
+        return $this->hasMany(Lesson::class, 'course_id');
     }
 }

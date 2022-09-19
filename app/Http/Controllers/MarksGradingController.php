@@ -9,9 +9,7 @@ use Illuminate\Support\Facades\DB;
 class MarksGradingController extends Controller
 {
     public function index(MarksGrading $marksGrading){
-        $marksGrading = DB::table('marks_gradings')->get();
-        //dd($marksGrading);
-        return view('General-Settings.marks-grading',[ 'MarksGrading' => $marksGrading]);
+        return view('General-Settings.marks-grading',[ 'MarksGrading' => MarksGrading::all()]);
     }
 
     public function store(){

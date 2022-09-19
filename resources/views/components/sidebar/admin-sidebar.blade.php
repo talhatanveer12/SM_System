@@ -3,7 +3,7 @@
         <header class="logo-env">
             <!-- logo -->
             <div class="logo">
-                <a href="index.html">
+                <a href="/">
                     <img src="images/logo.svg" width="120" alt="" />
                 </a>
             </div>

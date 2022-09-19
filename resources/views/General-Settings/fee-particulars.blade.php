@@ -5,7 +5,7 @@
                 <div class="col-lg-2"></div>
             <div class="col-md-8">
 
-                <div class="bg-blue-200 border hover:shadow-2xl rounded-2xl shadow-md">
+                <div class="bg-gray-200 border hover:shadow-2xl rounded-2xl shadow-md">
                     <section class="px-6 py-8">
                         <h3>Change Fee Particular </h3>
                         <div class="grid grid-cols-3 gap-2">

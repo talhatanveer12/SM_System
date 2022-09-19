@@ -13,19 +13,28 @@ use Illuminate\Http\Request;
 class ExamController extends Controller
 {
     public function index(){
-        return view('Exam.create-exam',['Exams' => Exam::all()]);
+        $result;
+        if(request('exam_id')){
+            $result = Exam::find(request('exam_id'));
+            //dd($result);
+        }
+        return view('Exam.create-exam',['Exams' => Exam::all(),'UpdateExam' => $result ?? '']);
     }
 
     public function store(){
+
+        //dd(request()->all());
         $values = request()->validate([
             'exam_name' => 'required',
             'starting_date' => 'required',
             'ending_date' => 'required',
         ]);
 
-        Exam::create($values);
+        Exam::updateOrCreate([
+            'id' => request('exam_id'),
+        ],$values);
 
-        return back()->with('success',"successfuly Exam add");
+        return redirect()->route('CreateExam')->with('success',"successfuly Record Add/Update");
     }
 
     public function storeResult(){
@@ -150,5 +159,10 @@ class ExamController extends Controller
     public function viewExam(){
 
         return view('Exam.view-exam',['Exam'=> Exam::all()]);
+    }
+
+    public function delete($id){
+        Exam::where('id',$id)->delete();
+        return back()->with('success',"successfuly Delete Exam");
     }
 }

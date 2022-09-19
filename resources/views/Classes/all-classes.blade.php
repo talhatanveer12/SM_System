@@ -4,7 +4,7 @@
             <div class=" flex flex-wrap ">
                 @if ($Classes)
                     @foreach ($Classes as $classes)
-                        <div class="px-6 py-4 m-4 bg-blue-200 w-64 rounded-2xl shadow-md hover:shadow-2xl ">
+                        <div class="px-6 py-4 m-4 bg-gray-200 w-64 rounded-2xl shadow-md hover:shadow-2xl ">
                             <span>{{ $classes->class_name }}</span>
                             <div class="flex justify-between items-center text-4xl my-2">
                                 <span>{{count($classes->students)}}</span>
@@ -17,7 +17,7 @@
                         </div>
                     @endforeach
                 @endif
-                <div class="px-6 pt-10 pb-10 m-4 bg-blue-200 text-center w-64 rounded-2xl shadow-md hover:shadow-2xl ">
+                <div class="px-6 pt-10 pb-10 m-4 bg-gray-200 text-center w-64 rounded-2xl shadow-md hover:shadow-2xl ">
                     <button  onclick="jQuery('#exampleModal').modal('show');">
                         <i class="fa-plus fa-solid text-4xl"></i>
                         <p class="text-2xl">Add Class</p>

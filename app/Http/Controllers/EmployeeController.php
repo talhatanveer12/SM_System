@@ -26,8 +26,7 @@ class EmployeeController extends Controller
         return view('Employees.all-employee',['Employee' => $employee->get(),'Course' => Course::all()]);
     }
     public function create(){
-        $class = Course::all();
-        return view('Employees.add-employee',['Classes' => $class]);
+        return view('Employees.add-employee',['Classes' => Course::all()]);
     }
     public function store(){
         //dd(request()->all());

@@ -57,40 +57,37 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Class Name</th>
                                         <th scope="col">Courses Name</th>
                                         <th scope="col">Lesson Name</th>
-                                        <th scope="col">Action</th>
+                                        {{-- <th scope="col">Action</th> --}}
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($Lesson_detail as $key => $value)
-                                        @foreach ($value as $course_name => $lesson_detail)
+                                        @if (count($value->lessons))
                                             <tr>
-                                                <td>{{ $key }}</td>
-                                                <td>{{ $course_name }}</td>
-                                                {{-- <th>{{ $AssignData }}</th> --}}
+                                                <td>{{ $value->course_name }}</td>
                                                 <td>
                                                     <table>
                                                         <tbody>
-                                                            @foreach ($lesson_detail as $lesson_key => $lesson_name)
+                                                            @foreach ($value->lessons as $lesson_key => $lesson_name)
                                                                 <tr>
-                                                                    <td>{{ $lesson_name }}</td>
+                                                                    <td>{{ $lesson_name->lesson_name }}</td>
                                                                 </tr>
                                                             @endforeach
                                                         </tbody>
                                                     </table>
                                                 </td>
-                                                <td>
+                                                {{-- <td>
                                                     <a href="#" class="mr-2 text-black text-decoration-none">
                                                         <i class="fa-solid fa-pen-to-square"></i>
                                                     </a>
                                                     <a href="#" class="mr-2 text-black text-decoration-none">
                                                         <i class="fa-solid fa-trash-can"></i>
                                                     </a>
-                                                </td>
+                                                </td> --}}
                                             </tr>
-                                        @endforeach
+                                        @endif
                                     @endforeach
                                 </tbody>
                             </table>

@@ -43,9 +43,9 @@ use App\Http\Controllers\FeeParticularAmountController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/adminDashboard', [DashboardController::class,'adminDashboard'])->middleware('admin');
-Route::get('/studentDashboard',[DashboardController::class,'studentDashboard']);
-Route::get('/teacherDashboard',[DashboardController::class,'teacherDashboard']);
+Route::get('/adminDashboard', [DashboardController::class,'adminDashboard'])->middleware('check')->name('adminDashboard');
+Route::get('/studentDashboard',[DashboardController::class,'studentDashboard'])->middleware('check')->name('studentDashboard');
+Route::get('/teacherDashboard',[DashboardController::class,'teacherDashboard'])->middleware('check')->name('teacherDashboard');
 
 Route::get('/layout',function(){
     return view('components.layout.layout');
@@ -53,7 +53,7 @@ Route::get('/layout',function(){
 
 
 Route::get('/account-settings',[SessionController::class,'accountSettings']);
-Route::get('/',[SessionController::class,'create'])->name('login');
+Route::get('/',[SessionController::class,'create'])->middleware('admin')->name('login');
 Route::post('/login',[SessionController::class,'store'])->middleware('throttle:login');
 Route::post('/logout',[SessionController::class, 'logout']);
 Route::post('/changepassword',[SessionController::class,'ChangePassword']);
@@ -89,8 +89,9 @@ Route::post('/save-employee-detail',[EmployeeController::class,'store']);
 
 Route::post('/save-assign-course',[CourseController::class,'StoreAssignCourse']);
 Route::get('/add-courses',[CourseController::class,'create']);
-Route::get('/assign-courses',[CourseController::class,'AssignCourse']);
+Route::get('/assign-courses',[CourseController::class,'AssignCourse'])->name('AssignCourse');
 Route::post('/save-course', [CourseController::class,'store']);
+Route::get('/delete-assign-courses/{id}',[CourseController::class,'delete']);
 
 Route::get('/marks-student-attendance',[AttendanceController::class,'index']);
 Route::get('/student-attendance-report',[AttendanceController::class,'show']);
@@ -120,13 +121,14 @@ Route::get('/view-test',[TestController::class,'viewTest']);
 Route::get('/test-page/{id}/{lesson_id}',[TestResultController::class,'show']);
 Route::post('/save-result',[TestResultController::class,'saveResult']);
 
-Route::get('/create-exam',[ExamController::class,'index']);
+Route::get('/create-exam',[ExamController::class,'index'])->name('CreateExam');
 Route::post('/add-exam',[ExamController::class,'store']);
 Route::get('/add-exam-marks',[ExamController::class,'storeResult']);
 Route::post('/save-exam-marks',[ExamController::class,'saveResult']);
 Route::get('/result-cards',[ExamController::class,'ResultCard']);
 Route::get('/view-result',[ExamController::class,'viewResult']);
 Route::get('/view-exam',[ExamController::class,'viewExam']);
+Route::get('/delete-exam/{id}',[ExamController::class,'delete']);
 
 Route::get('/fee-collect',[FeeController::class,'index']);
 Route::post('/save-fee-collect',[FeeController::class,'store']);

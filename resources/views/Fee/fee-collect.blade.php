@@ -33,7 +33,7 @@
     @if ($Students)
         <div class="row mt-4">
             <div class="col-lg-2 text-center"></div>
-            <div class="col-lg-8 text-center bg-blue-200">
+            <div class="col-lg-8 text-center bg-gray-200">
                 <h3 class="mt-3">Fee Collection</h3>
                 <hr>
                 <div class="row text-left mt-4">

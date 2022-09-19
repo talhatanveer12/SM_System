@@ -76,7 +76,7 @@
                                         <th scope="col">Courses Name</th>
                                         <th scope="col">Lesson Name</th>
                                         <th scope="col">Topic Name</th>
-                                        <th scope="col">Action</th>
+                                        {{-- <th scope="col">Action</th> --}}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -99,14 +99,14 @@
                                                             </tbody>
                                                         </table>
                                                     </td>
-                                                    <td>
+                                                    {{-- <td>
                                                         <a href="#" class="mr-2 text-black text-decoration-none">
                                                             <i class="fa-solid fa-pen-to-square"></i>
                                                         </a>
                                                         <a href="#" class="mr-2 text-black text-decoration-none">
                                                             <i class="fa-solid fa-trash-can"></i>
                                                         </a>
-                                                    </td>
+                                                    </td> --}}
                                                 </tr>
                                             @endforeach
                                         @endforeach
