@@ -24,10 +24,18 @@
         </header>
         <ul id="main-menu" class="main-menu fontcolor">
             <li class="">
+                @can('student')
                 <a href="/studentDashboard">
                     <i class="fa-solid fa-house"></i>
                     <span class="title">Dashboard</span>
                 </a>
+                @else
+                <a href="/guardianDashboard">
+                    <i class="fa-solid fa-house"></i>
+                    <span class="title">Dashboard</span>
+                </a>
+                @endcan
+
             </li>
             <!-- add class "multiple-expanded" to allow multiple submenus to open -->
             <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->

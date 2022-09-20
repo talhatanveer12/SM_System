@@ -122,8 +122,8 @@ class FeeController extends Controller
     }
 
     public function viewFee(){
-        $Students = Student::where('email','=',auth()->user()->email)->first(['id']);
-        $Fee = Fee::where('student_id','=',$Students->id)->get();
+
+            $Fee = Fee::where('student_id','=',Student::StudentId()->id)->get();
 
         return view('Fee.view-fee-detail',['Fee' => $Fee]);
     }

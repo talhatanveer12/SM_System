@@ -126,9 +126,9 @@ class ExamController extends Controller
 
     public function viewResult(){
         $grand_total;
-        $student_id = Student::select('id')->where('email','=',auth()->user()->email)->first();
-        //dd($student_id->id);
-        $exam_result = ExamResult::where('student_id','=',$student_id->id)->with('courses','students')->get();
+
+            //dd($student_id->id);
+        $exam_result = ExamResult::where('student_id','=',Student::StudentId()->id)->with('courses','students')->get();
         if(count($exam_result)){
             foreach (Exam::all() as $key2 => $value2) {
 

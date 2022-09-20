@@ -134,18 +134,10 @@ class TestController extends Controller
     }
 
     public function viewTest(){
-        $test =LessonTest::whereHas('lessons', function ($query) {
-                $query->where('class_id','=', Student::select('class_id')->where('email','=',auth()->user()->email)->first()->class_id);
-                })->with('lessons','testresult')->get();
-        // $test_result = LessonTest::whereHas('testresult', function ($query) {
-        //     $query->where('student_id','=', 4);
-        //     })->with('testresult')->get();
-        //dd($test_result);
-        //dd($test);
-        $id= Student::select('id')->where('email','=',auth()->user()->email)->first()->id;
+        $test = LessonTest::GetLessonTest();
         foreach ($test as $key => $value) {
             foreach ($value->testresult as $key1 => $value1) {
-                if($value1->student_id == $id){
+                if($value1->student_id == Student::StudentId()->id){
                     $value->testresult[0] = $value1;
                     unset($value->testresult[$key1]);
                 }

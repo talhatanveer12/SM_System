@@ -82,6 +82,9 @@
         @can('teacher')
             <x-sidebar.admin-sidebar />
         @endcan
+        @can('guardian')
+            <x-sidebar.student-sidebar />
+        @endcan
         <div class="main-content">
 
             <div class="row">

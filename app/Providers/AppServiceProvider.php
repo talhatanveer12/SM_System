@@ -36,5 +36,9 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('teacher',function(User $user){
             return $user->type == 'teacher';
         });
+
+        Gate::define('guardian',function(User $user){
+            return $user->type == 'guardian';
+        });
     }
 }

@@ -36,4 +36,10 @@ class DashboardController extends Controller
         return view('Dashboard.teacher-dashboard',['T_Student' => count(Student::all()),'T_Employee' => count(Employee::all()),'Total' => Fee::pluck('Total_fee')->sum(),'S_count' => $studentCount,'Fee_Sum' => $fee_sum,'month_fee' => $month_fee ?? 0]);
     }
 
+    public function guardianDashboard(){
+        $Student = Student::where('guardian_email','=',auth()->user()->email)->with('classes')->first();
+        $Fee = Fee::where('student_id','=',$Student->id)->get();
+        return view('Dashboard.guardian-dashboard',['Student' => $Student,'Fee' => $Fee]);
+    }
+
 }

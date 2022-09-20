@@ -88,8 +88,7 @@ class LessonController extends Controller
     }
 
     public function viewSyllabus(){
-        $Class_id = Student::select('class_id')->where('email','=',auth()->user()->email)->first();
-        //dd($Class_id);
+        $Class_id = Student::StudentId();
         $Course = Classes::find($Class_id->class_id)->courses;
         $lesson;
         $Course_name = '';

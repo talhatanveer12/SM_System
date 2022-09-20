@@ -71,8 +71,7 @@ class AttendanceController extends Controller
         return view('Attendance.view-attendance');
     }
     public function getAttendance(){
-        $Student_id = Student::select('id')->where('email','=',auth()->user()->email)->first();
-        $result = Attendance::where('student_id','=',$Student_id->id)->get();
+        $result = Attendance::where('student_id','=',Student::StudentId()->id)->get();
         $attendance_result = array();
         $check;
         foreach ($result as $key => $value) {

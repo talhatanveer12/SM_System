@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Classes;
 use App\Models\Student;
+use App\Jobs\sendMailJob;
 use App\Mail\WelcomeMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -73,16 +74,26 @@ class StudentController extends Controller
         }
         $values['guardian_options'] = 'father';
         $password = rand(10000000,99999999);
-        $name = $values['first_name'].$values['last_name'];
+        $guardian_password = rand(10000000,99999999);
+        $name = $values['first_name'].' '.$values['last_name'];
         User::create([
             'name' => $name,
             'email' => $values['email'],
             'type' => 'student',
             'password' => Hash::make($password),
         ]);
+        User::create([
+            'name' => $values['guardian_name'],
+            'email' => $values['guardian_email'],
+            'type' => 'guardian',
+            'password' => Hash::make($guardian_password),
+        ]);
 
         Student::create($values);
-        Mail::to($values['email'])->send(new WelcomeMail($name,$values['roll_no'],$password));
+        dispatch(new sendMailJob($values['guardian_name'],$values['roll_no'],$guardian_password,$values['guardian_email']));
+        dispatch(new sendMailJob($name,$values['roll_no'],$password,$values['email']));
+        //Mail::to($values['email'])->send(new WelcomeMail($values['guardian_name'],$values['roll_no'],$password));
+        //Mail::to($values['guardian_email'])->send(new WelcomeMail($name,$values['roll_no'],$guardian_password));
         return back()->with('success',"successfuly Student Create");
     }
 }

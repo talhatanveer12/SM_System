@@ -40,6 +40,8 @@
             </div>
                 <div id="print_body" class="col-span-12 grid gap-2 grid-cols-12">
 
+
+                    @can('admin')
                     <div class="col-span-12 text-center">
                         <h2>{{ $Institute->name }}</h2>
                         <h6>{{ $Institute->address }}</h6>
@@ -48,6 +50,7 @@
                         <h1>Result Cards</h1>
                         <h5> {{ $student->classes->class_name }}</h5>
                     </div>
+                    @endcan
                     <div class="col-span-6 grid gap-2 grid-cols-6">
                         <div class="col-span-2">
                             <span><b> Student Name : </b></span><br>

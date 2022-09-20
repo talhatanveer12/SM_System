@@ -52,4 +52,17 @@ class LessonTest extends Model
     {
         return $this->hasMany(TestResult::class, 'lesson_test_id');
     }
+
+    public function scopeGetLessonTest(){
+        if(auth()->user()->type == 'student' ){
+            return LessonTest::whereHas('lessons', function ($query) {
+                $query->where('class_id','=', Student::select('class_id')->where('email','=',auth()->user()->email)->first()->class_id);
+                })->with('lessons','testresult')->get();
+        }
+        else{
+            return LessonTest::whereHas('lessons', function ($query) {
+                $query->where('class_id','=', Student::select('class_id')->where('guardian_email','=',auth()->user()->email)->first()->class_id);
+                })->with('lessons','testresult')->get();
+        }
+    }
 }

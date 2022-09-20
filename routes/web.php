@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Employee;
+use App\Jobs\sendMailJob;
 use App\Models\timetable;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -43,13 +44,90 @@ use App\Http\Controllers\FeeParticularAmountController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/adminDashboard', [DashboardController::class,'adminDashboard'])->middleware('check')->name('adminDashboard');
-Route::get('/studentDashboard',[DashboardController::class,'studentDashboard'])->middleware('check')->name('studentDashboard');
-Route::get('/teacherDashboard',[DashboardController::class,'teacherDashboard'])->middleware('check')->name('teacherDashboard');
+
+Route::middleware(['check'])->group(function () {
+    Route::get('/adminDashboard', [DashboardController::class,'adminDashboard'])->name('adminDashboard');
+    Route::get('/studentDashboard',[DashboardController::class,'studentDashboard'])->middleware('student')->name('studentDashboard');
+    Route::get('/teacherDashboard',[DashboardController::class,'teacherDashboard'])->name('teacherDashboard');
+    Route::get('/guardianDashboard',[DashboardController::class,'guardianDashboard'])->name('guardianDashboard');
+});
 
 Route::get('/layout',function(){
-    return view('components.layout.layout');
+    dd('done');
 });
+
+Route::middleware(['adminOnly'])->group(function () {
+    Route::get('/institute-profile',[InstituteController::class,'index']);
+    Route::post('/updatelogo/{institute}', [InstituteController::class,'storeLogo']);
+    Route::post('/update/{institute}', [InstituteController::class,'store']);
+    Route::get('/fee-particulars',[FeeParticularAmountController::class,'index']);
+    Route::post('/update', [FeeParticularAmountController::class,'store']);
+    Route::post('/add-class',[ClassesController::class,'store']);
+    Route::get('/all-classes',[ClassesController::class,'index']);
+    Route::get('/edit-delete-class',[ClassesController::class,'show']);
+    Route::get('/delete/{id}',[ClassesController::class,'destroy']);
+    Route::post('/save-assign-course',[CourseController::class,'StoreAssignCourse']);
+    Route::get('/add-courses',[CourseController::class,'create']);
+    Route::get('/assign-courses',[CourseController::class,'AssignCourse'])->name('AssignCourse');
+    Route::post('/save-course', [CourseController::class,'store']);
+    Route::get('/delete-assign-courses/{id}',[CourseController::class,'delete']);
+    Route::get('/add-student',[StudentController::class,'create']);
+    Route::post('/save-student-detail',[StudentController::class,'store']);
+    Route::get('/add-employee',[EmployeeController::class,'create']);
+    Route::post('/save-employee-detail',[EmployeeController::class,'store']);
+    Route::get('/marks-employee-attendance',[EmployeeAttendanceController::class,'index']);
+    Route::post('/save-employee-attendance',[EmployeeAttendanceController::class,'store']);
+    Route::get('/employee-attendance-report',[EmployeeAttendanceController::class,'show']);
+    Route::get('/create-exam',[ExamController::class,'index'])->name('CreateExam');
+    Route::post('/add-exam',[ExamController::class,'store']);
+    Route::get('/delete-exam/{id}',[ExamController::class,'delete']);
+    Route::get('/fee-collect',[FeeController::class,'index']);
+    Route::post('/save-fee-collect',[FeeController::class,'store']);
+    Route::get('/fee-slip',[FeeController::class,'feeSlip']);
+});
+
+
+Route::middleware(['student'])->group(function () {
+    Route::get('/view-attendance',[AttendanceController::class,'viewAttendance']);
+    Route::get('/view-syllabus-status',[LessonController::class,'viewSyllabus']);
+    Route::get('/view-result',[ExamController::class,'viewResult']);
+    Route::get('/view-exam',[ExamController::class,'viewExam']);
+    Route::get('/view-test',[TestController::class,'viewTest']);
+    Route::get('/view-fee-detail',[FeeController::class,'viewFee']);
+});
+
+Route::middleware(['adminOnly','teacher'])->group(function () {
+    Route::get('/marks-grading', [MarksGradingController::class,'index']);
+    Route::post('/marks-grading/update', [MarksGradingController::class,'store']);
+
+    Route::get('/all-student',[StudentController::class,'index']);
+
+    Route::get('/all-employee',[EmployeeController::class,'index']);
+
+    Route::get('/marks-student-attendance',[AttendanceController::class,'index']);
+    Route::get('/student-attendance-report',[AttendanceController::class,'show']);
+    Route::post('/save-student-attendance', [AttendanceController::class,'store']);
+
+    Route::get('/Lesson',[LessonController::class,'index']);
+    Route::post('/save-lesson',[LessonController::class,'store']);
+    Route::get('/syllabus-status',[LessonController::class,'syllabus_index']);
+    Route::get('/manage-lesson-plan',[LessonController::class,'lessonPlan']);
+
+    Route::get('/Topic',[TopicController::class,'index']);
+    Route::post('/save-topic', [TopicController::class,'store']);
+    Route::post('/update-topics-details',[TopicController::class,'update']);
+
+    Route::get('/create-test',[TestController::class,'index']);
+    Route::post('/add-test',[TestController::class,'store']);
+
+    Route::get('/test-page/{id}/{lesson_id}',[TestResultController::class,'show']);
+    Route::post('/save-result',[TestResultController::class,'saveResult']);
+
+    Route::get('/add-exam-marks',[ExamController::class,'storeResult']);
+    Route::post('/save-exam-marks',[ExamController::class,'saveResult']);
+    Route::get('/result-cards',[ExamController::class,'ResultCard']);
+});
+
 
 
 Route::get('/account-settings',[SessionController::class,'accountSettings']);
@@ -62,82 +140,10 @@ Route::post('/forgot-password',[SessionController::class,'postForgetPassword'])-
 Route::get('/reset-password/{token}',[SessionController::class,'getResetPassword'])->middleware('guest')->name('password.reset');
 Route::post('/reset-password',[SessionController::class,'postResetPassword'])->middleware('guest')->name('password.update');
 
-Route::get('/institute-profile',[InstituteController::class,'index']);
-Route::post('/updatelogo/{institute}', [InstituteController::class,'storeLogo']);
-Route::post('/update/{institute}', [InstituteController::class,'store']);
-
-Route::get('/fee-particulars',[FeeParticularAmountController::class,'index']);
-Route::post('/update', [FeeParticularAmountController::class,'store']);
-
-Route::post('/add-class',[ClassesController::class,'store']);
-Route::get('/all-classes',[ClassesController::class,'index']);
-Route::get('/edit-delete-class',[ClassesController::class,'show']);
-Route::get('/delete/{id}',[ClassesController::class,'destroy']);
-
-Route::get('/marks-grading', [MarksGradingController::class,'index']);
-Route::post('/marks-grading/update', [MarksGradingController::class,'store']);
-
-Route::get('/add-student',[StudentController::class,'create']);
-Route::get('/all-student',[StudentController::class,'index']);
-Route::post('/save-student-detail',[StudentController::class,'store']);
-
-
-Route::get('/add-employee',[EmployeeController::class,'create']);
-Route::get('/all-employee',[EmployeeController::class,'index']);
-Route::post('/save-employee-detail',[EmployeeController::class,'store']);
-
-
-Route::post('/save-assign-course',[CourseController::class,'StoreAssignCourse']);
-Route::get('/add-courses',[CourseController::class,'create']);
-Route::get('/assign-courses',[CourseController::class,'AssignCourse'])->name('AssignCourse');
-Route::post('/save-course', [CourseController::class,'store']);
-Route::get('/delete-assign-courses/{id}',[CourseController::class,'delete']);
-
-Route::get('/marks-student-attendance',[AttendanceController::class,'index']);
-Route::get('/student-attendance-report',[AttendanceController::class,'show']);
-Route::post('/save-student-attendance', [AttendanceController::class,'store']);
-Route::get('/view-attendance',[AttendanceController::class,'viewAttendance']);
+// Route::get('/view-attendance',[AttendanceController::class,'viewAttendance'])->middleware('student');
 Route::get('/get-attendance',[AttendanceController::class,'getAttendance']);
-
-Route::get('/marks-employee-attendance',[EmployeeAttendanceController::class,'index']);
-Route::post('/save-employee-attendance',[EmployeeAttendanceController::class,'store']);
-Route::get('/employee-attendance-report',[EmployeeAttendanceController::class,'show']);
-
-
-Route::get('/Lesson',[LessonController::class,'index']);
-Route::post('/save-lesson',[LessonController::class,'store']);
-Route::get('/syllabus-status',[LessonController::class,'syllabus_index']);
-Route::get('/manage-lesson-plan',[LessonController::class,'lessonPlan']);
-Route::get('/view-syllabus-status',[LessonController::class,'viewSyllabus']);
-
-
-Route::get('/Topic',[TopicController::class,'index']);
-Route::post('/save-topic', [TopicController::class,'store']);
-Route::post('/update-topics-details',[TopicController::class,'update']);
-
-Route::get('/create-test',[TestController::class,'index']);
-Route::post('/add-test',[TestController::class,'store']);
-Route::get('/view-test',[TestController::class,'viewTest']);
-Route::get('/test-page/{id}/{lesson_id}',[TestResultController::class,'show']);
-Route::post('/save-result',[TestResultController::class,'saveResult']);
-
-Route::get('/create-exam',[ExamController::class,'index'])->name('CreateExam');
-Route::post('/add-exam',[ExamController::class,'store']);
-Route::get('/add-exam-marks',[ExamController::class,'storeResult']);
-Route::post('/save-exam-marks',[ExamController::class,'saveResult']);
-Route::get('/result-cards',[ExamController::class,'ResultCard']);
-Route::get('/view-result',[ExamController::class,'viewResult']);
-Route::get('/view-exam',[ExamController::class,'viewExam']);
-Route::get('/delete-exam/{id}',[ExamController::class,'delete']);
-
-Route::get('/fee-collect',[FeeController::class,'index']);
-Route::post('/save-fee-collect',[FeeController::class,'store']);
-Route::get('/fee-slip',[FeeController::class,'feeSlip']);
-Route::get('/view-fee-detail',[FeeController::class,'viewFee']);
 Route::get('/online-payment',[FeeController::class,'onlinePayment'])->name('online-payment');
-
 Route::post('/send-online-payment',[FeeController::class,'sendOnlinePayment']);
-
 Route::get('/getcourse/{id}',[AjaxController::class,'getcourse']);
 Route::get('/getlesson/{id}/{class_id}',[AjaxController::class,'getlesson']);
 Route::get('/changeTopicStatus/{id}',[AjaxController::class,'changeTopicStatus']);

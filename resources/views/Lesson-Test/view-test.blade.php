@@ -41,20 +41,26 @@
                         <td>{{ $value->lessons->courses->course_name }}</td>
                         <td>{{ $value->lessons->lesson_name }}</td>
                         @if (count($value->testresult))
-                            <td>{{$value->testresult[0]->obtain_no.' out of '.$value->testresult[0]->total_no}}</td>
+                            <td>{{ $value->testresult[0]->obtain_no . ' out of ' . $value->testresult[0]->total_no }}
+                            </td>
                         @else
                             <td>Not Submit</td>
                         @endif
-
-                        <td>
-                            <a href="/test-page/{{$value->id}}/{{$value->lessons->id}}"
-                                {{count($value->testresult) ? 'disabled' : ''}}
-                                onclick="return {{count($value->testresult) ? 'false' : 'true'}}"
-                                class="btn btn-default btn-sm btn-icon icon-left">
-                                <i class="entypo-pencil"></i>
+                        @can('student')
+                            <td>
+                                <a href="/test-page/{{ $value->id }}/{{ $value->lessons->id }}"
+                                    {{ count($value->testresult) ? 'disabled' : '' }}
+                                    onclick="return {{ count($value->testresult) ? 'false' : 'true' }}"
+                                    class="btn btn-default btn-sm btn-icon icon-left">
+                                    <i class="entypo-pencil"></i>
+                                    Test
+                                </a>
+                            </td>
+                            @else
+                            <td>
                                 Test
-                            </a>
-                        </td>
+                            </td>
+                        @endcan
                     </tr>
                 @endforeach
             </tbody>

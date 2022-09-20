@@ -1,0 +1,32 @@
+First time send messageFirst time send message
+   Error 
+
+  Class "App\Console\Commands\Mail" not found
+
+  at app/Console/Commands/DailySendMessage.php:30
+     26▕      * @return int
+     27▕      */
+     28▕     public function handle()
+     29▕     {
+  ➜  30▕         Mail::to('talhatanveer930@gmail')->send(new WelcomeMail('talha','0209',$this->password));
+     31▕     }
+     32▕ }
+     33▕
+
+      [2m+13 vendor frames [22m
+  14  artisan:37
+      Illuminate\Foundation\Console\Kernel::handle()
+
+   INFO  Processing jobs from the [default] queue.  
+
+  2022-09-20 12:08:00 App\Jobs\sendMailJob ................... 4,494.51ms DONE
+  2022-09-20 12:08:05 App\Jobs\sendMailJob ................... 1,209.02ms DONE
+
+   INFO  Processing jobs from the [default] queue.  
+
+
+   INFO  Processing jobs from the [default] queue.  
+
+
+   INFO  Processing jobs from the [default] queue.  
+

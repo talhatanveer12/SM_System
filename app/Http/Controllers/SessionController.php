@@ -43,9 +43,13 @@ class SessionController extends Controller
                 session(['photo' => Student::where('email','=',auth()->user()->email)->first(['student_photo'])->student_photo]);
                 return redirect('/studentDashboard')->with('success',"Welcome Back!!");
             }
-            else{
+            elseif (Auth::user()->type == 'teacher'){
                 session(['photo' => Employee::where('email','=',auth()->user()->email)->first(['employee_photo'])->employee_photo]);
                 return redirect('/teacherDashboard')->with('success',"Welcome Back!!");
+            }
+            else{
+                session(['photo' => Student::where('guardian_email','=',auth()->user()->email)->first(['guardian_photo'])->guardian_photo]);
+                return redirect('/guardianDashboard')->with('success',"Welcome Back!!");
             }
         }
 
