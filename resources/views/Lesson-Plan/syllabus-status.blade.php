@@ -2,25 +2,27 @@
     <div class="col">
         <div class="row">
             <div class="col-span-12 flex-col ">
-                <div class="row">
-                    <form action="#" method="GET">
-                        <div class="col-md-12">
-                            <div class="panel panel-primary mt-4 mb-4" data-collapsed="0">
-                                <div class="panel-heading backgroundColor">
-                                    <div class="panel-title">
-                                        Select Criteria
-                                    </div>
-                                    <div class="panel-options">
-                                        <a href="#" data-rel="collapse"><i
-                                                class="entypo-down-open backgroundColor"></i></a>
-                                        <a href="#" data-rel="reload"><i
-                                                class="entypo-arrows-ccw backgroundColor"></i></a>
-                                    </div>
-                                </div>
-                                <div class="panel-body ">
-                                    <div class="row">
+                @can('admin')
 
-                                        <div class="col-md-3 ">
+                    <div class="row">
+                        <form action="#" method="GET">
+                            <div class="col-md-12">
+                                <div class="panel panel-primary mt-4 mb-4" data-collapsed="0">
+                                    <div class="panel-heading backgroundColor">
+                                        <div class="panel-title">
+                                            Select Criteria
+                                        </div>
+                                        <div class="panel-options">
+                                            <a href="#" data-rel="collapse"><i
+                                                    class="entypo-down-open backgroundColor"></i></a>
+                                            <a href="#" data-rel="reload"><i
+                                                    class="entypo-arrows-ccw backgroundColor"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body ">
+                                        <div class="row">
+
+                                            {{-- <div class="col-md-3 ">
                                             <div class="form-group w-full">
                                                 <label class="control-label">Class</label>
                                                 <div class>
@@ -37,33 +39,33 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-3 ">
-                                            <div class="form-group w-full">
-                                                <label class="control-label">Course</label>
-                                                <div class>
-                                                    <select class="selectboxit" data-first-option="false"
-                                                        name="course_id" id="Course">
-                                                        <option>Select Course</option>
-                                                        <optgroup label="Course name">
-                                                            @foreach ($Courses as $Course)
-                                                                <option value="{{ $Course->id }}"
-                                                                    {{ request('course_id') == $Course->id ? 'selected' : '' }}>
-                                                                    {{ $Course->course_name }}</option>
-                                                            @endforeach
-                                                        </optgroup>
-                                                    </select>
+                                        </div> --}}
+                                            <div class="col-md-3 ">
+                                                <div class="form-group w-full">
+                                                    <label class="control-label">Course</label>
+                                                    <div class>
+                                                        <select class="selectboxit" data-first-option="false"
+                                                            name="course_id" id="Course">
+                                                            <option>Select Course</option>
+                                                            <optgroup label="Course name">
+                                                                @foreach ($Courses as $Course)
+                                                                    <option value="{{ $Course->id }}"
+                                                                        {{ request('course_id') == $Course->id ? 'selected' : '' }}>
+                                                                        {{ $Course->course_name }}</option>
+                                                                @endforeach
+                                                            </optgroup>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <button type="submit" class="btn btn-primary mt-9">Search</button>
                                         </div>
-                                        <button type="submit" class="btn btn-primary mt-9">Search</button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </form>
-                </div>
-
+                        </form>
+                    </div>
+                @endcan
 
 
 

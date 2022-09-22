@@ -82,7 +82,7 @@
 
                 <div class="member-entry">
 
-                    <a href="#" class="member-img">
+                    <a href="/add-employee?emp_id={{$employee->id}}" class="member-img">
                         <img src={{ $employee->employee_photo ? '/storage/' . $employee->employee_photo : '/images/illustration-1.png' }} class="img-rounded" />
                         <i class="entypo-forward"></i>
                     </a>

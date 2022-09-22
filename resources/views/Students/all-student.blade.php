@@ -56,7 +56,7 @@
 
                 <div class="member-entry">
 
-                    <a href="#" class="member-img">
+                    <a href="/add-student?student_id={{$student->id}}" class="member-img">
                         <img src={{ $student->student_photo ? '/storage/' . $student->student_photo : '/images/illustration-1.png' }} class="img-rounded" />
                         <i class="entypo-forward"></i>
                     </a>

@@ -19,17 +19,19 @@ class sendMailJob implements ShouldQueue
     public $roll_no;
     public $password;
     public $email;
+    public $type;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($name,$roll_no,$password,$email)
+    public function __construct($name,$roll_no,$password,$email,$type)
     {
         $this->name = $name;
         $this->roll_no = $roll_no;
         $this->password = $password;
         $this->email = $email;
+        $this->type = $type;
     }
 
     /**
@@ -39,6 +41,6 @@ class sendMailJob implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->email)->send(new WelcomeMail($this->name,$this->roll_no,$this->password));
+        Mail::to($this->email)->send(new WelcomeMail($this->name,$this->roll_no,$this->password,$this->type));
     }
 }

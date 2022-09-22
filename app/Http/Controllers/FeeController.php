@@ -19,9 +19,12 @@ class FeeController extends Controller
         if(request('roll_no')){
             $FeeParticular = FeeParticularAmount::all()->first();
             $Students = Student::where('roll_no','=',request('roll_no'))->first();
-            $check = Fee::where('student_id','=',request('roll_no'))->latest()->first();
+
+            //dd(Fee::where('student_id',request('roll_no'))->latest()->first());
             if($Students){
+                $check = Fee::where('student_id','=',$Students->id)->latest()->first();
                 if(!$check){
+
                     $Fee['student_id'] = $Students->id;
                     $Number_of_courses = count(Classes::find($Students->class_id)->courses);
                     $Fee['monthly_fee'] = $FeeParticular->per_course_fee*$Number_of_courses;
@@ -31,6 +34,7 @@ class FeeController extends Controller
                     $Fee['total_fee'] += $Fee['monthly_fee'] + $Fee['remaining_fee'];
                 }
                 else{
+                    //dd('dsd');
                     $Fee['admission_fee_status'] = $check->admission_fee_status;
                     $Fee['student_id'] = $Students->id;
                     $Number_of_courses = count(Classes::find($Students->class_id)->courses);

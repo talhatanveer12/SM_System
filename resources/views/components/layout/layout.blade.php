@@ -12,25 +12,12 @@
 
     <link rel="icon" href="/assets/images/favicon.ico">
 
-    <title>Admin | Dashboard</title>
+    <title>Dashboard</title>
     <script defer src="https://unpkg.com/alpinejs@3.4.2/dist/cdn.min.js"></script>
     <script src="https://kit.fontawesome.com/b0ca48d263.js" crossorigin="anonymous"></script>
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css">
-    <link rel="stylesheet" href="/assets/css/font-icons/entypo/css/entypo.css">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic">
-    <link rel="stylesheet" href="/assets/css/bootstrap.css">
-    <link rel="stylesheet" href="/assets/css/neon-core.css">
-    <link rel="stylesheet" href="/assets/css/neon-theme.css">
-    <link rel="stylesheet" href="/assets/css/neon-forms.css">
-    <link rel="stylesheet" href="/assets/css/custom.css">
-
-
-
-
-
-
-
+    @vite(['resources/js/app.js'])
     <script src="/assets/js/jquery-1.11.3.min.js"></script>
     <style>
         .backgroundColor {
@@ -70,6 +57,8 @@
 </head>
 
 <body class="page-body  page-fade" style="color: black;" id='body' >
+
+
 
     <div class="page-container">
         <!-- add class "sidebar-collapsed" to close sidebar by default, "chat-visible" to make chat appear always -->
@@ -181,10 +170,11 @@
     <script src="/assets/js/toastr.js"></script>
     <script src="/assets/js/neon-chat.js"></script>
 
+    {{-- <script src="/assets/js/raphael-min.js"></script> --}}
+
 
     <script src="/assets/js/fileinput.js"></script>
     <script src="/assets/js/dropzone/dropzone.js"></script>
-    <script src="/assets/js/neon-chat.js"></script>
 
     <!-- JavaScripts initializations and stuff -->
     <script src="/assets/js/neon-custom.js"></script>

@@ -23,15 +23,13 @@
                         <div class="panel-body ">
 
                             <div class="row">
-
-
-
+                                <input type="hidden" name="id" value="{{request('student_id' ?? '')}}">
                                 <div class="col-md-3">
-                                    <x-form.input name="admission no" type="number" error="admission_no" />
+                                    <x-form.input name="admission no" type="number" error="admission_no" value="{{$Student->admission_no ?? ''}}"/>
                                 </div>
 
                                 <div class="col-md-3">
-                                    <x-form.input name="roll no" type="number" error="roll_no" />
+                                    <x-form.input name="roll no" type="number" error="roll_no" value="{{$Student->roll_no ?? ''}}"/>
                                 </div>
 
                                 <div class="col-md-3 mt-2">
@@ -47,18 +45,18 @@
                                 <div class="col-md-3 mt-2">
                                     <x-form.label name="Date of Birth" /><br>
                                     <input class="border rounded border-gray-400 p-1.5 w-full" type="date"
-                                        name="date of birth" id="Date of Birth" />
+                                        name="date of birth" id="Date of Birth" value="{{$Student->date_of_birth ?? ''}}"/>
                                 </div>
 
                                 <div class="clear"></div>
                                 <br />
 
                                 <div class="col-md-3">
-                                    <x-form.input name="first name" error="first_name" />
+                                    <x-form.input name="first name" error="first_name" value="{{$Student->first_name ?? ''}}"/>
                                 </div>
 
                                 <div class="col-md-3">
-                                    <x-form.input name="last name" error="last_name" />
+                                    <x-form.input name="last name" error="last_name" value="{{$Student->last_name ?? ''}}"/>
                                 </div>
 
                                 <div class="col-md-3 mt-2">
@@ -84,11 +82,11 @@
                                 <br />
 
                                 <div class="col-md-3">
-                                    <x-form.input name="email" type="email" />
+                                    <x-form.input name="email" type="email" value="{{$Student->email ?? ''}}"/>
                                 </div>
 
                                 <div class="col-md-3">
-                                    <x-form.input name="religion" />
+                                    <x-form.input name="religion" value="{{$Student->religion ?? ''}}"/>
                                 </div>
 
                                 <div class="col-md-3 mt-2">
@@ -101,7 +99,7 @@
                                 <div class="col-md-3 mt-2">
                                     <x-form.label name="Admission date" /><br>
                                     <input class="border rounded border-gray-400 p-2 w-full" type="date"
-                                        name="admission date" id="Admission date" />
+                                        name="admission date" id="Admission date" value="{{$Student->admission_date ?? ''}}"/>
                                     <x-form.error name="admission_date" />
                                 </div>
                             </div>
@@ -127,17 +125,17 @@
                         <div class="panel-body ">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <x-form.input name="father name" />
+                                    <x-form.input name="father name" value="{{$Student->father_name ?? ''}}"/>
 
                                 </div>
 
                                 <div class="col-md-3">
-                                    <x-form.input name="father phone" type="number" />
+                                    <x-form.input name="father phone" type="number" value="{{$Student->father_phone ?? ''}}"/>
 
                                 </div>
 
                                 <div class="col-md-3 mt-2">
-                                    <x-form.input name="father occupation" />
+                                    <x-form.input name="father occupation" value="{{$Student->father_occupation ?? ''}}"/>
                                 </div>
 
                                 <div class="col-md-3 mt-2">
@@ -150,17 +148,17 @@
                                 <br />
 
                                 <div class="col-md-3">
-                                    <x-form.input name="mother name" />
+                                    <x-form.input name="mother name" value="{{$Student->mother_name ?? ''}}"/>
 
 
                                 </div>
 
                                 <div class="col-md-3">
-                                    <x-form.input name="mother phone" type="number" />
+                                    <x-form.input name="mother phone" type="number" value="{{$Student->mother_phone ?? ''}}"/>
                                 </div>
 
                                 <div class="col-md-3 mt-2">
-                                    <x-form.input name="mother occupation" />
+                                    <x-form.input name="mother occupation" value="{{$Student->mother_occupation ?? ''}}"/>
                                 </div>
 
                                 <div class="col-md-3 mt-2">
@@ -173,17 +171,17 @@
                                 <br />
 
                                 <div class="col-md-3">
-                                    <x-form.input name="guardian name" error="guardian_name" />
+                                    <x-form.input name="guardian name" error="guardian_name" value="{{$Student->guardian_name ?? ''}}"/>
 
 
                                 </div>
 
                                 <div class="col-md-3">
-                                    <x-form.input name="guardian relation" error="guardian_relation" />
+                                    <x-form.input name="guardian relation" error="guardian_relation" value="{{$Student->guardian_relation ?? ''}}"/>
                                 </div>
 
                                 <div class="col-md-3 mt-2">
-                                    <x-form.input name="guardian email" error="guardian_email" />
+                                    <x-form.input name="guardian email" error="guardian_email" value="{{$Student->guardian_email ?? ''}}"/>
                                 </div>
 
                                 <div class="col-md-3 mt-2">
@@ -192,13 +190,13 @@
                                         name="guardian photo" id="Guardian Photo" />
                                 </div>
                                 <div class="col-md-4">
-                                    <x-form.input name="guardian phone" type="number" error="guardian_phone" />
+                                    <x-form.input name="guardian phone" type="number" error="guardian_phone" value="{{$Student->guardian_phone ?? ''}}"/>
                                 </div>
                                 <div class="col-md-4">
-                                    <x-form.input name="guardian occupation" />
+                                    <x-form.input name="guardian occupation" value="{{$Student->guardian_occupation ?? ''}}"/>
                                 </div>
                                 <div class="col-md-4">
-                                    <x-form.input name="guardian address" error="guardian_address" />
+                                    <x-form.input name="guardian address" error="guardian_address" value="{{$Student->guardian_address ?? ''}}" />
                                 </div>
                             </div>
                         </div>
@@ -206,7 +204,7 @@
 
                 </div>
                 <div class="input-group ml-7">
-                    <button type="submit" class="btn btn-primary p-2 rounded w-64">Save</button>
+                    <button type="submit" class="btn btn-primary p-2 rounded w-64">{{request('student_id') ? 'Update' :'Save'}}</button>
                 </div>
             </form>
             {{-- <main class="col grid grid-cols-12 ps-md-2 pt-2"> --}}

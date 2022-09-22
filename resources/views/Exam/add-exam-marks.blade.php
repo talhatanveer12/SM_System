@@ -20,7 +20,7 @@
                                 </div>
                                 <div class="panel-body ">
                                     <div class="row">
-                                        <div class="col-md-3">
+                                        <div class="col-md-3 mt-2">
                                             <div class="form-group w-full">
                                                 <label class="control-label">Class</label>
                                                 <div class>
@@ -40,7 +40,7 @@
                                         </div>
                                         <div class="col-md-3 mt-2">
                                             <div class="form-group w-full">
-                                                <label class="control-label">Class</label>
+                                                <label class="control-label">Exam</label>
                                                 <div class>
                                                     <select class="selectboxit" data-first-option="false" name="exam id"
                                                         id="exam_id">

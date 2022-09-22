@@ -16,16 +16,16 @@ class Student extends Model
 
     public function scopeStudentId(){
         if(auth()->user()->type == 'student'){
-            $student_id  = Cache::rememberForever('users', function () {
-                return Student::where('email','=',auth()->user()->email)->first();
-            });
-            return  $student_id;
+            // $student_id  = Cache::rememberForever('users', function () {
+            //     return Student::where('email','=',auth()->user()->email)->first();
+            // });
+            return  Student::where('email','=',auth()->user()->email)->first();
         }
         else{
-            $student_id  = Cache::rememberForever('users', function () {
-                return Student::where('guardian_email','=',auth()->user()->email)->first();
-            });
-            return  $student_id;
+            // $student_id  = Cache::rememberForever('users', function () {
+            //     return Student::where('guardian_email','=',auth()->user()->email)->first();
+            // });
+            return  Student::where('guardian_email','=',auth()->user()->email)->first();;
             //return Student::where('guardian_email','=',auth()->user()->email)->first();
         }
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Exam;
 use App\Models\Classes;
 use App\Models\Student;
+use App\Models\Employee;
 use App\Models\Institute;
 use App\Models\ExamResult;
 use App\Models\MarksGrading;
@@ -43,30 +44,34 @@ class ExamController extends Controller
         if(request('class_id')){
             $result = Student::where('class_id','=',request('class_id'))->get();
             $exam_result = ExamResult::with('courses','students')->get();
-            //if(!count($exam_result)){
-               // $exam_result = Classes::find(request('class_id'))->courses;
-           // }
-
         }
-        return view('Exam.add-exam-marks',['Classes' => Classes::all(),'Students' => $result ?? '','Courses' => $exam_result ?? '','Exams' => Exam::all()]);
+        //dd(auth()->user()->email);
+
+        return view('Exam.add-exam-marks',['Classes' => Employee::GetClass() ?? '','Students' => $result ?? '','Courses' => $exam_result ?? '','Exams' => Exam::all()]);
     }
 
     public function saveResult(){
+        //dd(request()->all());
         $values = request()->validate([
             'student_id' => 'required',
             'exam_id' => 'required',
             'course_id.*' => 'required',
-            'total_marks.*' => 'required',
-            'obtain_marks.*' => 'required',
+            'total_marks' => 'required',
+            'obtain_marks' => 'required',
         ]);
         //dd($values);
         $check_grade = MarksGrading::all();
         //dd($check_grade);
         foreach ($values['obtain_marks'] as $key1 => $value1) {
             foreach ($check_grade as $key => $value) {
-                $percent = $value1/$values['total_marks'][$key1]*100;
-                if((int)$percent >= (int)$value->percent_from && (int)$percent <= (int)$value->percent_upto){
-                    $values['grade'] = $value->grade_name;
+                if($values['total_marks'][$key1]){
+                    $percent = $value1/$values['total_marks'][$key1]*100;
+                    if((int)$percent >= (int)$value->percent_from && (int)$percent <= (int)$value->percent_upto){
+                        $values['grade'] = $value->grade_name;
+                    }
+                }
+                else{
+                    $values['grade'] = '-';
                 }
 
             }
@@ -78,8 +83,8 @@ class ExamController extends Controller
                 'student_id' => $values['student_id'],
                 'exam_id' => $values['exam_id'],
                 'course_id' => $values['course_id'][$key1],
-                'total_marks' => $values['total_marks'][$key1],
-                'obtain_marks' => $values['obtain_marks'][$key1],
+                'total_marks' => $values['total_marks'][$key1] ?? 0,
+                'obtain_marks' => $values['obtain_marks'][$key1] ?? 0,
                 'grade' => $values['grade'],
 
             ]);
@@ -131,25 +136,29 @@ class ExamController extends Controller
         $exam_result = ExamResult::where('student_id','=',Student::StudentId()->id)->with('courses','students')->get();
         if(count($exam_result)){
             foreach (Exam::all() as $key2 => $value2) {
-
-            $o_marks=0;
-            $t_marks=0;
-            foreach ($exam_result as $key => $value) {
-                if($value2->id == $value->exam_id){
-                $o_marks += $value->obtain_marks;
-                $t_marks += $value->total_marks;
+                $o_marks=0;
+                $t_marks=0;
+                foreach ($exam_result as $key => $value) {
+                    if($value2->id == $value->exam_id){
+                        $o_marks += $value->obtain_marks;
+                        $t_marks += $value->total_marks;
+                    }
                 }
-            }
-            $check_grade = MarksGrading::all();
-            $percent = $o_marks/$t_marks *100;
-            foreach ($check_grade as $key => $value) {
-                if((int)$percent >= (int)$value->percent_from && (int)$percent <= (int)$value->percent_upto){
-                    $grand_total[$key2]['grade'] = $value->grade_name;
+                if($t_marks > 0){
+                $check_grade = MarksGrading::all();
+                $percent = $o_marks/$t_marks *100;
+                foreach ($check_grade as $key => $value) {
+                    if((int)$percent >= (int)$value->percent_from && (int)$percent <= (int)$value->percent_upto){
+                        $grand_total[$key2]['grade'] = $value->grade_name;
+                    }
                 }
+                $grand_total[$key2]['obtain_marks'] = $o_marks;
+                $grand_total[$key2]['total_marks'] = $t_marks;
+                $grand_total[$key2]['percent'] = $percent;
             }
-            $grand_total[$key2]['obtain_marks'] = $o_marks;
-            $grand_total[$key2]['total_marks'] = $t_marks;
-            $grand_total[$key2]['percent'] = $percent;
+            else{
+                $grand_total[$key2] = '';
+            }
         }
         }
         return view('Exam.view-result',['Exam_Result' => $exam_result,'Exam' => Exam::all(),'grand_total' => $grand_total ?? '']);
@@ -166,3 +175,8 @@ class ExamController extends Controller
         return back()->with('success',"successfuly Delete Exam");
     }
 }
+
+
+
+
+

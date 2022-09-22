@@ -10,20 +10,20 @@
                         <div class="form-group">
                             <label class="control-label">Class</label>
                             <div>
-                                <select class="select2" data-allow-clear="true" data-placeholder="Select one class..."
-                                    name="class id" id="class_id">
+                                <select class="select2" data-allow-clear="true" data-placeholder="Select one Course..."
+                                    name="course id" id="course_id">
                                     <option></option>
-                                    <optgroup label="Class name">
-                                        @foreach ($Classes as $Class)
-                                            <option value="{{ $Class->id }}">{{ $Class->class_name }}</option>
+                                    <optgroup label="Course name">
+                                        @foreach ($Courses as $Course)
+                                            <option value="{{ $Course->id }}">{{ $Course->course_name }}</option>
                                         @endforeach
                                     </optgroup>
                                 </select>
                             </div>
-                            <x-form.error name="class_id" />
+                            <x-form.error name="course_id" />
                         </div>
 
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label class="control-label">Course</label>
                             <div>
                                 <select class="select2" aria-label="Default select example" data-allow-clear="true"
@@ -35,7 +35,7 @@
                                 </select>
                             </div>
                             <x-form.error name="course_id" />
-                        </div>
+                        </div> --}}
 
                         <div class="form-group">
                             <label class="control-label">Lesson</label>
@@ -72,7 +72,6 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Class Name</th>
                                         <th scope="col">Courses Name</th>
                                         <th scope="col">Lesson Name</th>
                                         <th scope="col">Topic Name</th>
@@ -81,11 +80,11 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($topic_detail as $key => $value)
-                                        @foreach ($value as $course => $lesson)
-                                            @foreach ($lesson as $lesson_name => $value_1)
+                                        {{-- @foreach ($value as $course => $lesson) --}}
+                                            @foreach ($value as $lesson_name => $value_1)
                                                 <tr>
                                                     <td>{{ $key }}</td>
-                                                    <td>{{ $course }}</td>
+                                                    {{-- <td>{{ $course }}</td> --}}
                                                     <td>{{ $lesson_name }}</td>
                                                     {{-- <th>{{ $AssignData }}</th> --}}
                                                     <td>
@@ -109,7 +108,7 @@
                                                     </td> --}}
                                                 </tr>
                                             @endforeach
-                                        @endforeach
+                                        {{-- @endforeach --}}
                                     @endforeach
                                 </tbody>
                             </table>
@@ -162,3 +161,7 @@
 
 
 </x-layout.layout>
+
+
+
+

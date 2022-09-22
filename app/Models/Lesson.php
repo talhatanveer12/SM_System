@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Topic;
 use App\Models\Course;
+use App\Models\Lesson;
 use App\Models\Classes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,6 +15,8 @@ class Lesson extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    
 
 
     /**

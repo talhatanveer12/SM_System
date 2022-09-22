@@ -55,14 +55,10 @@ class LessonTest extends Model
 
     public function scopeGetLessonTest(){
         if(auth()->user()->type == 'student' ){
-            return LessonTest::whereHas('lessons', function ($query) {
-                $query->where('class_id','=', Student::select('class_id')->where('email','=',auth()->user()->email)->first()->class_id);
-                })->with('lessons','testresult')->get();
+            return LessonTest::with('lessons','testresult')->get();
         }
         else{
-            return LessonTest::whereHas('lessons', function ($query) {
-                $query->where('class_id','=', Student::select('class_id')->where('guardian_email','=',auth()->user()->email)->first()->class_id);
-                })->with('lessons','testresult')->get();
+            return LessonTest::with('lessons','testresult')->get();
         }
     }
 }

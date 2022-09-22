@@ -71,9 +71,9 @@ Route::middleware(['adminOnly'])->group(function () {
     Route::get('/assign-courses',[CourseController::class,'AssignCourse'])->name('AssignCourse');
     Route::post('/save-course', [CourseController::class,'store']);
     Route::get('/delete-assign-courses/{id}',[CourseController::class,'delete']);
-    Route::get('/add-student',[StudentController::class,'create']);
+    Route::get('/add-student',[StudentController::class,'create'])->name('addStudent');
     Route::post('/save-student-detail',[StudentController::class,'store']);
-    Route::get('/add-employee',[EmployeeController::class,'create']);
+    Route::get('/add-employee',[EmployeeController::class,'create'])->name('addEmployee');
     Route::post('/save-employee-detail',[EmployeeController::class,'store']);
     Route::get('/marks-employee-attendance',[EmployeeAttendanceController::class,'index']);
     Route::post('/save-employee-attendance',[EmployeeAttendanceController::class,'store']);
@@ -87,22 +87,24 @@ Route::middleware(['adminOnly'])->group(function () {
 });
 
 
-Route::middleware(['student'])->group(function () {
+//Route::middleware(['student'])->group(function () {
     Route::get('/view-attendance',[AttendanceController::class,'viewAttendance']);
     Route::get('/view-syllabus-status',[LessonController::class,'viewSyllabus']);
     Route::get('/view-result',[ExamController::class,'viewResult']);
     Route::get('/view-exam',[ExamController::class,'viewExam']);
     Route::get('/view-test',[TestController::class,'viewTest']);
     Route::get('/view-fee-detail',[FeeController::class,'viewFee']);
-});
+//});
 
-Route::middleware(['adminOnly','teacher'])->group(function () {
+Route::get('/all-employee',[EmployeeController::class,'index']);
+
+// Route::middleware(['adminOnly','teacher'])->group(function () {
     Route::get('/marks-grading', [MarksGradingController::class,'index']);
     Route::post('/marks-grading/update', [MarksGradingController::class,'store']);
 
     Route::get('/all-student',[StudentController::class,'index']);
 
-    Route::get('/all-employee',[EmployeeController::class,'index']);
+
 
     Route::get('/marks-student-attendance',[AttendanceController::class,'index']);
     Route::get('/student-attendance-report',[AttendanceController::class,'show']);
@@ -126,7 +128,7 @@ Route::middleware(['adminOnly','teacher'])->group(function () {
     Route::get('/add-exam-marks',[ExamController::class,'storeResult']);
     Route::post('/save-exam-marks',[ExamController::class,'saveResult']);
     Route::get('/result-cards',[ExamController::class,'ResultCard']);
-});
+// });
 
 
 

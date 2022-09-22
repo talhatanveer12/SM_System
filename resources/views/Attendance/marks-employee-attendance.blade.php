@@ -64,27 +64,23 @@
                                             <td>
                                                 <input class="form-control" type='hidden' name='employee id[]'
                                                     id="employee_id" value={{ $attendance->id }} />
-                                                <div class="input-group">
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio"
-                                                            name={{ $attendance->id }} id="inlineRadio1" value="persent"
-                                                            {{ $attendance->attendance == 'persent' || $attendance->attendance == '' ? 'checked' : '' }}>
-                                                        <label class="form-check-label"
-                                                            for="inlineRadio1">Persent</label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio"
-                                                            name={{ $attendance->id }} id="inlineRadio2" value="late"
-                                                            {{ $attendance->attendance == 'late' ? 'checked' : '' }}>
-                                                        <label class="form-check-label" for="inlineRadio2">Late</label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio"
-                                                            name={{ $attendance->id }} id="inlineRadio3" value="absent"
-                                                            {{ $attendance->attendance == 'absent' ? 'checked' : '' }}>
-                                                        <label class="form-check-label"
-                                                            for="inlineRadio3">Absent</label>
-                                                    </div>
+                                                <div class="input-group w-64">
+                                                    <select class="selectboxit" data-first-option="false"
+                                                        name={{ $attendance->id }} id="class id">
+                                                        <option>Select Attendance</option>
+                                                        <optgroup label="Attendance">
+                                                                <option value="persent"
+                                                                    selected>
+                                                                    persent</option>
+                                                                    <option value="late"
+                                                                    {{ $attendance->attendance == 'late'  ? 'selected' : '' }}>
+                                                                    late</option>
+                                                                    <option  value="absent"
+                                                                    {{ $attendance->attendance == 'absent'  ? 'selected' : '' }}>
+                                                                    absent</option>
+
+                                                        </optgroup>
+                                                    </select>
                                                 </div>
                                             </td>
                                             <td class="text-right">

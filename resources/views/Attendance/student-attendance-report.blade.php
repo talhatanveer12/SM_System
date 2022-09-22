@@ -71,7 +71,7 @@
                                         <td class='w-0'>
                                             <div class='flex'>
                                                 <span
-                                                    class="{{ $attendance->attendance == 'persent' ? 'bg-green-500' : ($attendance->attendance == 'late' ? 'bg-gray-500 ' : 'bg-red-500') }}  flex-1 figure p-1 rounded text-center">{{ $attendance->attendance }}</span>
+                                                    class="{{ $attendance->attendance == 'persent' ? 'bg-green-500' : ($attendance->attendance == 'late' ? 'bg-gray-500 ' : 'bg-red-500') }}  flex-1 figure p-1 rounded text-center text-white">{{ $attendance->attendance }}</span>
                                             </div>
                                         </td>
                                     </tr>

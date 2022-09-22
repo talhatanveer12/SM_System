@@ -23,7 +23,7 @@ class ClassesController extends Controller
     }
 
     public function show(){
-    return view('Classes.edit-delete-classes', [ 'Classes' => Classes::with('students')->get()]);
+    return view('Classes.edit-delete-classes', [ 'Classes' => Classes::with('students')->get() ?? '']);
     }
 
     public function destroy($id){

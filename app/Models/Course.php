@@ -5,13 +5,14 @@ namespace App\Models;
 use App\Models\Lesson;
 use App\Models\Classes;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Course extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
 
     protected $guarded = [];
 
@@ -23,7 +24,7 @@ class Course extends Model
      */
     public function classes(): BelongsToMany
     {
-        return $this->belongsToMany(Classes::class, 'assign_courses', 'class_id', 'course_id');
+        return $this->belongsToMany(Classes::class, 'assign_courses', 'course_id', 'class_id');
     }
 
     public function class_lesson(): BelongsToMany

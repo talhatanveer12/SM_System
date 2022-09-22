@@ -31,6 +31,7 @@ class EmployeeAttendanceController extends Controller
     }
 
     public function store(){
+       // dd(request()->all());
         for( $i = 0 ; $i < sizeof(request('employee_id')) ;$i++ ){
             EmployeeAttendance::updateOrCreate(
                 ['employee_id' => request('employee_id')[$i],'attendance_date' => request('attendance_date')],

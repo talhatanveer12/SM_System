@@ -7,6 +7,7 @@ use App\Models\Course;
 use App\Models\Employee;
 use App\Mail\WelcomeMail;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
@@ -26,20 +27,24 @@ class EmployeeController extends Controller
         return view('Employees.all-employee',['Employee' => $employee->get(),'Course' => Course::all()]);
     }
     public function create(){
-        return view('Employees.add-employee',['Classes' => Course::all()]);
+        $teacher;
+        if(request('emp_id')){
+            $teacher = Employee::find(request('emp_id'));
+        }
+        return view('Employees.add-employee',['Classes' => Course::all(),'Teacher' => $teacher ?? '']);
     }
     public function store(){
         //dd(request()->all());
         $values = request()->validate([
-            'reg_no' => 'required|unique:employees,reg_no',
-            'employee_no'=> 'required|unique:employees,employee_no',
+            'reg_no' => ['required', Rule::unique('employees','reg_no')->ignore(request('id'))],
+            'employee_no'=> ['required', Rule::unique('employees','employee_no')->ignore(request('id'))],
             'course_id' => 'required',
             'date_of_birth' => '|required|date',
             'first_name' => 'required',
             'last_name' => 'required',
             'gender' => 'required',
             'category' => 'required',
-            'email' => 'required|email|unique:employees,email',
+            'email' => ['required','email', Rule::unique('employees','email')->ignore(request('id'))],
             'religion' => 'required',
             'joining_date' => 'required|date',
             'cnic_no' => 'required',
@@ -54,17 +59,21 @@ class EmployeeController extends Controller
         }
 
         $password = rand(10000000,99999999);
-        $name = $values['first_name'].$values['last_name'];
-        User::create([
+        $name = $values['first_name'].' '.$values['last_name'];
+        User::updateOrCreate([
+            'email' => $values['email'],
+        ],[
             'name' => $name,
             'email' => $values['email'],
             'type' => 'teacher',
             'password' => Hash::make($password),
         ]);
 
-        Employee::create($values);
-        Mail::to($values['email'])->send(new WelcomeMail($name,$values['employee_no'],$password));
+        Employee::updateOrCreate([
+            'id' => request('id'),
+        ],$values);
+        Mail::to($values['email'])->send(new WelcomeMail($name,$values['employee_no'],$password,'teacher'));
 
-        return back()->with('success',"successfuly Employee Create");
+        return redirect()->route('addEmployee')->with('success',"successfuly Employee Record Add");
     }
 }

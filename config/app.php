@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Facade;
+use Illuminate\Auth\AuthServiceProvider;
 
 return [
 
@@ -159,7 +160,7 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
-        Illuminate\Auth\AuthServiceProvider::class,
+        AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
         Illuminate\Cache\CacheServiceProvider::class,

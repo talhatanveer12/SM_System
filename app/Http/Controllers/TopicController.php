@@ -6,26 +6,22 @@ use App\Models\Topic;
 use App\Models\Course;
 use App\Models\Lesson;
 use App\Models\Classes;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class TopicController extends Controller
 {
     public function index(){
-        $get_ids = Lesson::select('class_id','course_id')->groupBy('class_id','course_id')->get();
+        $get_ids = Lesson::select('course_id')->groupBy('course_id')->get();
         $course_name;
         $lesson_name;
         $topic_name;
         $class_name;
         $swap = -1;
         foreach ($get_ids as $key => $value) {
-            if($swap != $value['class_id']){
-                unset($course_name);
-                $swap = $value['class_id'];
-            }
-            $classes_name = Classes::select('class_name')->where('id', '=', $value['class_id'])->first();
             $courses_name = Course::select('course_name')->where('id', '=', $value['course_id'])->first();
-            $get_lessons = Lesson::select('lesson_name','id')->where('class_id','=',$value->class_id)->where('course_id','=',$value->course_id)->get();
+            $get_lessons = Lesson::select('lesson_name','id')->where('course_id','=',$value->course_id)->get();
             //dd($get_lessons);
             foreach ($get_lessons as $key_1 => $value_1) {
                 $get_topic = Topic::where('lesson_id','=',$value_1['id'])->get();
@@ -35,18 +31,16 @@ class TopicController extends Controller
                     }
                     $lesson_name[$value_1['lesson_name']] = $topic_name;
                     unset($topic_name);
-                    $course_name[$courses_name['course_name']] = $lesson_name;
-                    $class_name[$classes_name['class_name']] = $course_name;
-                    unset($lesson_name);
                 }
                 else{
-                    //$lesson_name[] = $value_1['lesson_name'];
+                    $lesson_name = '-1';
                 }
             }
-
+            if($lesson_name != '-1')
+                $course_name[$courses_name['course_name']] = $lesson_name ;
+            unset($lesson_name);
         }
-        //dd($class_name);
-        return view('Lesson-Plan.topic',['Classes' => Classes::all(),'topic_detail' => $class_name ?? '']);
+        return view('Lesson-Plan.topic',['Courses' => Employee::GetCourse() ?? '','topic_detail' => $course_name ?? '']);
     }
 
     public function store(){

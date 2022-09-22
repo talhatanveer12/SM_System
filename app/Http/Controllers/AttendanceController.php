@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\Classes;
 use App\Models\Student;
+use App\Models\Employee;
 use App\Models\Attendance;
 use Illuminate\Http\Request;
 
@@ -33,10 +35,11 @@ class AttendanceController extends Controller
 
             }
         }
-        return view('Attendance.marks-student-attendance',['Classes' => Classes::all(), 'Attendance' => $attendance]);
+        return view('Attendance.marks-student-attendance',['Classes' => Employee::GetClass() ?? '', 'Attendance' => $attendance]);
     }
 
     public function store(){
+
         for( $i = 0 ; $i < sizeof(request('student_id')) ;$i++ ){
             Attendance::updateOrCreate(
                 ['student_id' => request('student_id')[$i],'attendance_date' => request('attendance_date')],
@@ -63,7 +66,7 @@ class AttendanceController extends Controller
                 $attendance[$key]['id'] = $value->student_id;
             }
         }
-        return view('Attendance.student-attendance-report',['Classes' => Classes::all(),'Attendance' => $attendance]);
+        return view('Attendance.student-attendance-report',['Classes' => Employee::GetClass() ?? '','Attendance' => $attendance]);
     }
 
     public function viewAttendance(){

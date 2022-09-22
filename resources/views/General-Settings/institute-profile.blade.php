@@ -39,7 +39,7 @@
                     </div>
                 </div>
                     <div class="col-lg-4">
-                        <img src={{ '/storage/' . $Institute->logo }} width="100%" height="100%" />
+                        <img src={{ $Institute->logo ? '/storage/' . $Institute->logo : '/images/illustration-1.png'}} width="100%" height="100%" />
                     </div>
             </section>
             <section class="px-6 py-8">
@@ -63,7 +63,7 @@
             <section class="px-6 py-8">
                 <div
                     class="bg-gray-200  flex flex-col items-center border hover:shadow-2xl px-6 py-8 rounded-2xl shadow-md">
-                    <img src={{ '/storage/' . $Institute->logo }} width="50%" height="50%" />
+                    <img src={{ $Institute->logo ? '/storage/' . $Institute->logo : '/images/illustration-1.png'}} width="50%" height="50%" />
                     <h3>{{ $Institute->name }}</h3>
                     <span class="border border-b-0 mt-2 mb-2 w-full"></span>
                     <div class="container-fluid flex items-center justify-between">

@@ -23,7 +23,7 @@
                                         @can('admin')
 
 
-                                            <div class="col-md-3 mt-2">
+                                            {{-- <div class="col-md-3 mt-2">
                                                 <div class="form-group w-full">
                                                     <label class="control-label">Class</label>
                                                     <div class>
@@ -40,7 +40,7 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                             <div class="col-md-3 mt-2">
                                                 <div class="form-group">
                                                     <label class="control-label">Course</label>
@@ -50,7 +50,10 @@
                                                             name="course id" id="course_id">
                                                             <option></option>
                                                             <optgroup label="Course name">
-                                                                <option value="">Select Course</option>
+                                                                @foreach ($Courses as $Course)
+                                                                    <option value="{{ $Course->id }}">
+                                                                        {{ $Course->course_name }}</option>
+                                                                @endforeach
                                                             </optgroup>
                                                         </select>
                                                     </div>
@@ -454,7 +457,7 @@
                     $('#lesson_id').html(html_body);
 
                 }
-                xmlhttp.open("GET", "/getlesson/" + id + '/' + class_id);
+                xmlhttp.open("GET", "/getlesson/" + id + '/' + '1');
                 xmlhttp.send();
             });
         });

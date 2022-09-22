@@ -131,17 +131,17 @@
             <li class="has-sub">
                 <a href="#">
                     <i class="fa-solid fa-briefcase"></i>
-                    <span class="title">Employees</span>
+                    <span class="title">Teacher</span>
                 </a>
                 <ul>
                     <li>
                         <a href="/all-employee">
-                            <span class="title">All Employees</span>
+                            <span class="title">All Teacher</span>
                         </a>
                     </li>
                     <li>
                         <a href="/add-employee">
-                            <span class="title">Add New Employee</span>
+                            <span class="title">Add New Teacher</span>
                         </a>
                     </li>
                 </ul>

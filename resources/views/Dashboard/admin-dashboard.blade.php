@@ -25,7 +25,7 @@
         <div class="col-sm-3">
             <div class="tile-stats tile-green">
                 <div class="icon"><i class="entypo-gauge"></i></div>
-                <div class="num">{{ $month_fee->total_month_fee }}</div>
+                <div class="num">{{ $month_fee->total_month_fee ?? 0 }}</div>
                 <h3>This Month Fee collection</h3>
             </div>
         </div>

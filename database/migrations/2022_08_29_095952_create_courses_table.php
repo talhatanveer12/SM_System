@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('course_name')->unique();
             $table->string('course_code')->unique();
             $table->string('course_type');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -30,5 +31,8 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('courses');
+        Schema::table('courses', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

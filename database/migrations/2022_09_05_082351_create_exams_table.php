@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('exam_name');
             $table->date('starting_date');
             $table->date('ending_date');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -30,5 +31,8 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('exams');
+        Schema::table('exams', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

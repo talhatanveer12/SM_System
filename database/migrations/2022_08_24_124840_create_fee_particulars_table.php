@@ -18,8 +18,8 @@ return new class extends Migration
             $table->unsignedInteger('admission_fee');
             $table->unsignedInteger('registration_fee');
             $table->unsignedInteger('books');
-            $table->striunsignedIntegerng('uniform');
-            $table->striunsignedIntegerng('fine');
+            $table->unsignedInteger('uniform');
+            $table->unsignedInteger('fine');
             $table->unsignedInteger('other');
             $table->unsignedInteger('per_course_fee');
             $table->timestamps();

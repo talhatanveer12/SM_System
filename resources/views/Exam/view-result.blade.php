@@ -14,11 +14,11 @@
                                     <table class="table">
                                         <thead class="text-center">
                                             <tr>
-                                                <th class="text-center">Subject</th>
-                                                <th class="text-center">Total Marks</th>
-                                                <th class="text-center">Marks Obtained</th>
-                                                <th class="text-center">Grade</th>
-                                                <th class="text-center">Result</th>
+                                                <td class="text-center"><b>Subject</b></td>
+                                                <td class="text-center"><b>Total Marks</b></td>
+                                                <td class="text-center"><b>Marks Obtained</b></td>
+                                                <td class="text-center"><b>Grade</b></td>
+                                                <td class="text-center"><b>Result</b></td>
                                             </tr>
                                         </thead>
                                         @foreach ($Exam_Result as $key1 => $value1)
@@ -32,7 +32,7 @@
                                                 </tbody>
                                             @endif
                                         @endforeach
-                                        @if ($grand_total)
+                                        @if ($grand_total[$key])
                                             <thead>
                                                 <th>Percentage : {{ round($grand_total[$key]['percent']) }}</th>
                                                 <th>Result : Pass</th>

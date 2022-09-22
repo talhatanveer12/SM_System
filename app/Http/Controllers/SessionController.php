@@ -36,7 +36,14 @@ class SessionController extends Controller
 
             session()->regenerate();
             if(Auth::user()->type == 'admin'){
-                session(['photo' => Institute::where('email','=',auth()->user()->email)->first(['logo'])->logo]);
+                $logo = Institute::where('email','=',auth()->user()->email)->first(['logo'])->logo;
+                if($logo){
+                    session(['photo' => $logo]);
+                }
+                $name = Institute::where('email','=',auth()->user()->email)->first(['name'])->name;
+                if($name){
+                    session(['institute_name' => $name]);
+                }
                 return redirect('/adminDashboard')->with('success',"Welcome Back!!");
             }
             elseif (Auth::user()->type == 'student') {

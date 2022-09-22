@@ -111,25 +111,6 @@ class TestController extends Controller
             'question_id' => $question_id->id,
         ]);
 
-
-
-
-
-
-        // $values = request()->validate([
-        //     'lesson_id' => 'required',
-        //     'question' => 'required',
-        //     'option_A' => 'required',
-        //     'option_B' => 'required',
-        //     'option_C' => 'required',
-        //     'option_D' => 'required',
-        //     'correct_option' => 'required',
-        // ]);
-
-       // $values['test_type'] = 'mcqs';
-
-       // Test::create($values);
-
        return back()->with('success',"successfuly Question add");
     }
 
@@ -138,22 +119,15 @@ class TestController extends Controller
         foreach ($test as $key => $value) {
             foreach ($value->testresult as $key1 => $value1) {
                 if($value1->student_id == Student::StudentId()->id){
-                    $value->testresult[0] = $value1;
                     unset($value->testresult[$key1]);
+                    $value->testresult[0] = $value1;
+
                 }
                 else{
                     unset($value->testresult[$key1]);
                 }
             }
-            // if($value->testresult[$key]->student_id == $id){
-
-            // }
-
-            //dd($value->testresult[0]->student_id);
-            # code...
         }
-
-        //dd($test);
 
         return view('Lesson-Test.view-test',['Test' => $test]);
     }

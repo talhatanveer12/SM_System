@@ -7,22 +7,22 @@
                     <form method="POST" action="/save-lesson">
                         @csrf
                         <div class="form-group">
-                            <label class="control-label">Class</label>
+                            <label class="control-label">Course</label>
                             <div>
-                                <select class="select2" data-allow-clear="true" data-placeholder="Select one class..."
-                                    name="class id" id="class_id">
+                                <select class="select2" data-allow-clear="true" data-placeholder="Select one Course..."
+                                    name="course id" id="course_id">
                                     <option></option>
-                                    <optgroup label="Class name">
-                                        @foreach ($Classes as $Class)
-                                            <option value="{{ $Class->id }}">{{ $Class->class_name }}</option>
+                                    <optgroup label="Course name">
+                                        @foreach ($Courses as $Course)
+                                            <option value="{{ $Course->id }}">{{ $Course->course_name }}</option>
                                         @endforeach
                                     </optgroup>
                                 </select>
                             </div>
-                            <x-form.error name="class_id" />
+                            <x-form.error name="course_id" />
                         </div>
 
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label class="control-label">Course</label>
                             <div>
                                 <select class="select2" aria-label="Default select example" data-allow-clear="true"
@@ -34,7 +34,7 @@
                                 </select>
                             </div>
                             <x-form.error name="course_id" />
-                        </div>
+                        </div> --}}
                         <x-form.input name="lesson name" error="lesson_name" />
 
 
