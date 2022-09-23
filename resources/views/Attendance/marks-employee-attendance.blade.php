@@ -34,7 +34,7 @@
                     </form>
                 </div>
                 @if ($Attendance)
-                    <form action="/save-employee-attendance" method="POST">
+                    <form action="/api/save-employee-attendance" method="POST">
                         @csrf
                         <input class="form-control" type='hidden' name='attendance date' id="attendance_date"
                             value={{ request('attendance_date') }} />

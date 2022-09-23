@@ -111,8 +111,6 @@ class StudentController extends Controller
             // dispatch(new sendMailJob($values['guardian_name'],$values['roll_no'],$guardian_password,$values['guardian_email'],'student'));
             // dispatch(new sendMailJob($name,$values['roll_no'],$password,$values['email'],'student'));
 
-        //Mail::to($values['email'])->send(new WelcomeMail($values['guardian_name'],$values['roll_no'],$password));
-        //Mail::to($values['guardian_email'])->send(new WelcomeMail($name,$values['roll_no'],$guardian_password));
         return redirect()->route('addStudent')->with('success',"successfuly Student Create");
     }
 }

@@ -2,8 +2,7 @@
 <html lang="en">
 
 <head>
-    {{-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> --}}
-
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -25,16 +24,13 @@
             background-color: #373e4a !important;
             //font-size: 120px !important;
         }
-
         .fontcolor {
             color: white !important;
             font-size: 12px !important;
         }
-
         .tablestyle {
             border: none !important;
         }
-
         th {
             background-color: #373e4a !important;
             color: white !important;
@@ -44,24 +40,11 @@
             height: 50px !important;
         }
     </style>
-
-    <!--[if lt IE 9]><script src="assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
- <![endif]-->
-
-
 </head>
 
 <body class="page-body  page-fade" style="color: black;" id='body' >
 
-
-
     <div class="page-container">
-        <!-- add class "sidebar-collapsed" to close sidebar by default, "chat-visible" to make chat appear always -->
         @can('admin')
             <x-sidebar.admin-sidebar />
         @endcan
@@ -75,70 +58,9 @@
             <x-sidebar.student-sidebar />
         @endcan
         <div class="main-content">
-
-            <div class="row">
-                <!-- Profile Info and Notifications -->
-                <div class="col-md-6 col-sm-8 clearfix">
-                    <ul class="user-info pull-left pull-none-xsm">
-                        <li class="profile-info dropdown">
-                            <!-- add class "pull-right" if you want to place this from right -->
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <div class="flex">
-                                    <img src={{ session('photo') ? '/storage/' . session('photo') : '/assets/images/thumb-1@2x.png' }} alt="" class="img-circle imgPhoto"
-                                        width="50" height="50" />
-                                    <span class="pt-5">{{ auth()->user()->name }}</span>
-                                </div>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="caret"></li>
-                                @can('admin')
-                                <li>
-                                    <a href="/institute-profile">
-                                        <i class="entypo-user"></i>
-                                        Edit Profile
-                                    </a>
-                                </li>
-                                @endcan
-                                <li>
-                                    <a href="/account-settings">
-                                        <i class="fa-solid fa-key"></i>
-                                        Change Password
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-6 col-sm-4 clearfix hidden-xs">
-                    <ul class="list-inline links-list pull-right">
-                        <li class="sep"></li>
-                        <li class="sep"></li>
-
-                        <li>
-                            <form id="form_id" method="POST" action="/logout" class="display: none">
-                                @csrf
-                                <button class="btn btn-link">
-                                    Log Out <i class="entypo-logout right"></i>
-                                </button>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
+            <x-navbar.navbar/>
             {{ $slot }}
-
-            <!-- lets do some work here... -->
-            <!-- Footer -->
-            {{-- <footer class="main">
-
-			&copy; 2015 <strong>Neon</strong> Admin Theme by <a href="http://laborator.co" target="_blank">Laborator</a>
-
-		</footer> --}}
         </div>
-
-
-
     </div>
     <x-flash />
 
@@ -168,9 +90,6 @@
     <script src="/assets/js/raphael-min.js"></script>
     <script src="/assets/js/morris.min.js"></script>
     <script src="/assets/js/toastr.js"></script>
-    <script src="/assets/js/neon-chat.js"></script>
-
-    {{-- <script src="/assets/js/raphael-min.js"></script> --}}
 
 
     <script src="/assets/js/fileinput.js"></script>

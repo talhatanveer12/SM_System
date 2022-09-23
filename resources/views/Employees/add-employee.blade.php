@@ -2,7 +2,7 @@
     <div class="col">
         <div class="row">
 
-            <form action="/save-employee-detail" method="POST" enctype="multipart/form-data">
+            <form action="/api/save-employee-detail" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="col-md-12">
 

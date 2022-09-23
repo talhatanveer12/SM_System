@@ -90,4 +90,5 @@ class AjaxController extends Controller
         $check = Fee::where('student_id','=',$id)->where('fee_month','=',$month)->first();
         return $check;
     }
+
 }

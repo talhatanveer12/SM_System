@@ -4,7 +4,7 @@
             <div class="col-md-4 p-2">
                 <div class="border p-2  rounded hover:shadow-2xl shadow-md">
                     <div class="border-t-2 border-black p-2 mb-4 mr-2">Assign Course</div>
-                    <form method="POST" action="/save-assign-course">
+                    <form method="POST" action="/api/save-assign-course">
                         @csrf
                         <div class="form-group">
                             <label class="control-label">Class</label>

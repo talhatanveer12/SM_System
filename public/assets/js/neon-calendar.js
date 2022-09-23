@@ -57,30 +57,30 @@ var neonCalendar = neonCalendar || {};
 				var calendar = $('#calendar');
 
 				calendar.fullCalendar({
-					header: {
-						left: 'title',
-						right: 'month,agendaWeek,agendaDay today prev,next'
-					},
+                    header: {
+                        left: "title",
+                        right: "month,agendaWeek,agendaDay today prev,next",
+                    },
 
-					defaultView: 'basicWeek',
-					events: '/title',
-                    eventTimeFormat: { // like '14:30:00'
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        second: '2-digit',
-                        meridiem: false
-                      },
-					//selectable:true,
-					//selecthelper:true,
-					editable: true,
-					firstDay: 1,
-					height: 600,
-					//droppable: true,
-					select: function(start,end,allDay){
-						var title = prompt("Enter event");
-					},
-
-				});
+                    defaultView: "basicWeek",
+                    events: "/get-timetable",
+                    eventTimeFormat: {
+                        // like '14:30:00'
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: "2-digit",
+                        meridiem: false,
+                    },
+                    //selectable:true,
+                    //selecthelper:true,
+                    editable: true,
+                    firstDay: 1,
+                    height: 600,
+                    //droppable: true,
+                    select: function (start, end, allDay) {
+                        var title = prompt("Enter event");
+                    },
+                });
                 console.log(calendar);
 
 				$("#draggable_events li a").draggable({

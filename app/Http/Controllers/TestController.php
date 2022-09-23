@@ -26,30 +26,10 @@ class TestController extends Controller
         if(request('lesson_id')){
             $result= LessonTest::where('lesson_id','=',request('lesson_id'))->with('questions')->get();
         }
-        // foreach ($result as $key => $value) {
-        //     foreach ($value->questions as $key1=> $value1) {
-        //         foreach ($value1->options as $key2 => $value2) {
-        //             dd($value2);
-        //         }
-        //         // if(count($value1->options))
-        //         //     print('32');
-        //         //dd($value1->options);
-        //     }
-        // }
-        //dd($v);
-        //dd(request()->all());
-        //$result = Test::where('lesson_id','=',request('lesson_id'))->get();
-        //dd($result);
         return view('Lesson-Test.create-test',['Classes' => Classes::all(),'Courses' => Course::all(),'Questions' => $result ?? '','Lesson' => $Lesson ?? '']);
     }
 
     public function store(){
-        //dd(request()->all());
-
-        //dd(json_encode(request('correct_answer')));
-
-
-
         $checkTest = LessonTest::where('lesson_id','=',request('lesson_id'))->first();
         $question_id;
         if(!$checkTest){
@@ -114,7 +94,7 @@ class TestController extends Controller
        return back()->with('success',"successfuly Question add");
     }
 
-    public function viewTest(){
+    public function show(){
         $test = LessonTest::GetLessonTest();
         foreach ($test as $key => $value) {
             foreach ($value->testresult as $key1 => $value1) {

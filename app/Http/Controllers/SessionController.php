@@ -30,10 +30,7 @@ class SessionController extends Controller
             'password' => 'required',
         ]);
         RateLimiter::clear('login.'.$request->ip());
-
         if (Auth::attempt($values)) {
-
-
             session()->regenerate();
             if(Auth::user()->type == 'admin'){
                 $logo = Institute::where('email','=',auth()->user()->email)->first(['logo'])->logo;
@@ -59,11 +56,11 @@ class SessionController extends Controller
                 return redirect('/guardianDashboard')->with('success',"Welcome Back!!");
             }
         }
-
         throw ValidationException::withMessages([
             'password' => 'Your Provided Credential Could not be verified'
         ]);
     }
+
     public function ChangePassword(){
         $values = request()->validate([
             'email' => ['required','email'],
@@ -99,6 +96,7 @@ class SessionController extends Controller
     public function getForgotPassword(){
         return view('Auth.forgot-password');
     }
+
     public function postForgetPassword(Request $request){
         $request->validate(['email' => 'required|email']);
 
@@ -110,16 +108,17 @@ class SessionController extends Controller
                     ? back()->with(['status' => __($status)])
                     : back()->withErrors(['email' => __($status)]);
     }
+
     public function getResetPassword($token){
         return view('Auth.reset-password', ['token' => $token]);
     }
+
     public function postResetPassword(Request $request){
         $request->validate([
             'token' => 'required',
             'email' => 'required|email',
             'password' => 'required|min:8|confirmed',
         ]);
-
         $status = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
             function ($user, $password) {
@@ -132,7 +131,6 @@ class SessionController extends Controller
                 event(new PasswordReset($user));
             }
         );
-
         return $status === Password::PASSWORD_RESET
                     ? redirect()->route('login')->with('status', __($status))
                     : back()->withErrors(['email' => [__($status)]]);

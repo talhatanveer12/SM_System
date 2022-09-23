@@ -4,7 +4,7 @@
             <div class="col-md-4 p-2">
                 <div class="border p-2  rounded hover:shadow-2xl shadow-md">
                     <div class="border-t-2 border-black p-2 mb-4 mr-2">Add Exam</div>
-                    <form action="/add-exam" method="POST">
+                    <form action="/api/add-exam" method="POST">
                         @csrf
                         <input type="hidden" value='{{ request('exam_id') }}' name='exam_id'>
                         <div class="mb-4">

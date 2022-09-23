@@ -10,7 +10,6 @@ use App\Models\FeeParticularAmount;
 class FeeParticularAmountController extends Controller
 {
     public function index(FeeParticulars $particulars){
-        //$particulars = DB::table('fee_particulars')->get();
         return view('General-Settings.fee-particulars',[ 'Particulars' => FeeParticularAmount::all()]);
     }
 

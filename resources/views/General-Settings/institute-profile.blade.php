@@ -1,19 +1,17 @@
 <x-layout.layout>
-
     <div class="row">
-        {{-- <main class="col grid grid-cols-12 ps-md-2 pt-2"> --}}
         <div class="col-lg-7 col-md-6">
+
+            {{-- Update institute logo  --}}
             <section class="px-6 py-8">
                 <div class="row bg-gray-200 flex border hover:shadow-2xl px-6 py-8 rounded-2xl shadow-md">
                     <div class="col-lg-8">
                         <h3>Update Institute Logo Here</h3>
-                        <form method="POST" action="/updatelogo/{{ $Institute->id }}" enctype="multipart/form-data">
+                        <form method="POST" action="/api/updatelogo/{{ $Institute->id }}" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
                                 <label class="control-label">File Select</label>
-
                                 <div>
-
                                     <div class="fileinput fileinput-new" data-provides="fileinput">
                                         <div class="input-group">
                                             <div class="form-control uneditable-input" data-trigger="fileinput">
@@ -32,7 +30,6 @@
 
                                 </div>
                             </div>
-                            {{-- <x-form.input name="logo" type="file" /> --}}
                             <div class="col-span-5">
                                 <button class="btn btn-primary">Update</button>
                         </form>
@@ -42,11 +39,13 @@
                         <img src={{ $Institute->logo ? '/storage/' . $Institute->logo : '/images/illustration-1.png'}} width="100%" height="100%" />
                     </div>
             </section>
+
+            {{-- update / add institute detail --}}
             <section class="px-6 py-8">
                 <div class="bg-gray-200  flex border hover:shadow-2xl px-6 py-8 rounded-2xl shadow-md">
                     <div class="w-full">
                         <h6>Update Institute Info Here</h6>
-                        <form method="POST" action="/update/{{ $Institute->id }}">
+                        <form method="POST" action="/api/update/{{ $Institute->id }}">
                             @csrf
                             <x-form.input name="name" value='{{ $Institute->name }}' />
                             <x-form.input name="email" type="email" value='{{ $Institute->email }}' />
@@ -59,6 +58,8 @@
                 </div>
             </section>
         </div>
+
+        {{-- display institute detail  --}}
         <div class="col-lg-5 col-md-6">
             <section class="px-6 py-8">
                 <div
@@ -84,7 +85,5 @@
                 </div>
             </section>
         </div>
-        {{-- </main> --}}
     </div>
-
 </x-layout.layout>

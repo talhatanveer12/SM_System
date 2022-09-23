@@ -1,7 +1,7 @@
 <x-layout.layout>
     <div class="col">
         <div class="row">
-            <form action="/save-student-detail" method="POST" enctype="multipart/form-data">
+            <form action="/api/save-student-detail" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="col-md-12">
 

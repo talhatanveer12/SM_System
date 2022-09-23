@@ -10,7 +10,6 @@
                     <div class="px-6 py-8">
                         <form action="/changepassword" method="POST">
                             @csrf
-
                             <x-form.input name="email" type="email" />
                             <x-form.input name="old Password" type="password" />
                             <x-form.input name="new Password" type="password" />

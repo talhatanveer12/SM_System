@@ -50,7 +50,7 @@
                         <span>{{ $Students->first_name . ' ' . $Students->last_name }}</span>
                     </div>
                 </div>
-                <form action="/save-fee-collect" method="POST">
+                <form action="/api/save-fee-collect" method="POST">
                     @csrf
                     <div class="row text-left mb-4">
                         <div class="col-lg-4">
