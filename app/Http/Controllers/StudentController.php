@@ -25,7 +25,7 @@ class StudentController extends Controller
         if(request('class_id')){
             $student->where('class_id','=',request('class_id'));
         }
-        return view('Students.all-student',['Student' => $student->paginate(10), 'Classes' => Employee::GetClass() ?? '']);
+        return view('Students.all-student',['Student' => $student->paginate(3), 'Classes' => Employee::GetClass() ?? '']);
     }
 
     public function create(){

@@ -24,7 +24,7 @@ class EmployeeController extends Controller
         elseif(request('course_id') || request('cnic_no')){
             $employee->where('cnic_no','like','%'.request('cnic_no').'%')->where('course_id','=',request('course_id'));
         }
-        return view('Employees.all-employee',['Employee' => $employee->get(),'Course' => Course::all()]);
+        return view('Employees.all-employee',['Employee' => $employee->paginate(3),'Course' => Course::all()]);
     }
     public function create(){
         $teacher;

@@ -133,7 +133,6 @@ Route::post('/forgot-password',[SessionController::class,'postForgetPassword'])-
 Route::get('/reset-password/{token}',[SessionController::class,'getResetPassword'])->middleware('guest')->name('password.reset');
 Route::post('/reset-password',[SessionController::class,'postResetPassword'])->middleware('guest')->name('password.update');
 
-
 Route::get('/getcourse/{id}',[AjaxController::class,'getcourse']);
 Route::get('/getlesson/{id}/{class_id}',[AjaxController::class,'getlesson']);
 Route::get('/changeTopicStatus/{id}',[AjaxController::class,'changeTopicStatus']);
