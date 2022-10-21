@@ -12,17 +12,25 @@
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table">
-                                        <thead class="text-center">
-                                            <tr>
-                                                <td class="text-center"><b>Subject</b></td>
-                                                <td class="text-center"><b>Total Marks</b></td>
-                                                <td class="text-center"><b>Marks Obtained</b></td>
-                                                <td class="text-center"><b>Grade</b></td>
-                                                <td class="text-center"><b>Result</b></td>
-                                            </tr>
-                                        </thead>
+                                        @php
+                                            $check = 0;
+                                        @endphp
                                         @foreach ($Exam_Result as $key1 => $value1)
                                             @if ($value1->exam_id == $value->id)
+                                                @if ($check == 0)
+                                                    <thead class="text-center">
+                                                        <tr>
+                                                            <td class="text-center"><b>Subject</b></td>
+                                                            <td class="text-center"><b>Total Marks</b></td>
+                                                            <td class="text-center"><b>Marks Obtained</b></td>
+                                                            <td class="text-center"><b>Grade</b></td>
+                                                            <td class="text-center"><b>Result</b></td>
+                                                        </tr>
+                                                    </thead>
+                                                    @php
+                                                        $check = 1;
+                                                    @endphp
+                                                @endif
                                                 <tbody class="text-center">
                                                     <td>{{ $value1->courses->course_name }}</td>
                                                     <td>{{ $value1->total_marks }}</td>
@@ -32,6 +40,12 @@
                                                 </tbody>
                                             @endif
                                         @endforeach
+                                        @if($check != 1)
+                                                <h3 class="text-center">Result not Found</h3>
+                                        @endif
+                                        @php
+                                            $check = 0;
+                                        @endphp
                                         @if ($grand_total[$key])
                                             <thead>
                                                 <th>Percentage : {{ round($grand_total[$key]['percent']) }}</th>

@@ -64,7 +64,7 @@ class TestController extends Controller
             ]);
             $question_id = Question::create($values);
         }
-        else{
+        else if(request('question_type') == 'mco'){
             $values = request()->validate([
                 'question' => 'required',
                 'correct_answer' => 'required',
@@ -84,6 +84,16 @@ class TestController extends Controller
                     'question_id' => $question_id->id,
                 ]);
             }
+        } else {
+            $values = request()->validate([
+                'question' => 'required',
+                'correct_answer' => 'required',
+                'question_type' => 'required',
+            ]);
+            $value = request()->validate([
+                'option.*' => 'required',
+            ]);
+            $question_id = Question::create($values);
         }
 
         TestQuestion::create([

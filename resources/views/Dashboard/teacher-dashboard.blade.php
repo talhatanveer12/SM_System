@@ -39,9 +39,17 @@
     </div>
     <hr />
     <br>
+    <div class="col-lg-6">
+        <div class="calendar-env">
+            <div class="calendar-body " style="width: 100%;">
+                <div id="calendar"></div>
+            </div>
+        </div>
+
+    </div>
     <div class="col-sm-3 mt-6">
 
-        <div class="tile-block" id="todo_tasks">
+        {{-- <div class="tile-block" id="todo_tasks">
 
             <div class="tile-header">
                 <i class="entypo-list"></i>
@@ -94,18 +102,11 @@
                 <a href="#">Just For Fun</a>
             </div>
 
-        </div>
+        </div> --}}
     </div>
     <div class="col-sm-3">
     </div>
-    <div class="col-lg-6">
-        <div class="calendar-env">
-            <div class="calendar-body " style="width: 100%;">
-                <div id="calendar"></div>
-            </div>
-        </div>
 
-    </div>
 
     <script src="assets/js/fullcalendar/fullcalendar.min.js"></script>
         <script src="assets/js/view-calendar.js"></script>

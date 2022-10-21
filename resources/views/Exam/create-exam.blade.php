@@ -1,7 +1,52 @@
 <x-layout.layout>
     <div class="col">
         <div class="row">
-            <div class="col-md-4 p-2">
+            <div class="row">
+                <<form action="/api/add-exam" method="POST">
+                    @csrf
+                    <input type="hidden" value='{{ request('exam_id') }}' name='exam_id'>
+                    <div class="col-md-12">
+                        <div class="panel panel-primary mt-4 mb-4" data-collapsed="0">
+                            <div class="panel-heading backgroundColor">
+                                <div class="panel-title">
+                                    Select Criteria
+                                </div>
+                                <div class="panel-options">
+                                    <a href="#" data-rel="collapse"><i
+                                            class="entypo-down-open backgroundColor"></i></a>
+                                </div>
+                            </div>
+                            <div class="panel-body ">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="mb-4">
+                                            <x-form.label name="exam name" />
+                                            <input class="form-control" type="type" placeholder="Enter Exam Name"
+                                                name="exam name" id='exam_name'
+                                                value="{{ $UpdateExam ? $UpdateExam->exam_name : '' }}" />
+                                            <x-form.error name="exam_name" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 ">
+                                        <x-form.label name="Starting Date" />
+                                        <input class="form-control mb-4" type="date" name="starting_date"
+                                            value="{{ $UpdateExam ? $UpdateExam->starting_date : '' }}" />
+                                    </div>
+                                    <div class="col-md-3 ">
+                                        <x-form.label name="Ending Date" />
+                                        <input class="form-control mb-4" type="date" name="ending_date"
+                                            value="{{ $UpdateExam ? $UpdateExam->ending_date : '' }}" />
+                                    </div>
+                                    <div class="mt-9">
+                                        <x-form.button>{{ request('exam_id') ? 'Update' : 'Add' }}</x-form.button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+            </div>
+            {{-- <div class="col-md-4 p-2">
                 <div class="border p-2  rounded hover:shadow-2xl shadow-md">
                     <div class="border-t-2 border-black p-2 mb-4 mr-2">Add Exam</div>
                     <form action="/api/add-exam" method="POST">
@@ -23,14 +68,33 @@
                         <x-form.button>{{ request('exam_id') ? 'Update' : 'Save' }}</x-form.button>
                     </form>
                 </div>
-            </div>
-            <div class="col-md-8 p-2">
+            </div> --}}
+            <script type="text/javascript">
+                jQuery(window).load(function() {
+                    var $table2 = jQuery("#table-2");
+
+                    // Initialize DataTable
+                    $table2.DataTable({
+                        "sDom": "tip",
+                        "bStateSave": false,
+                        "iDisplayLength": 8,
+                        "aoColumns": [
+                            null,
+                            null,
+                            null,
+                            null
+                        ],
+                        "bStateSave": true
+                    });
+                });
+            </script>
+            <div class="col-md-12 p-2">
                 <div class="border p-2  rounded hover:shadow-2xl shadow-md">
                     <div class="border-t-2 border-black p-2 mb-4 mr-2">Exam List</div>
                     @if ($Exams)
 
                         <div class="table-responsive">
-                            <table class="table">
+                             <table class="table table-bordered table-striped datatable" id="table-2">
                                 <thead>
                                     <tr>
                                         <th scope="col">Exam Name</th>
@@ -52,7 +116,8 @@
                                                         <i class="fa-solid fa-pen-to-square"></i>
                                                     </button>
                                                     <a href="/delete-exam/{{ $Exam->id }}"
-                                                        class="mr-2 text-black text-decoration-none">
+                                                        class="mr-2 text-black text-decoration-none"
+                                                        onclick="return confirm('Are you sure you want to delete this Exam?');">
                                                         <i class="fa-solid fa-trash-can"></i>
                                                     </a>
                                                 </form>
@@ -120,6 +185,19 @@
                 </div>
             </div>
         </div>
+
+
     </div>
+
+        <link rel="stylesheet" href="/assets/js/datatables/datatables.css">
+    <link rel="stylesheet" href="/assets/js/select2/select2-bootstrap.css">
+    <link rel="stylesheet" href="/assets/js/select2/select2.css">
+
+
+
+    <!-- Imported scripts on this page -->
+    <script src="/assets/js/datatables/datatables.js"></script>
+    <script src="/assets/js/select2/select2.min.js"></script>
+    <script src="/assets/js/neon-chat.js"></script>
 
 </x-layout.layout>

@@ -11,8 +11,11 @@ use Illuminate\Http\Request;
 class TestResultController extends Controller
 {
     public function show($id,$lesson_id){
-        $result= LessonTest::where('lesson_id','=',$lesson_id)->with('questions')->paginate(3);
-       // dd($result);
+        if(!count(TestResult::where('student_id','=',Student::StudentId()->id)->where('lesson_test_id','=',$id)->get()))
+            $result= LessonTest::where('lesson_id','=',$lesson_id)->with('questions')->paginate(2);
+        else{
+            $result = 'submit';
+        }
         return view('Lesson-Test.test-page',['Questions' => $result ?? '','test_id' => $id]);
     }
 
@@ -40,7 +43,7 @@ class TestResultController extends Controller
         $values['total_no'] = $Total_number;
         $values['obtain_no'] = $obtain_number;
         TestResult::create($values);
-        return redirect()->action([TestController::class, 'viewTest']);
+        return redirect()->route('viewTest');
 
     }
 }

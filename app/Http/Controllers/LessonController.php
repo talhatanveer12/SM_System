@@ -15,16 +15,23 @@ use App\Http\Controllers\Controller;
 class LessonController extends Controller
 {
     public function index(){
-        return view('Lesson-Plan.lesson',['Courses' => Employee::GetCourse() ?? '','Lesson_detail' => Course::with('lessons')->get() ?? '']);
+        $result;
+        if(request('lesson_id')){
+            $result = Lesson::find(request('lesson_id'));
+            //dd($result);
+        }
+        return view('Lesson-Plan.lesson',['Courses' => Employee::GetCourse() ?? '','Lesson_detail' => Course::with('lessons')->get() ?? '','Lesson' => $result ?? '']);
     }
 
     public function store(){
+        //dd(request()->all());
         $values = request()->validate([
             'course_id' => 'required',
-            'lesson_name' => 'required|unique:lessons,lesson_name',
+            'lesson_name' => 'required',
         ]);
-        Lesson::create($values);
-        return back()->with('success',"successfuly Lesson created");
+
+        Lesson::updateOrCreate(['id' => request('lesson_id')],$values);
+        return redirect()->route('lesson_list')->with('success',"successfuly Lesson created");
     }
 
     public function syllabus_index(){
@@ -99,5 +106,10 @@ class LessonController extends Controller
             }
         }
         return view('Lesson-Plan.view-syllabus-status',['Courses' => $Course,'','lesson' => $lesson ?? '','Course_name' => $Course_name]);
+    }
+
+    public function delete($id){
+        Lesson::where('id',$id)->delete();
+        return back()->with('success',"successfuly Delete Exam");
     }
 }

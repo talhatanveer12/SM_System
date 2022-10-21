@@ -14,8 +14,6 @@
                                     <div class="panel-options">
                                         <a href="#" data-rel="collapse"><i
                                                 class="entypo-down-open backgroundColor"></i></a>
-                                        <a href="#" data-rel="reload"><i
-                                                class="entypo-arrows-ccw backgroundColor"></i></a>
                                     </div>
                                 </div>
                                 <div class="panel-body ">
@@ -60,17 +58,31 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                                $count = 1;
+                            @endphp
                             @foreach ($lesson as $key => $value)
                                 <tr>
                                     <td>
-                                        <h5>{{ $key }}</h5>
+                                        <h4><b>{{ $count . ' ' . $key }}</b></h4>
+
                                         <ul>
                                             @if ($value)
+                                                @php
+                                                    $count2 = 1;
+                                                @endphp
                                                 @foreach ($value as $key_1 => $value_1)
-                                                    <li class="mb-2">{{ $value_1->topic_name }}</li>
+                                                    <li class="mb-2 ml-6">{{ $count . '.' . $count2 . ' ' . $value_1->topic_name }}
+                                                    </li>
+                                                    @php
+                                                        $count2++;
+                                                    @endphp
                                                 @endforeach
                                             @endif
                                         </ul>
+                                        @php
+                                            $count++;
+                                        @endphp
                                     </td>
                                     <td>
                                         <h6 class="h-5"></h6>

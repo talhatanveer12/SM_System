@@ -18,7 +18,7 @@
                                                 <i class="glyphicon glyphicon-file fileinput-exists"></i>
                                                 <span class="fileinput-filename"></span>
                                             </div>
-                                            <span class="input-group-addon btn btn-default btn-file">
+                                            <span class="input-group-addon btn btn-default btn-file color">
                                                 <span class="fileinput-new">Select file</span>
                                                 <span class="fileinput-exists">Change</span>
                                                 <input type="file" name="logo">
@@ -44,7 +44,7 @@
             <section class="px-6 py-8">
                 <div class="bg-gray-200  flex border hover:shadow-2xl px-6 py-8 rounded-2xl shadow-md">
                     <div class="w-full">
-                        <h6>Update Institute Info Here</h6>
+                        <h5>Update Institute Info Here</h5>
                         <form method="POST" action="/api/update/{{ $Institute->id }}">
                             @csrf
                             <x-form.input name="name" value='{{ $Institute->name }}' />

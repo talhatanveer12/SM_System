@@ -8,6 +8,7 @@ use App\Models\Course;
 use App\Models\Classes;
 use App\Models\Student;
 use App\Models\Employee;
+use App\Models\LessonTest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -25,9 +26,22 @@ class DashboardController extends Controller
         return view('Dashboard.admin-dashboard',['T_Student' => count(Student::all()) ?? 0,'T_Employee' => count(Employee::all()) ?? 0,'Total' => Fee::pluck('Total_fee')->sum() ?? 0,'S_count' => $studentCount ?? '','Fee_Sum' => $fee_sum ?? 0,'month_fee' => $month_fee ?? 0]);
     }
     public function studentDashboard(){
+        $test = LessonTest::GetLessonTest();
+        foreach ($test as $key => $value) {
+            foreach ($value->testresult as $key1 => $value1) {
+                if($value1->student_id == Student::StudentId()->id){
+                    unset($value->testresult[$key1]);
+                    $value->testresult[0] = $value1;
+
+                }
+                else{
+                    unset($value->testresult[$key1]);
+                }
+            }
+        }
         $Student = Student::where('email','=',auth()->user()->email)->with('classes')->first();
         $Fee = Fee::where('student_id','=',$Student->id)->get();
-        return view('Dashboard.student-dashboard',['Student' => $Student,'Fee' => $Fee]);
+        return view('Dashboard.student-dashboard',['Student' => $Student,'Fee' => $Fee,'Test' => $test]);
     }
     public function teacherDashboard(){
         $getClass = Course::where('id','=',Employee::select('course_id')->where('email','=',auth()->user()->email)->first()->course_id)->with('classes')->first();

@@ -13,8 +13,6 @@
                                     <div class="panel-options">
                                         <a href="#" data-rel="collapse"><i
                                                 class="entypo-down-open backgroundColor"></i></a>
-                                        <a href="#" data-rel="reload"><i
-                                                class="entypo-arrows-ccw backgroundColor"></i></a>
                                     </div>
                                 </div>
                                 <div class="panel-body ">
@@ -49,36 +47,60 @@
 
                     </form>
                 </div>
+
+                <script type="text/javascript">
+                    jQuery(document).ready(function($) {
+                        var $table4 = jQuery("#table-4");
+
+                        $table4.DataTable({
+                            dom: 'Bfrtip',
+                            buttons: [
+                                'copyHtml5',
+                                'excelHtml5',
+                                'csvHtml5',
+                                'pdfHtml5'
+                            ]
+                        });
+                    });
+                </script>
+
                 @if ($Attendance)
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
+                    {{-- <div class="my-2">
+                        <a class="btn btn-primary btn-icon icon-left hidden-print">
+                            Export Attendance
+                            <i class="entypo-doc-text"></i>
+                        </a>
+                    </div> --}}
+
+                    <table class="table table-bordered datatable" id="table-4">
+                        <thead>
+                            <tr>
+                                <th scope="col">Admission No</th>
+                                <th scope="col">Student Name</th>
+                                <th scope="col">Student Roll no</th>
+                                <th scope="col">Note</th>
+                                <th scope="col">Attendance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($Attendance as $attendance)
                                 <tr>
-                                    <th>Admission No</th>
-                                    <th>Student Name</th>
-                                    <th>Student Roll no</th>
-                                    <th>Note</th>
-                                    <th>Attendance</th>
+                                    <td>{{ $attendance->admission_no }}</td>
+                                    <td>{{ $attendance->first_name . ' ' . $attendance->last_name }}</td>
+                                    <td>{{ $attendance->roll_no }}</td>
+                                    <td>{{ $attendance->note }}</td>
+                                    <td class="center"
+                                        style="background-color: {{ $attendance->attendance == 'persent' ? 'green' : ($attendance->attendance == 'late' ? 'gray' : 'red') }}">
+                                        <div class='flex'>
+                                            <span
+                                                class="flex-1 figure p-1 rounded text-center text-white">{{ $attendance->attendance }}</span>
+                                        </div>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($Attendance as $attendance)
-                                    <tr>
-                                        <td>{{ $attendance->admission_no }}</td>
-                                        <td>{{ $attendance->first_name . ' ' . $attendance->last_name }}</td>
-                                        <td>{{ $attendance->roll_no }}</td>
-                                        <td>{{ $attendance->note }}</td>
-                                        <td class='w-0'>
-                                            <div class='flex'>
-                                                <span
-                                                    class="{{ $attendance->attendance == 'persent' ? 'bg-green-500' : ($attendance->attendance == 'late' ? 'bg-gray-500 ' : 'bg-red-500') }}  flex-1 figure p-1 rounded text-center text-white">{{ $attendance->attendance }}</span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                            @endforeach
+                        </tbody>
+                    </table>
+
                 @endif
             </div>
         </div>
@@ -87,4 +109,15 @@
     <script>
         document.getElementById('attendance_date').valueAsDate = new Date();
     </script>
+
+    <link rel="stylesheet" href="/assets/js/datatables/datatables.css">
+    <link rel="stylesheet" href="/assets/js/select2/select2-bootstrap.css">
+    <link rel="stylesheet" href="/assets/js/select2/select2.css">
+
+
+
+    <!-- Imported scripts on this page -->
+    <script src="/assets/js/datatables/datatables.js"></script>
+    <script src="/assets/js/select2/select2.min.js"></script>
+    <script src="/assets/js/neon-chat.js"></script>
 </x-layout.layout>

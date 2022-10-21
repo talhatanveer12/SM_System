@@ -1,6 +1,5 @@
 <x-layout.layout>
     <div class="col">
-        <div class="row">
             <div class="col-span-12 flex-col ">
                 <div class="row">
                     <form action="#" method="GET">
@@ -13,8 +12,6 @@
                                     <div class="panel-options">
                                         <a href="#" data-rel="collapse"><i
                                                 class="entypo-down-open backgroundColor"></i></a>
-                                        <a href="#" data-rel="reload"><i
-                                                class="entypo-arrows-ccw backgroundColor"></i></a>
                                     </div>
                                 </div>
                                 <div class="panel-body ">
@@ -34,7 +31,6 @@
 
             </div>
             @if ($student)
-            @if (count($Exam_result))
             <div class="col-span-12">
                 <button id="print" onclick="printfunction()" class="btn btn-primary float-end my-2">print Result card</button>
             </div>
@@ -76,44 +72,65 @@
                     </div>
 
                     <div class="col-span-12 mt-2">
-                    <div class="table-responsive">
-                        <table class="table table-bordered border-dark">
-                            <thead class="text-center">
-                                <tr>
-                                    <th>Course Name</th>
-                                    <th>Obtain Marks</th>
-                                    <th>Total Marks</th>
-                                    <th>Percentage</th>
-                                    <th>Grade</th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-center">
-                                @foreach ($Exam_result as $key => $value)
-                                    <tr>
-                                        <td>{{$value->courses->course_name}}</td>
-                                        <td>{{$value->obtain_marks}}</td>
-                                        <td>{{$value->total_marks}}</td>
-                                        <td>{{$value->obtain_marks/$value->total_marks*100}}</td>
-                                        <td>{{$value->grade}}</td>
-                                    </tr>
-                                @endforeach
-                                <tr>
-                                    @if($grand_total)
-                                    <th>Grand Total</th>
-                                    <th>{{$grand_total['obtain_marks']}}</th>
-                                    <th>{{$grand_total['total_marks']}}</th>
-                                    <th>{{round($grand_total['percent'], 2)}}</th>
-                                    <th>{{$grand_total['grade']}}</th>
-                                    @endif
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    @foreach ($Exam as $key => $value)
+                        @if (count($Exam_Result))
+                            <div>
+                                <div class="pl-4 py-2 backgroundColor">
+                                    <span><b>{{ $value->exam_name }}</b></span>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        @php
+                                            $check = 0;
+                                        @endphp
+                                        @foreach ($Exam_Result as $key1 => $value1)
+                                            @if ($value1->exam_id == $value->id)
+                                                @if ($check == 0)
+                                                    <thead class="text-center">
+                                                        <tr>
+                                                            <td class="text-center"><b>Subject</b></td>
+                                                            <td class="text-center"><b>Total Marks</b></td>
+                                                            <td class="text-center"><b>Marks Obtained</b></td>
+                                                            <td class="text-center"><b>Grade</b></td>
+                                                            <td class="text-center"><b>Result</b></td>
+                                                        </tr>
+                                                    </thead>
+                                                    @php
+                                                        $check = 1;
+                                                    @endphp
+                                                @endif
+                                                <tbody class="text-center">
+                                                    <td>{{ $value1->courses->course_name }}</td>
+                                                    <td>{{ $value1->total_marks }}</td>
+                                                    <td>{{ $value1->obtain_marks }}</td>
+                                                    <td>{{ $value1->grade }}</td>
+                                                    <td>{{ $value1->obtain_marks > 33 ? 'pass' : 'fail' }}</td>
+                                                </tbody>
+                                            @endif
+                                        @endforeach
+                                        @if($check != 1)
+                                                <h3 class="text-center">Result not Found</h3>
+                                        @endif
+                                        @php
+                                            $check = 0;
+                                        @endphp
+                                        @if ($grand_total[$key])
+                                            <thead>
+                                                <th>Percentage : {{ round($grand_total[$key]['percent']) }}</th>
+                                                <th>Result : Pass</th>
+                                                <th>Grand Total : {{ $grand_total[$key]['total_marks'] }}</th>
+                                                <th>Total Obtain Marks : {{ $grand_total[$key]['obtain_marks'] }}</th>
+                                                <th>Grade : {{ $grand_total[$key]['grade'] }}</th>
+                                            </thead>
+                                        @endif
+                                    </table>
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
                     </div>
                 </div>
             @endif
-            @endif
-        </div>
     </div>
 
     {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}

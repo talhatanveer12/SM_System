@@ -4,40 +4,45 @@
             <div class=" flex flex-wrap ">
                 @if ($Classes)
                     @foreach ($Classes as $classes)
-                        <div class="px-6 py-4 m-4 bg-gray-200 w-64 rounded-2xl shadow-md hover:shadow-2xl ">
-                            <span>{{ $classes->class_name }}</span>
-                            <div class="flex justify-between items-center text-4xl my-2">
-                                <span>{{count($classes->students)}}</span>
-                                <i class="fa-solid fa-graduation-cap"></i>
+                        <a href="/course/assign-courses?class_id={{$classes->id}}">
+                            <div class="px-6 py-4 m-4 bg-gray-200 w-64 rounded-2xl shadow-md hover:shadow-2xl ">
+                                <span>{{ $classes->class_name }}</span>
+                                <div class="flex justify-between items-center text-4xl my-2">
+                                    <span>{{ count($classes->students) }}</span>
+                                    <i class="fa-solid fa-graduation-cap"></i>
+                                </div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <span>Student</span>
+                                    {{-- <span class="text-sm">Left 40</span> --}}
+                                </div>
                             </div>
-                            <div class="flex justify-between items-center mb-2">
-                                <span>Student</span>
-                                {{-- <span class="text-sm">Left 40</span> --}}
-                            </div>
-                        </div>
+                        </a>
                     @endforeach
                 @endif
-                <div class="px-6 pt-10 pb-10 m-4 bg-gray-200 text-center w-64 rounded-2xl shadow-md hover:shadow-2xl ">
-                    <button  onclick="jQuery('#exampleModal').modal('show');">
+                <button onclick="jQuery('#exampleModal').modal('show');">
+                    <div
+                        class="px-6 pt-10 pb-10 m-4 bg-gray-200 text-center w-64 rounded-2xl shadow-md hover:shadow-2xl ">
+
                         <i class="fa-plus fa-solid text-4xl"></i>
                         <p class="text-2xl">Add Class</p>
-                    </button>
-                </div>
+
+                    </div>
+                </button>
             </div>
         </div>
     </main>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal">
-		<div class="modal-dialog">
-			<div class="modal-content">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title">Create New Class</h4>
-				</div>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Create New Class</h4>
+                </div>
 
-				<div class="modal-body">
+                <div class="modal-body">
                     <form action="/api/add-class" method="POST">
                         @csrf
 
@@ -46,12 +51,12 @@
                     </form>
                 </div>
 
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

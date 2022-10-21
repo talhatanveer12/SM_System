@@ -15,8 +15,6 @@
                             <div class="panel-options">
                                 <a href="#" data-rel="collapse"><i
                                         class="entypo-down-open backgroundColor"></i></a>
-                                <a href="#" data-rel="reload"><i
-                                        class="entypo-arrows-ccw backgroundColor"></i></a>
                             </div>
                         </div>
 
@@ -118,8 +116,6 @@
                             <div class="panel-options">
                                 <a href="#" data-rel="collapse"><i
                                         class="entypo-down-open backgroundColor"></i></a>
-                                <a href="#" data-rel="reload"><i
-                                        class="entypo-arrows-ccw backgroundColor"></i></a>
                             </div>
                         </div>
                         <div class="panel-body ">

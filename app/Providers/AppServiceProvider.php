@@ -3,7 +3,10 @@
 namespace App\Providers;
 
 use App\Models\User;
+use Maatwebsite\Excel\Sheet;
+use Maatwebsite\Excel\Writer;
 use Illuminate\Support\Facades\Gate;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -40,5 +43,18 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('guardian',function(User $user){
             return $user->type == 'guardian';
         });
+
+    
+
+        Sheet::macro('styleCells', function (Sheet $sheet, string $cellRange, array $style) {
+            $sheet->getDelegate()->getStyle($cellRange)->applyFromArray($style);
+        });
+        Writer::macro('setCreator', function (Writer $writer, string $creator) {
+            $writer->getDelegate()->getProperties()->setCreator($creator);
+        });
+        Sheet::macro('setOrientation', function (Sheet $sheet, $orientation) {
+            $sheet->getDelegate()->getPageSetup()->setOrientation($orientation);
+        });
+
     }
 }

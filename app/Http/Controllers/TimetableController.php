@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 class TimetableController extends Controller
 {
     public function index(){
+        $color = ['#3366CC','#DC3912','#FF9900','#109618','#990099','#0099C6','#DD4477'];
         $temp;
         if(auth()->user()->type == 'teacher'){
         $temp = timetable::whereHas('courses', function ($query) {
@@ -21,11 +22,17 @@ class TimetableController extends Controller
         if($temp){
             $result;
             $a = array();
+            $count = 0;
             foreach ($temp as $key => $value) {
                 $result['title'] = $value->courses->course_name.' '.$value->lessons->lesson_name;
                 $result['start'] = $value->start;
                 $result['end'] = $value->end;
                 $result['allDay'] =  false;
+                $result['color'] = $color[$count];
+                $count = $count+1;
+                if($count > 6){
+                    $count = 0;
+                }
                 $a[] = $result;
             }
         }
@@ -41,6 +48,6 @@ class TimetableController extends Controller
         'end' => 'required',
         ]);
         timetable::create($values);
-        return back()->with('success',"successfuly Student Create");
+        return back()->with('success',"successfully Lesson Timetable Add");
     }
 }

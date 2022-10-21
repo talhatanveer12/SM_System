@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('question');
             $table->string('question_type');
             $table->string('correct_answer');
+            $table->unsignedInteger('marks');
             $table->timestamps();
         });
     }

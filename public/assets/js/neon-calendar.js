@@ -59,11 +59,12 @@ var neonCalendar = neonCalendar || {};
 				calendar.fullCalendar({
                     header: {
                         left: "title",
-                        right: "month,agendaWeek,agendaDay today prev,next",
+                        right: "month,basicWeek, today prev,next",
                     },
 
                     defaultView: "basicWeek",
                     events: "/get-timetable",
+
                     eventTimeFormat: {
                         // like '14:30:00'
                         hour: "2-digit",

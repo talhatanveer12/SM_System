@@ -20,7 +20,8 @@
                                     <tbody>
                                         <tr>
                                             <td class="tablestyle"><span><b>Name </b></span></td>
-                                            <td class="tablestyle">{{ $Student->first_name . ' ' . $Student->last_name }}
+                                            <td class="tablestyle">
+                                                {{ $Student->first_name . ' ' . $Student->last_name }}
                                             </td>
                                         </tr>
                                         <tr>
@@ -112,7 +113,7 @@
             <div class="col-md-6 ">
 
 
-                <table class="table table-bordered table-striped datatable" id="table-2">
+                <table class="table table-bordered table-striped datatable" id="table-3">
                     <thead>
                         <tr>
                             <th>Fee Month</th>
@@ -124,12 +125,12 @@
 
                     <tbody>
                         @foreach ($Fee as $key => $value)
-                        <tr>
-                            <td>{{$value->fee_month}}</td>
-                            <td>{{$value->Total_fee}}</td>
-                            <td>{{$value->fee_submit_amount}}</td>
+                            <tr>
+                                <td>{{ $value->fee_month }}</td>
+                                <td>{{ $value->Total_fee }}</td>
+                                <td>{{ $value->fee_submit_amount }}</td>
 
-                        </tr>
+                            </tr>
                         @endforeach
                         {{-- @foreach ($Exam as $key => $value)
                         <tr>
@@ -141,33 +142,84 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-md-6 bg-gray-200">
-                <div class="calendar-env">
-                    <div class="calendar-body " style="width: 100%;">
-                        <div id="calendar"></div>
-                    </div>
-                </div>
+            <div class="col-md-6">
+                <script type="text/javascript">
+                    jQuery(window).load(function() {
+                        var $table2 = jQuery("#table-2");
+
+                        // Initialize DataTable
+                        $table2.DataTable({
+                            "sDom": "tip",
+                            "bStateSave": false,
+                            "iDisplayLength": 8,
+                            "aoColumns": [
+                                null,
+                                null,
+                                null
+                            ],
+                            "bStateSave": true
+                        });
+                    });
+                </script>
+
+                <table class="table table-bordered table-striped datatable" id="table-2">
+                    <thead>
+                        <tr>
+                            <th>Course Name</th>
+                            <th>Lesson Name</th>
+                            <th>Result</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if ($Test)
+                            @foreach ($Test as $key => $value)
+                                <tr>
+                                    <td>{{ $value->lessons->courses->course_name }}</td>
+                                    <td>{{ $value->lessons->lesson_name }}</td>
+                                    @if (count($value->testresult))
+                                        <td>{{ $value->testresult[0]->obtain_no . ' / ' . $value->testresult[0]->total_no }}
+                                        </td>
+                                    @else
+                                        <td>-</td>
+                                    @endif
+
+                                </tr>
+                            @endforeach
+                        @endif
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
     <script src="assets/js/fullcalendar/fullcalendar.min.js"></script>
-        <script src="assets/js/view-calendar.js"></script>
-        <script type="text/javascript">
-            jQuery(window).load(function() {
-                var $table2 = jQuery("#table-2");
+    <link rel="stylesheet" href="assets/js/datatables/datatables.css">
+    <link rel="stylesheet" href="assets/js/select2/select2-bootstrap.css">
+    <link rel="stylesheet" href="assets/js/select2/select2.css">
 
-                // Initialize DataTable
-                $table2.DataTable({
-                    "sDom": "tip",
-                    "bStateSave": false,
-                    "iDisplayLength": 8,
-                    "aoColumns": [
-                        null,
-                        null,
-                        null
-                    ],
-                    "bStateSave": true
-                });
+    <script src="assets/js/datatables/datatables.js"></script>
+    <script src="assets/js/select2/select2.min.js"></script>
+    <script src="assets/js/neon-chat.js"></script>
+
+    {{-- <script src="assets/js/neon-calendar.js"></script> --}}
+    <script src="assets/js/view-calendar.js"></script>
+    <script type="text/javascript">
+        jQuery(window).load(function() {
+            var $table2 = jQuery("#table-3");
+
+            // Initialize DataTable
+            $table2.DataTable({
+                "sDom": "tip",
+                "bStateSave": false,
+                "iDisplayLength": 8,
+                "aoColumns": [
+                    null,
+                    null,
+                    null
+                ],
+                "bStateSave": true
             });
-        </script>
+        });
+    </script>
 </x-layout.layout>

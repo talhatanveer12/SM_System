@@ -7,21 +7,30 @@ use App\Models\Lesson;
 use App\Models\Classes;
 use App\Models\AssignCourse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class CourseController extends Controller
 {
     public function create(){
-        return view('Courses.add-courses',[ 'Courses' => Course::all()]);
+        $result;
+        if(request('course_id')){
+            $result = Course::find(request('course_id'));
+            //dd($result);
+        }
+        return view('Courses.add-courses',[ 'Courses' => Course::all(),'UpdateCourse' => $result ?? '']);
     }
 
     public function store(){
         $values = request()->validate([
-            'course_name' => 'required|unique:courses,course_name',
-            'course_code' => 'required|unique:courses,course_code',
+            'course_name' => ['required',Rule::unique('courses','course_name')->ignore(request('course_id'))],
+            'course_code' => ['required',Rule::unique('courses','course_code')->ignore(request('course_id'))],
             'course_type' => 'required',
         ]);
-        Course::create($values);
-        return back()->with('success',"successfuly Course Create");
+        Course::updateOrCreate([
+            'id' => request('course_id'),
+        ],$values);
+
+        return redirect()->route('AddCourse')->with('success',"successfuly Course Add");
     }
 
     public function AssignCourse(){
@@ -57,4 +66,9 @@ class CourseController extends Controller
         //Lesson::wher();
         return back()->with('success',"successfuly delete Assign Course");
     }
+    public function deleteCourse($id){
+        Course::where('id',$id)->delete();
+        return back()->with('success',"successfuly Delete Exam");
+    }
+
 }

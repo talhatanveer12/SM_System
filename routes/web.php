@@ -30,6 +30,7 @@ use App\Http\Controllers\InstituteController;
 use App\Http\Controllers\TimetableController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\TestResultController;
+use App\Http\Controllers\AssignCourseController;
 use App\Http\Controllers\MarksGradingController;
 use App\Http\Controllers\FeeParticularsController;
 use App\Http\Controllers\EmployeeAttendanceController;
@@ -54,49 +55,52 @@ Route::middleware(['check'])->group(function () {
 });
 
 Route::middleware(['adminOnly','auth'])->group(function () {
-    Route::get('/institute-profile',[InstituteController::class,'index']);
-    Route::get('/fee-particulars',[FeeParticularAmountController::class,'index']);
-    Route::get('/all-classes',[ClassesController::class,'index']);
-    Route::get('/edit-delete-class',[ClassesController::class,'show']);
+    Route::get('/general-settings/institute-profile',[InstituteController::class,'index']);
+    Route::get('/general-settings/fee-particulars',[FeeParticularAmountController::class,'index']);
+    Route::get('/class/all-classes',[ClassesController::class,'index']);
+    Route::get('/class/edit-delete-class',[ClassesController::class,'show']);
     Route::get('/delete/{id}',[ClassesController::class,'destroy']);
-    Route::get('/add-courses',[CourseController::class,'create']);
-    Route::get('/assign-courses',[CourseController::class,'AssignCourse'])->name('AssignCourse');
+    Route::get('/course/add-courses',[CourseController::class,'create'])->name("AddCourse");
+    Route::get('/course/assign-courses',[CourseController::class,'AssignCourse'])->name('AssignCourse');
     Route::get('/delete-assign-courses/{id}',[CourseController::class,'delete']);
-    Route::get('/add-student',[StudentController::class,'create'])->name('addStudent');
-    Route::get('/add-employee',[EmployeeController::class,'create'])->name('addEmployee');
-    Route::get('/marks-employee-attendance',[EmployeeAttendanceController::class,'index']);
-    Route::get('/employee-attendance-report',[EmployeeAttendanceController::class,'show']);
-    Route::get('/create-exam',[ExamController::class,'index'])->name('CreateExam');
+    Route::get('/student/add-student',[StudentController::class,'create'])->name('addStudent');
+    Route::get('/employee/add-employee',[EmployeeController::class,'create'])->name('addEmployee');
+    Route::get('/attendance/marks-employee-attendance',[EmployeeAttendanceController::class,'index']);
+    Route::get('/attendance/employee-attendance-report',[EmployeeAttendanceController::class,'show']);
+    Route::get('/exam/create-exam',[ExamController::class,'index'])->name('CreateExam');
     Route::get('/delete-exam/{id}',[ExamController::class,'delete']);
-    Route::get('/fee-collect',[FeeController::class,'index']);
-    Route::get('/fee-slip',[FeeController::class,'feeSlip']);
+    Route::get('/delete-course/{id}',[CourseController::class,'deleteCourse']);
+    Route::get('/fee/fee-collect',[FeeController::class,'index']);
+    Route::get('/fee/fee-slip',[FeeController::class,'feeSlip']);
+
 });
 
 
-Route::get('/view-test',[TestController::class,'show']);
-Route::get('/create-test',[TestController::class,'index']);
+Route::get('/view-test',[TestController::class,'show'])->name('viewTest');
+Route::get('/test/create-test',[TestController::class,'index']);
 Route::post('/add-test',[TestController::class,'store']);
 
 
 Route::get('/view-attendance',[AttendanceController::class,'viewAttendance']);
-Route::get('/marks-student-attendance',[AttendanceController::class,'index']);
-Route::get('/student-attendance-report',[AttendanceController::class,'show']);
+Route::get('/attendance/marks-student-attendance',[AttendanceController::class,'index']);
+Route::get('/attendance/student-attendance-report',[AttendanceController::class,'show']);
 Route::post('/save-student-attendance', [AttendanceController::class,'store']);
 Route::get('/get-attendance',[AttendanceController::class,'getAttendance']);
 
 
 Route::get('/view-syllabus-status',[LessonController::class,'viewSyllabus']);
-Route::get('/Lesson',[LessonController::class,'index']);
+Route::get('/lesson/Lesson-list',[LessonController::class,'index'])->name('lesson_list');
 Route::post('/save-lesson',[LessonController::class,'store']);
-Route::get('/syllabus-status',[LessonController::class,'syllabus_index']);
-Route::get('/manage-lesson-plan',[LessonController::class,'lessonPlan']);
+Route::get('/lesson/syllabus-status',[LessonController::class,'syllabus_index']);
+Route::get('/lesson/manage-lesson-plan',[LessonController::class,'lessonPlan']);
+Route::get('/delete-lesson/{id}',[LessonController::class,'delete']);
 
 
 Route::get('/view-result',[ExamController::class,'viewResult']);
 Route::get('/view-exam',[ExamController::class,'viewExam']);
-Route::get('/add-exam-marks',[ExamController::class,'storeResult']);
+Route::get('exam/add-exam-marks',[ExamController::class,'storeResult']);
 Route::post('/save-exam-marks',[ExamController::class,'saveResult']);
-Route::get('/result-cards',[ExamController::class,'ResultCard']);
+Route::get('exam/result-cards',[ExamController::class,'ResultCard']);
 
 
 Route::get('/view-fee-detail',[FeeController::class,'viewFee']);
@@ -104,26 +108,25 @@ Route::get('/online-payment',[FeeController::class,'onlinePayment'])->name('onli
 Route::post('/send-online-payment',[FeeController::class,'sendOnlinePayment']);
 
 
-Route::get('/all-employee',[EmployeeController::class,'index']);
+Route::get('/employee/all-employee',[EmployeeController::class,'index']);
 
 
-Route::get('/marks-grading', [MarksGradingController::class,'index']);
+Route::get('general-settings/marks-grading', [MarksGradingController::class,'index']);
 Route::post('/marks-grading/update', [MarksGradingController::class,'store']);
 
 
-Route::get('/all-student',[StudentController::class,'index']);
+Route::get('/student/all-student',[StudentController::class,'index']);
 
-
-Route::get('/Topic',[TopicController::class,'index']);
+Route::get('/lesson/Topic',[TopicController::class,'index'])->name('viewTopic');
 Route::post('/save-topic', [TopicController::class,'store']);
 Route::post('/update-topics-details',[TopicController::class,'update']);
-
+Route::get('/delete-topic/{id}',[TopicController::class,'delete']);
 
 Route::get('/test-page/{id}/{lesson_id}',[TestResultController::class,'show']);
 Route::post('/save-result',[TestResultController::class,'saveResult']);
 
 
-Route::get('/account-settings',[SessionController::class,'accountSettings']);
+Route::get('general-settings/account-settings',[SessionController::class,'accountSettings']);
 Route::get('/',[SessionController::class,'create'])->middleware('admin')->name('login');
 Route::post('/login',[SessionController::class,'store'])->middleware('throttle:login');
 Route::post('/logout',[SessionController::class, 'logout']);
@@ -142,3 +145,6 @@ Route::get('/checkFeeSubmit/{id}/{month}', [AjaxController::class,'checkFeeSubmi
 
 Route::get('/get-timetable',[TimetableController::class,'index']);
 Route::post('/save-timetable',[TimetableController::class,'store']);
+
+
+Route::get('/users/export', [AssignCourseController::class, 'export']);

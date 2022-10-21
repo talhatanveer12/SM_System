@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Exam;
 use App\Models\Course;
 use App\Models\Student;
 use Illuminate\Database\Eloquent\Model;
@@ -34,5 +35,10 @@ class ExamResult extends Model
     public function students(): BelongsTo
     {
         return $this->belongsTo(Student::class, 'student_id');
+    }
+
+    public function exams(): BelongsTo
+    {
+        return $this->belongsTo(Exam::class, 'exam_id');
     }
 }

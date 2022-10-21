@@ -12,8 +12,6 @@
                                 <div class="panel-options">
                                     <a href="#" data-rel="collapse"><i
                                             class="entypo-down-open backgroundColor"></i></a>
-                                    <a href="#" data-rel="reload"><i
-                                            class="entypo-arrows-ccw backgroundColor"></i></a>
                                 </div>
                             </div>
                             <div class="panel-body ">
@@ -51,7 +49,7 @@
             @foreach ($Employee as $employee)
                 <div class="member-entry">
 
-                    <a href="/add-employee?emp_id={{ $employee->id }}" class="member-img">
+                    <a href="/employee/add-employee?emp_id={{ $employee->id }}" class="member-img">
                         <img src={{ $employee->employee_photo ? '/storage/' . $employee->employee_photo : '/images/illustration-1.png' }}
                             class="img-rounded" />
                         <i class="entypo-forward"></i>

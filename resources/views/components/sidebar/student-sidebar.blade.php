@@ -23,7 +23,7 @@
             </div>
         </header>
         <ul id="main-menu" class="main-menu fontcolor">
-            <li class="">
+            <li class="{{'studentDashboard' == request()->path() ? 'active' : ''}}">
                 @can('student')
                 <a href="/studentDashboard">
                     <i class="fa-solid fa-house"></i>
@@ -39,37 +39,37 @@
             </li>
             <!-- add class "multiple-expanded" to allow multiple submenus to open -->
             <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
-            <li class="">
+            <li class="{{'view-syllabus-status' == request()->path() ? 'active' : ''}}">
                 <a href="/view-syllabus-status">
                     <i class="fa-solid fa-book"></i>
                     <span class="title">Syllabus Status</span>
                 </a>
             </li>
-            <li>
+            <li class="{{'view-test' == request()->path() ? 'active' : ''}}">
                 <a href="/view-test">
                     <i class="fa-solid fa-file-circle-check"></i>
                     <span class="title">Test</span>
                 </a>
             </li>
-            <li>
+            <li class="{{'view-exam' == request()->path() ? 'active' : ''}}">
                 <a href="/view-exam">
                     <i class="fa-solid fa-file-circle-check"></i>
                     <span class="title">Exam</span>
                 </a>
             </li>
-            <li>
+            <li class="{{'view-result' == request()->path() ? 'active' : ''}}">
                 <a href="/view-result">
                     <i class="fa-solid fa-square-poll-vertical"></i>
                     <span class="title">Result</span>
                 </a>
             </li>
-            <li>
+            <li class="{{'view-attendance' == request()->path() ? 'active' : ''}}">
                 <a href="/view-attendance">
                     <i class="fa-solid fa-clipboard-user"></i>
                     <span class="title">Attendance</span>
                 </a>
             </li>
-            <li>
+            <li class="{{'view-fee-detail' == request()->path() ? 'active' : ''}}">
                 <a href="/view-fee-detail">
                     <i class="fa-solid fa-money-check"></i>
                     <span class="title">Fee</span>

@@ -58,41 +58,42 @@
 
                  calendar.fullCalendar({
                      header: {
-                         left: 'title',
-                         right: 'month,agendaWeek today prev,next'
+                         left: "title",
+                         right: "month,basicWeek, today prev,next",
                      },
 
-                     defaultView: 'basicWeek',
-                     events: '/get-attendance',
-                     eventTimeFormat: { // like '14:30:00'
-                         hour: '2-digit',
-                         minute: '2-digit',
-                         second: '2-digit',
-                         meridiem: false
-                       },
+                     defaultView: "basicWeek",
+                     events: "/get-attendance",
+                     eventTimeFormat: {
+                         // like '14:30:00'
+                         hour: "2-digit",
+                         minute: "2-digit",
+                         second: "2-digit",
+                         meridiem: false,
+                     },
                      //selectable:true,
                      //selecthelper:true,
                      //editable: true,
                      firstDay: 1,
                      height: 600,
                      //droppable: true,
-                     select: function(start,end,allDay){
+                     select: function (start, end, allDay) {
                          var title = prompt("Enter event");
                      },
-                    //  drop: function(date, allDay) {
+                     //  drop: function(date, allDay) {
 
-                    //      var $this = $(this),
-                    //          eventObject = {
-                    //              title: $this.text(),
-                    //              start: date,
-                    //              allDay: allDay,
-                    //              className: $this.data('event-class')
-                    //          };
+                     //      var $this = $(this),
+                     //          eventObject = {
+                     //              title: $this.text(),
+                     //              start: date,
+                     //              allDay: allDay,
+                     //              className: $this.data('event-class')
+                     //          };
 
-                    //      calendar.fullCalendar('renderEvent', eventObject, true);
+                     //      calendar.fullCalendar('renderEvent', eventObject, true);
 
-                    //      $this.remove();
-                    //  }
+                     //      $this.remove();
+                     //  }
                  });
                 //  console.log(calendar);
 

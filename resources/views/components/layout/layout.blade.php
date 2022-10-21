@@ -12,39 +12,57 @@
     <link rel="icon" href="/assets/images/favicon.ico">
 
     <title>Dashboard</title>
-    <script defer src="https://unpkg.com/alpinejs@3.4.2/dist/cdn.min.js"></script>
     <script src="https://kit.fontawesome.com/b0ca48d263.js" crossorigin="anonymous"></script>
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic">
-    @vite(['resources/js/app.js'])
+    {{-- @vite(['resources/js/app.js']) --}}
+    <link rel="stylesheet" href="/assets/js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css">
+    <link rel="stylesheet" href="/assets/css/font-icons/entypo/css/entypo.css">
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css/neon-core.css">
+    <link rel="stylesheet" href="/assets/css/neon-theme.css">
+    <link rel="stylesheet" href="/assets/css/neon-forms.css">
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <link rel="stylesheet" href="/assets/css/skins/blue.css">
+
     <script src="/assets/js/jquery-1.11.3.min.js"></script>
     <style>
+        .color {
+            color: black !important;
+        }
+
         .backgroundColor {
             color: white !important;
-            background-color: #373e4a !important;
+            background-color: #0d3a6d !important;
             //font-size: 120px !important;
         }
+
         .fontcolor {
             color: white !important;
             font-size: 12px !important;
         }
+
         .tablestyle {
             border: none !important;
         }
+
         th {
-            background-color: #373e4a !important;
+            background-color: #0d3a6d !important;
             color: white !important;
         }
-        .imgPhoto{
+
+        .imgPhoto {
             width: 50px !important;
             height: 50px !important;
         }
     </style>
 </head>
 
-<body class="page-body  page-fade" style="color: black;" id='body' >
+<body class="page-body skin-blue page-fade" style="color: black !important;" id='body'>
 
-    <div class="page-container">
+
+    <div class="page-container ">
         @can('admin')
             <x-sidebar.admin-sidebar />
         @endcan
@@ -58,15 +76,39 @@
             <x-sidebar.student-sidebar />
         @endcan
         <div class="main-content">
-            <x-navbar.navbar/>
+            <x-navbar.navbar />
+            @if (session()->has('success'))
+                <div class="alert alert-success alert-block" role="alert">
+                    <button class="close" data-dismiss="alert"></button>
+                    {{ session('success') }}
+                </div>
+            @endif
+            @if (session()->has('error'))
+                <div class="alert alert-danger alert-block" role="alert">
+                    <button class="close" data-dismiss="alert"></button>
+                    {{ session()->get('error') }}
+                </div>
+            @endif
             {{ $slot }}
         </div>
     </div>
-    <x-flash />
+
+
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            // Sample Toastr Notification
+            setTimeout(function() {
+                console.log("Sdsdsdsdsd");
+                $("div.alert").remove();
+            }, 5000);
+
+        });
+    </script>
 
 
 
     <link rel="stylesheet" href="/assets/js/dropzone/dropzone.css">
+    {{-- <script src="assets/js/toastr.js"></script> --}}
 
     <!-- Imported styles on this page -->
     <link rel="stylesheet" href="/assets/js/jvectormap/jquery-jvectormap-1.2.2.css">
@@ -89,7 +131,8 @@
     <script src="/assets/js/rickshaw/rickshaw.min.js"></script>
     <script src="/assets/js/raphael-min.js"></script>
     <script src="/assets/js/morris.min.js"></script>
-    <script src="/assets/js/toastr.js"></script>
+    {{-- <script src="/assets/js/toastr.js"></script>
+    <script src="assets/js/neon-chat.js"></script> --}}
 
 
     <script src="/assets/js/fileinput.js"></script>
@@ -123,7 +166,10 @@
     <script src="/assets/js/daterangepicker/daterangepicker.js"></script>
     <script src="/assets/js/jquery.multi-select.js"></script>
     <script src="/assets/js/icheck/icheck.min.js"></script>
-    <script src="/assets/js/neon-chat.js"></script>
+    {{-- <script src="/assets/js/neon-chat.js"></script> --}}
+
+
+
 
 </body>
 

@@ -1,16 +1,43 @@
 <x-layout.layout>
     <div class="px-6 py-8">
-        @if ($Questions)
-            <h3 class="text-center">Test Question</h3>
+        @if ($Questions && $Questions != 'submit')
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <h3>Course Name: {{ $Questions[0]->lessons->courses->course_name }}</h3>
+                </div>
+                <div class="col-md-6">
+                    <h3>Lesson Name: {{ $Questions[0]->lessons->lesson_name }}</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <blockquote class="blockquote-red">
+                        <p>
+                            <strong>Test Instructions</strong>
+                        </p>
+                        <p>
+                            The test consists of questions carefully designed to help you self-assess your comprehension
+                            of the information presented on the topics covered in the module.<br>Each question in the
+                            test is of multiple-choice, "true or false", fill in the blank or Multiple correct options
+                            format. Read each question carefully.
+                        </p>
+                    </blockquote>
+                </div>
+            </div>
+
+            <h3></h3>
             <form action="/save-result" method="POST">
                 @csrf
                 <input class="form-control" type="hidden" name="lesson_test_id" value="{{ $test_id }}">
                 @foreach ($Questions as $key => $value)
                     <div id="addQuestion">
                         @foreach ($value->questions as $key1 => $value1)
-                            <h3>Question</h3>
                             <div class="col-lg-12 px-6">
-                                <h4>{{ $value1->question }}</h4>
+                                <div class="mb-8 mt-8">
+                                    <h4><b>Question {{ $key1 + 1 }}: {{ $value1->question }}
+                                            {{ $value1->question_type == 'mcq' ? '[MCQ]' : ($value1->question_type == 'blanks' ? '[Fill in th blanks]' : ($value1->question_type == 'T/F' ? '[True or False]' : '[Multiple correct options]')) }}</b>
+                                    </h4>
+                                </div>
                                 <input class="form-control" type="hidden" name="question[]"
                                     value="{{ $value1->question }}">
                                 <input class="form-control" type="hidden" name="question_id[]"
@@ -76,18 +103,37 @@
                                                 for="inlineRadio1">{{ $value1->options[3]->option }}</label>
                                         </div>
                                     @endif
+
                                     {{-- @endforeach --}}
+                                @elseif ($value1->question_type == 'T/F')
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio"
+                                            name="correct_answer_{{ $value1->id }}" id="inlineRadio1" value="true">
+                                        <label class="form-check-label" for="inlineRadio1">True</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio"
+                                            name="correct_answer_{{ $value1->id }}" id="inlineRadio1"
+                                            value="false">
+                                        <label class="form-check-label" for="inlineRadio1">False</label>
+                                    </div>
                                 @else
-                                    <input class="form-control col-lg-6 my-4" name="correct_answer_{{ $value1->id }}"
-                                        placeholder="Enter Answer">
+                                    <input class="form-control col-lg-6 my-4"
+                                        name="correct_answer_{{ $value1->id }}" placeholder="Enter Answer">
                                 @endif
+
                             </div>
+                            {{-- <div class="col-lg-12 ">
+                                <hr>
+                            </div> --}}
                         @endforeach
                     </div>
                 @endforeach
-                <button type="submit" class="btn btn-primary mt-4">Save</button>;
+                {{ $Questions->links() }}
+                <button type="submit" class="btn btn-primary mt-4">Submit</button>
             </form>
-            {{ $Questions->links() }}
+        @elseif ($Questions == 'submit')
+            <h1 class="text-center">Test already Submit</h1>
         @else
             <h4 class="text-center">No Question Found</h4>
         @endif

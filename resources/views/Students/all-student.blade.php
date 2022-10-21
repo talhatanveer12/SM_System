@@ -12,8 +12,6 @@
                                 <div class="panel-options">
                                     <a href="#" data-rel="collapse"><i
                                             class="entypo-down-open backgroundColor"></i></a>
-                                    <a href="#" data-rel="reload"><i
-                                            class="entypo-arrows-ccw backgroundColor"></i></a>
                                 </div>
                             </div>
                             <div class="panel-body ">
@@ -48,11 +46,20 @@
             @foreach ($Student as $student)
                 <div class="member-entry">
 
-                    <a href="/add-student?student_id={{ $student->id }}" class="member-img">
-                        <img src={{ $student->student_photo ? '/storage/' . $student->student_photo : '/images/illustration-1.png' }}
-                            class="img-rounded" />
-                        <i class="entypo-forward"></i>
-                    </a>
+                    @can('admin')
+                        <a href="/student/add-student?student_id={{ $student->id }}" class="member-img">
+                            <img src={{ $student->student_photo ? '/storage/' . $student->student_photo : '/images/illustration-1.png' }}
+                                class="img-rounded" />
+                            <i class="entypo-forward"></i>
+                        </a>
+                    @endcan
+                    @can('teacher')
+                        <a href="#" class="member-img">
+                            <img src={{ $student->student_photo ? '/storage/' . $student->student_photo : '/images/illustration-1.png' }}
+                                class="img-rounded" />
+                            <i class="entypo-forward"></i>
+                        </a>
+                    @endcan
                     <div class="member-details">
                         <h4>
                             <a href="#">{{ $student->first_name . ' ' . $student->last_name }}</a>
