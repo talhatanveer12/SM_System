@@ -197,6 +197,7 @@
                                 <input class="form-control m-1" name="option_D[]" id="question" type="text"
                                     placeholder="Enter Option">
                             </div>
+                            <h1>232323</h1>
                             <div>
                                 <h6>Answer : </h6>
                                 <div class="form-check form-check-inline">
@@ -220,7 +221,8 @@
                                     <label class="form-check-label" for="inlineRadio1">D</label>
                                 </div>
                             </div>
-                        </div>`);
+
+                        </div> `);
                 id = id + 1;
 
             });
@@ -231,6 +233,7 @@
                 if (id == 'mcq') {
                     $('#addQuestion').empty();
                     $('#addQuestion').prepend(`<h3>Question<sup><span class="text-blue-600">*</span></sup></h3>
+
                             <div class="col-lg-12 px-6">
 
                                 <input class="form-control" name="question" id="question" type="text"
@@ -251,6 +254,7 @@
                                     <input class="form-control m-1" name="option[]" id="question" type="text"
                                         placeholder="Enter Option">
                                 </div>
+
                                 <div>
                                     <h6>Answer : </h6>
                                     <div class="form-check form-check-inline">
@@ -274,6 +278,12 @@
                                         <label class="form-check-label" for="inlineRadio1">D</label>
                                     </div>
                                 </div>
+                                <div class="col-md-3 flex">
+                                    <label class=" col-form-label mt-4"><span class="text-lg"><b>Marks:</b></span></label>
+                                    <input class="form-control m-1" name="marks" id="marks" value=1 type="number"
+                                        placeholder="Enter Question Marks">
+                                </div>
+
                             </div>
                             <button type="submit" class="btn btn-primary mt-4">Save</button>`);
                 } else if (id == 'blanks') {
@@ -287,6 +297,11 @@
                                         <input class="form-control" name="correct_answer" id="question" type="text"
                                             placeholder="Enter Answer">
                                     </div>
+                                    <div class="col-md-3 flex">
+                                    <label class=" col-form-label mt-4"><span class="text-lg"><b>Marks:</b></span></label>
+                                    <input class="form-control m-1" name="marks" id="marks" value=1 type="number"
+                                        placeholder="Enter Question Marks">
+                                </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary mt-4">Save</button>`);
                 } else if (id == 'mco') {
@@ -334,6 +349,11 @@
                                         <label class="form-check-label" for="inlineRadio1">D</label>
                                     </div>
                                 </div>
+                                <div class="col-md-3 flex">
+                                    <label class=" col-form-label mt-4"><span class="text-lg"><b>Marks:</b></span></label>
+                                    <input class="form-control m-1" name="marks" id="marks" value=1 type="number"
+                                        placeholder="Enter Question Marks">
+                                </div>
                             </div>
                             <button type="submit" class="btn btn-primary mt-4">Save</button>`);
                 } else {
@@ -354,6 +374,11 @@
                                             id="inlineRadio1" value="false">
                                         <label class="form-check-label" for="inlineRadio1">False</label>
                                     </div>
+                                    <div class="col-md-3 flex">
+                                    <label class=" col-form-label mt-4"><span class="text-lg"><b>Marks:</b></span></label>
+                                    <input class="form-control m-1" name="marks" id="marks" value=1 type="number"
+                                        placeholder="Enter Question Marks">
+                                </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary mt-4">Save</button>`);
                 }

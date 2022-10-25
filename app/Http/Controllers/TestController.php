@@ -30,6 +30,7 @@ class TestController extends Controller
     }
 
     public function store(){
+        //dd(request()->all());
         $checkTest = LessonTest::where('lesson_id','=',request('lesson_id'))->first();
         $question_id;
         if(!$checkTest){
@@ -43,6 +44,7 @@ class TestController extends Controller
                 'question' => 'required',
                 'correct_answer' => 'required',
                 'question_type' => 'required',
+                'marks' => 'required',
             ]);
             $value = request()->validate([
                 'option.*' => 'required',
@@ -61,6 +63,7 @@ class TestController extends Controller
                 'question' => 'required',
                 'correct_answer' => 'required',
                 'question_type' => 'required',
+                'marks' => 'required',
             ]);
             $question_id = Question::create($values);
         }
@@ -69,6 +72,7 @@ class TestController extends Controller
                 'question' => 'required',
                 'correct_answer' => 'required',
                 'question_type' => 'required',
+                'marks' => 'required',
             ]);
             $value = request()->validate([
                 'option.*' => 'required',
@@ -77,6 +81,7 @@ class TestController extends Controller
                 'question' => request('question'),
                 'correct_answer' => json_encode(request('correct_answer')),
                 'question_type' => request('question_type'),
+                'marks' => request('marks'),
             ]);
             foreach (request('option') as $value) {
                 Option::create([
@@ -89,6 +94,7 @@ class TestController extends Controller
                 'question' => 'required',
                 'correct_answer' => 'required',
                 'question_type' => 'required',
+                'marks' => 'required',
             ]);
             $value = request()->validate([
                 'option.*' => 'required',

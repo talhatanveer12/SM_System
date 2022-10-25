@@ -5,7 +5,9 @@ namespace App\Models;
 use App\Models\Option;
 use App\Models\LessonTest;
 use App\Models\TestQuestion;
+use App\Models\StudentTestResult;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -36,5 +38,16 @@ class Question extends Model
     {
         return $this->hasMany(Option::class, 'question_id');
     }
+
+    /**
+     * Get the user associated with the Question
+     *
+     * @return HasOne
+     */
+    public function answers(): HasOne
+    {
+        return $this->hasOne(StudentTestResult::class, 'question_id');
+    }
+
 
 }

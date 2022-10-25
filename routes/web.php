@@ -122,8 +122,11 @@ Route::post('/save-topic', [TopicController::class,'store']);
 Route::post('/update-topics-details',[TopicController::class,'update']);
 Route::get('/delete-topic/{id}',[TopicController::class,'delete']);
 
+
+Route::get('/view-test-result/{id}/{lesson_id}',[TestResultController::class,'showTestResult']);
 Route::get('/test-page/{id}/{lesson_id}',[TestResultController::class,'show']);
 Route::post('/save-result',[TestResultController::class,'saveResult']);
+
 
 
 Route::get('general-settings/account-settings',[SessionController::class,'accountSettings']);

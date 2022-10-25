@@ -35,9 +35,11 @@
                             <div class="col-lg-12 px-6">
                                 <div class="mb-8 mt-8">
                                     <h4><b>Question {{ $key1 + 1 }}: {{ $value1->question }}
-                                            {{ $value1->question_type == 'mcq' ? '[MCQ]' : ($value1->question_type == 'blanks' ? '[Fill in th blanks]' : ($value1->question_type == 'T/F' ? '[True or False]' : '[Multiple correct options]')) }}</b>
+                                            {{ $value1->question_type == 'mcq' ? '[MCQ]' : ($value1->question_type == 'blanks' ? '[Fill in th blanks]' : ($value1->question_type == 'T/F' ? '[True or False]' : '[Multiple correct options]')) }} {{'[Marks : '.$value1->marks.']'}}</b>
                                     </h4>
                                 </div>
+                                <input class="form-control" type="hidden" name="lesson_id"
+                                    value="{{ $lesson_id }}">
                                 <input class="form-control" type="hidden" name="question[]"
                                     value="{{ $value1->question }}">
                                 <input class="form-control" type="hidden" name="question_id[]"
@@ -130,7 +132,7 @@
                     </div>
                 @endforeach
                 {{ $Questions->links() }}
-                <button type="submit" class="btn btn-primary mt-4">Submit</button>
+                <button type="submit" class="btn btn-primary mt-4" onclick="return confirm('Are you sure you want to Submit this Test?');">Submit</button>
             </form>
         @elseif ($Questions == 'submit')
             <h1 class="text-center">Test already Submit</h1>

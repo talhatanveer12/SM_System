@@ -80,11 +80,11 @@
                                     <td>{{ $value->first_name . ' ' . $value->last_name }}</td>
                                     <td>{{ $value->roll_no }}</td>
                                     <td>
-                                        <button onclick="showAjaxModal();" data-rollno={{ $value->id }}
+                                        <button class="p-2 rounded btn-primary" onclick="showAjaxModal();" data-rollno={{ $value->id }}
                                             data-name='{{ $value->first_name . ' ' . $value->last_name }}'
                                             data-class_id={{ $value->class_id }} data-examid={{ request('exam_id') }}
                                             id='add_marks'>
-                                            <i class="fa-solid fa-pen-to-square"></i>
+                                            Add Marks
                                         </button>
                                         {{-- <a href="#" class="mr-2 text-black text-decoration-none">
                                                 <i class="fa-solid fa-square-poll-vertical"></i>

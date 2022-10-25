@@ -54,6 +54,12 @@
                                     class="btn btn-blue btn-sm">
                                     Show Test
                                 </a>
+                                <a href="/view-test-result/{{ $value->id }}/{{ $value->lessons->id }}"
+                                    {{ count($value->testresult) ? '' : 'disabled' }}
+                                    onclick="return {{ count($value->testresult) ? 'true' : 'false' }}"
+                                    class="btn btn-blue btn-sm">
+                                    View Result
+                                </a>
                             </td>
                             @else
                             <td>
